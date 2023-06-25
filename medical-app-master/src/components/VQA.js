@@ -10,17 +10,26 @@ import {
   Typography,
 } from '@mui/material';
 
+import datasetOptions from './datasetOptions.json';
+
+import image1 from './image1.png';
+import image2 from './image2.png';
+import image3 from './image3.png';
+import image4 from './image4.png';
+
 const SearchComponent = () => {
   const [selectedImage, setSelectedImage] = useState('');
   const [selectedDataset, setSelectedDataset] = useState('');
   const [question, setQuestion] = useState('');
+  const [answer, setAnswer] = useState('');
 
   const handleImageChange = (event, value) => {
     setSelectedImage(value);
   };
 
-  const handleDatasetChange = (event) => {
-    setSelectedDataset(event.target.value);
+  const handleDatasetChange = (event, value) => {
+    setSelectedDataset(value);
+    setSelectedImage('');
   };
 
   const handleQuestionChange = (event, value) => {
@@ -28,12 +37,52 @@ const SearchComponent = () => {
   };
 
   const handleSearch = () => {
-    // Handle search functionality here
-    console.log('Search:', {
-      selectedImage,
-      selectedDataset,
-      question,
-    });
+    const dataset = datasetOptions.find((dataset) => dataset.name === selectedDataset);
+    if (dataset && selectedImage && question) {
+      const image = dataset.images.find((image) => image.url === selectedImage);
+      if (image) {
+        const selectedQuestion = image.questions.find((q) => q.questionText === question);
+        if (selectedQuestion) {
+          setAnswer(selectedQuestion.answerText);
+          return;
+        }
+      }
+    }
+    setAnswer('Answer not found.');
+  };
+
+  const getImageOptions = () => {
+    const dataset = datasetOptions.find((dataset) => dataset.name === selectedDataset);
+    if (dataset) {
+      return dataset.images.map((image) => image.url);
+    }
+    return [];
+  };
+
+  const getQuestionOptions = () => {
+    const dataset = datasetOptions.find((dataset) => dataset.name === selectedDataset);
+    if (dataset && selectedImage) {
+      const image = dataset.images.find((image) => image.url === selectedImage);
+      if (image) {
+        return image.questions.map((q) => q.questionText);
+      }
+    }
+    return [];
+  };
+
+  const getImageSrc = (imageName) => {
+    switch (imageName) {
+      case 'image1.png':
+        return image1;
+      case 'image2.png':
+        return image2;
+      case 'image3.png':
+        return image3;
+      case 'image4.png':
+        return image4;
+      default:
+        return '';
+    }
   };
 
   return (
@@ -45,13 +94,9 @@ const SearchComponent = () => {
               <Autocomplete
                 value={selectedDataset}
                 onChange={handleDatasetChange}
-                options={['ABCDE', 'FGHIJ', 'KLMNO']}
+                options={datasetOptions.map((dataset) => dataset.name)}
                 renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Dataset"
-                    placeholder="Select Dataset"
-                  />
+                  <TextField {...params} label="Dataset" placeholder="Select Dataset" />
                 )}
               />
             </FormControl>
@@ -62,52 +107,46 @@ const SearchComponent = () => {
               <Autocomplete
                 value={selectedImage}
                 onChange={handleImageChange}
-                options={['Image 1', 'Image 2', 'Image 3']}
+                options={getImageOptions()}
                 renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Image"
-                    placeholder="Select Image"
-                  />
+                  <TextField {...params} label="Image" placeholder="Select Image" />
                 )}
               />
             </FormControl>
           </Grid>
 
-          <Grid item xs={12} md={6}>
-            <Autocomplete
-              freeSolo
-              value={question}
-              onChange={handleQuestionChange}
-              options={['Option 1', 'Option 2', 'Option 3']}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Question"
-                  placeholder="Enter a Question"
-                />
-              )}
-            />
-          </Grid>
-
-          <Grid item xs={12} md={6} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            {selectedImage && (
-              <Box sx={{ width: '100%', maxWidth: '300px' }}>
-                <Typography variant="subtitle1">Selected Image:</Typography>
-                <img
-                  src={selectedImage}
-                  alt="Selected Image"
-                  style={{ width: '100%', height: 'auto', marginTop: '8px' }}
-                />
-              </Box>
-            )}
+          <Grid item xs={12}>
+            <FormControl fullWidth>
+              <Autocomplete
+                value={question}
+                onChange={handleQuestionChange}
+                options={getQuestionOptions()}
+                renderInput={(params) => (
+                  <TextField {...params} label="Question" placeholder="Enter Question" />
+                )}
+              />
+            </FormControl>
           </Grid>
 
           <Grid item xs={12}>
-            <Button variant="contained" color="primary" onClick={handleSearch}>
+            <Button variant="contained" onClick={handleSearch}>
               Search
             </Button>
           </Grid>
+
+          {selectedImage && (
+            <Grid item xs={12}>
+              <Typography variant="h6">Selected Image:</Typography>
+              <img src={getImageSrc(selectedImage)} alt="Selected" style={{ width: '100%', height: 'auto', maxWidth: '500px' }} />
+            </Grid>
+          )}
+
+          {answer && (
+            <Grid item xs={12}>
+              <Typography variant="h6">Answer:</Typography>
+              <Typography>{answer}</Typography>
+            </Grid>
+          )}
         </Grid>
       </Container>
     </Box>
