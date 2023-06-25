@@ -107,7 +107,7 @@ const SearchComponent = () => {
           <Grid item xs={12} md={6}>
             <Box
               sx={{
-                backgroundColor: '#f5f5f5',
+                backgroundColor: 'rgba(173, 216, 230, 0.3)',
                 padding: '20px',
                 borderRadius: '10px',
                 marginBottom: '20px',
@@ -138,7 +138,7 @@ const SearchComponent = () => {
                 />
               </FormControl>
 
-              <FormControl fullWidth sx={{ marginBottom: '20px' }}>
+              <FormControl fullWidth>
                 <Autocomplete
                   value={question}
                   onChange={handleQuestionChange}
@@ -149,12 +149,7 @@ const SearchComponent = () => {
                 />
               </FormControl>
 
-              <Button
-                variant="contained"
-                onClick={handleSearch}
-                disabled={isLoading || !selectedImage || !question}
-                sx={{ marginTop: '20px' }}
-              >
+              <Button variant="contained" onClick={handleSearch} disabled={isLoading} sx={{ marginTop: '20px' }}>
                 {isLoading ? (
                   <Box sx={{ display: 'flex', alignItems: 'center' }}>
                     <CircularProgress size={20} sx={{ marginRight: '10px' }} />
@@ -171,7 +166,7 @@ const SearchComponent = () => {
             <Grid item xs={12} md={6}>
               <Box
                 sx={{
-                  backgroundColor: '#f5f5f5',
+                  backgroundColor: 'rgba(173, 216, 230, 0.3)',
                   padding: '20px',
                   borderRadius: '10px',
                   marginBottom: '20px',
