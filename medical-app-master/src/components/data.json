@@ -4,16 +4,16 @@
         "image": "image1.png",
         "questions": [
           {
-            "question": "Question 1 for Image 1",
-            "answer": "Answer 1 for Question 1"
+            "question": "Q: How does a CT scan work?",
+            "answer": "A: CT scans use X-rays and computer processing to generate detailed cross-sectional images of the body."
           },
           {
-            "question": "Question 2 for Image 1",
-            "answer": "Answer 2 for Question 2"
+            "question": "Q: Is a CT scan a painful procedure?",
+            "answer": "A: No, CT scans are painless. You may need to lie still during the scan, but it's not typically uncomfortable."
           },
           {
-            "question": "Question 3 for Image 1",
-            "answer": "Answer 3 for Question 3"
+            "question": "Q: When is contrast dye used in a CT scan?",
+            "answer": "A: Contrast dye may be used to enhance the visibility of certain tissues or blood vessels during a CT scan."
           }
         ]
       },
@@ -21,16 +21,16 @@
         "image": "image2.png",
         "questions": [
           {
-            "question": "Question 1 for Image 2",
-            "answer": "Answer 1 for Question 1"
+            "question": "Q: Which organs are typically visible on a general abdominal CT scan?",
+            "answer": "A: Liver, gallbladder, pancreas, spleen, kidneys, adrenal glands, stomach, intestines, and urinary bladder."
           },
           {
-            "question": "Question 2 for Image 2",
-            "answer": "Answer 2 for Question 2"
+            "question": "Q: What can a general abdominal CT scan detect?",
+            "answer": "A: Abnormalities such as tumors, cysts, abscesses, inflammation, kidney stones, liver disease, appendicitis, diverticulitis, and bowel obstruction."
           },
           {
-            "question": "Question 3 for Image 2",
-            "answer": "Answer 3 for Question 3"
+            "question": "Q: What does contrast dye do in an abdominal CT scan?",
+            "answer": "A: Enhances visibility of certain structures and helps detect abnormalities more effectively."
           }
         ]
       },
@@ -38,16 +38,16 @@
         "image": "image3.png",
         "questions": [
           {
-            "question": "Question 1 for Image 3",
-            "answer": "Answer 1 for Question 1"
+            "question": "Q: Any specific preparations required before an abdominal CT scan?",
+            "answer": "A: Follow specific instructions provided by your healthcare provider or imaging center, which may include fasting for a few hours before the scan."
           },
           {
-            "question": "Question 2 for Image 3",
-            "answer": "Answer 2 for Question 2"
+            "question": "Q: Are blood vessels visible on an abdominal CT scan?",
+            "answer": "A: Yes, abdominal CT scans can also provide information about the blood vessels in the abdomen, such as the aorta and its branches, as well as the portal vein and its tributaries."
           },
           {
-            "question": "Question 3 for Image 3",
-            "answer": "Answer 3 for Question 3"
+            "question": "Q: Can a general abdominal CT scan detect abnormalities or diseases?",
+            "answer": "A: Yes, a general abdominal CT scan is commonly used to identify various abnormalities and conditions, such as tumors, cysts, etc.."
           }
         ]
       },
@@ -55,16 +55,16 @@
         "image": "image4.png",
         "questions": [
           {
-            "question": "Question 1 for Image 4",
-            "answer": "Answer 1 for Question 1"
+            "question": "Q: Is a brain CT scan safe?",
+            "answer": "A: Yes, brain CT scans are generally considered safe. However, they involve exposure to ionizing radiation, so it's important to balance the benefits of the scan with any potential risks, especially if repeated scans are necessary."
           },
           {
-            "question": "Question 2 for Image 4",
-            "answer": "Answer 2 for Question 2"
+            "question": "Q: How is a brain CT scan performed?",
+            "answer": "A: During a brain CT scan, the patient lies on a table that moves through a large, doughnut-shaped machine called a CT scanner. X-ray images are taken from different angles to create detailed cross-sectional images of the brain."
           },
           {
-            "question": "Question 3 for Image 4",
-            "answer": "Answer 3 for Question 3"
+            "question": "Q: Are there any specific preparations required for a brain CT scan?",
+            "answer": "A: In most cases, there are no specific preparations needed for a brain CT scan. However, you may be asked to remove any metal objects, such as jewelry or hairpins, and inform the healthcare provider about any allergies or pre-existing conditions."
           }
         ]
       },
@@ -72,16 +72,16 @@
         "image": "image5.png",
         "questions": [
           {
-            "question": "Question 1 for Image 5",
-            "answer": "Answer 1 for Question 1"
+            "question": "Q: What can a brain CT scan help diagnose?",
+            "answer": "A: A brain CT scan can help diagnose various conditions, including head trauma, brain tumors, bleeding in the brain, stroke, infections, and structural abnormalities."
           },
           {
-            "question": "Question 2 for Image 5",
-            "answer": "Answer 2 for Question 2"
+            "question": "Q: Is contrast dye used in a brain CT scan?",
+            "answer": "A: Yes, in some cases, contrast dye may be used during a brain CT scan to enhance the visibility of blood vessels, tumors, or areas of interest."
           },
           {
-            "question": "Question 3 for Image 5",
-            "answer": "Answer 3 for Question 3"
+            "question": "Q: How long does a brain CT scan take?",
+            "answer": "A: The actual scanning process usually takes just a few minutes, but the overall appointment may take longer due to preparation and post-scan procedures."
           }
         ]
       }
