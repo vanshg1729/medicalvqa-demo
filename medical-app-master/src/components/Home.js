@@ -54,10 +54,7 @@ const ImageList = () => {
       <Container maxWidth="xl">
         <Box my={4} textAlign="center">
           <Typography variant="h4" component="h1">
-            Medical VQA Demo
-          </Typography>
-          <Typography variant="h6" component="h6" my={2}>
-            (click on the image to see the questions)
+            Image List App
           </Typography>
         </Box>
         <Grid container spacing={4} justifyContent="center">
@@ -68,7 +65,10 @@ const ImageList = () => {
               width="220"
               height="220"
               onClick={() => handleImageClick('image1.png')}
-              style={{ cursor: 'pointer' }}
+              style={{
+                cursor: 'pointer',
+                border: selectedImage === 'image1.png' ? '4px solid blue' : 'none',
+              }}
             />
           </Grid>
           <Grid item>
@@ -78,7 +78,10 @@ const ImageList = () => {
               width="220"
               height="220"
               onClick={() => handleImageClick('image2.png')}
-              style={{ cursor: 'pointer' }}
+              style={{
+                cursor: 'pointer',
+                border: selectedImage === 'image2.png' ? '4px solid blue' : 'none',
+              }}
             />
           </Grid>
           <Grid item>
@@ -88,7 +91,10 @@ const ImageList = () => {
               width="220"
               height="220"
               onClick={() => handleImageClick('image3.png')}
-              style={{ cursor: 'pointer' }}
+              style={{
+                cursor: 'pointer',
+                border: selectedImage === 'image3.png' ? '4px solid blue' : 'none',
+              }}
             />
           </Grid>
           <Grid item>
@@ -98,7 +104,10 @@ const ImageList = () => {
               width="220"
               height="220"
               onClick={() => handleImageClick('image4.png')}
-              style={{ cursor: 'pointer' }}
+              style={{
+                cursor: 'pointer',
+                border: selectedImage === 'image4.png' ? '4px solid blue' : 'none',
+              }}
             />
           </Grid>
           <Grid item>
@@ -108,7 +117,10 @@ const ImageList = () => {
               width="220"
               height="220"
               onClick={() => handleImageClick('image5.png')}
-              style={{ cursor: 'pointer' }}
+              style={{
+                cursor: 'pointer',
+                border: selectedImage === 'image5.png' ? '4px solid blue' : 'none',
+              }}
             />
           </Grid>
         </Grid>
