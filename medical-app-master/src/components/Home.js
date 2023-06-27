@@ -29,10 +29,12 @@ const ImageList = () => {
   const [selectedQuestion, setSelectedQuestion] = useState(null);
   const [loading, setLoading] = useState(false);
   const [questions, setQuestions] = useState([]);
+  const [highlightedQuestion, setHighlightedQuestion] = useState(null);
 
   const handleImageClick = (image) => {
     setSelectedImage(image);
     setSelectedQuestion(null);
+    setHighlightedQuestion(null);
     const selectedImageData = datasetOptions.images.find(
       (item) => item.image === image
     );
@@ -40,6 +42,7 @@ const ImageList = () => {
   };
 
   const handleQuestionClick = (question) => {
+    setHighlightedQuestion(question);
     setLoading(true);
 
     // Simulating API request delay
@@ -137,7 +140,8 @@ const ImageList = () => {
                 onClick={() => handleQuestionClick(question)}
                 style={{
                   cursor: 'pointer',
-                  border: '1px solid #ccc',
+                  border:
+                    highlightedQuestion === question ? '2px solid blue' : '1px solid #ccc',
                   borderRadius: '4px',
                   backgroundColor: '#f0f0f0',
                 }}
@@ -149,7 +153,7 @@ const ImageList = () => {
             ))}
           </Box>
         )}
-        {!loading && selectedQuestion && (
+        {selectedQuestion && (
           <Box my={4}>
             <Typography variant="h6" component="h2" align="center">
               Answer for the Selected Question
