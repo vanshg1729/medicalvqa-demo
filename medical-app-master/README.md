@@ -1,3 +1,6 @@
+# Description and Updates
+> We have now added the home page also which has sample images and corresponding QnA
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

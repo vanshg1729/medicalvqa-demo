@@ -1,186 +1,114 @@
 import React, { useState } from 'react';
 import {
   Box,
+  Button,
   Container,
+  FormControl,
   Grid,
+  TextField,
+  Autocomplete,
   Typography,
   CircularProgress,
-  createTheme,
-  ThemeProvider,
 } from '@mui/material';
-
-import datasetOptions from './data.json';
 
 import image1 from './image1.png';
 import image2 from './image2.png';
 import image3 from './image3.png';
 import image4 from './image4.png';
-import image5 from './image5.png';
 
-const theme = createTheme({
-  typography: {
-    fontFamily: 'Arial, sans-serif',
-    fontSize: 18,
-  },
-});
+const imageList = [image1, image2, image3, image4];
 
-const ImageList = () => {
+const App = () => {
   const [selectedImage, setSelectedImage] = useState(null);
-  const [selectedQuestion, setSelectedQuestion] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [questions, setQuestions] = useState([]);
-  const [highlightedQuestion, setHighlightedQuestion] = useState(null);
 
   const handleImageClick = (image) => {
     setSelectedImage(image);
-    setSelectedQuestion(null);
-    setHighlightedQuestion(null);
-    const selectedImageData = datasetOptions.images.find(
-      (item) => item.image === image
-    );
-    setQuestions(selectedImageData ? selectedImageData.questions : []);
-  };
-
-  const handleQuestionClick = (question) => {
-    setHighlightedQuestion(question);
-    setLoading(true);
-
-    // Simulating API request delay
-    setTimeout(() => {
-      setSelectedQuestion(question);
-      setLoading(false);
-    }, 2000);
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container maxWidth="xl">
-        <Box my={4} textAlign="center">
-          <Typography variant="h4" component="h1">
-            Image List App
+    <Container maxWidth="xl">
+      <Grid container spacing={4}>
+        {/* Left Side */}
+        <Grid item xs={8}>
+          <Typography variant="h5" sx={{ textAlign: 'center', paddingTop: 4, marginBottom: 2 }}>
+            Image List
           </Typography>
-        </Box>
-        <Grid container spacing={4} justifyContent="center">
-          <Grid item>
-            <img
-              src={image1}
-              alt="Image 1"
-              width="220"
-              height="220"
-              onClick={() => handleImageClick('image1.png')}
-              style={{
-                cursor: 'pointer',
-                border: selectedImage === 'image1.png' ? '4px solid blue' : 'none',
-              }}
-            />
-          </Grid>
-          <Grid item>
-            <img
-              src={image2}
-              alt="Image 2"
-              width="220"
-              height="220"
-              onClick={() => handleImageClick('image2.png')}
-              style={{
-                cursor: 'pointer',
-                border: selectedImage === 'image2.png' ? '4px solid blue' : 'none',
-              }}
-            />
-          </Grid>
-          <Grid item>
-            <img
-              src={image3}
-              alt="Image 3"
-              width="220"
-              height="220"
-              onClick={() => handleImageClick('image3.png')}
-              style={{
-                cursor: 'pointer',
-                border: selectedImage === 'image3.png' ? '4px solid blue' : 'none',
-              }}
-            />
-          </Grid>
-          <Grid item>
-            <img
-              src={image4}
-              alt="Image 4"
-              width="220"
-              height="220"
-              onClick={() => handleImageClick('image4.png')}
-              style={{
-                cursor: 'pointer',
-                border: selectedImage === 'image4.png' ? '4px solid blue' : 'none',
-              }}
-            />
-          </Grid>
-          <Grid item>
-            <img
-              src={image5}
-              alt="Image 5"
-              width="220"
-              height="220"
-              onClick={() => handleImageClick('image5.png')}
-              style={{
-                cursor: 'pointer',
-                border: selectedImage === 'image5.png' ? '4px solid blue' : 'none',
-              }}
-            />
+          <Grid container spacing={2}>
+            {imageList.map((image, index) => (
+              <Grid item xs={6} key={index}>
+                <Box
+                  onClick={() => handleImageClick(image)}
+                  sx={{
+                    width: '100%',
+                    height: 0,
+                    paddingBottom: '75%',
+                    position: 'relative',
+                    border: selectedImage === image ? '4px solid red' : 'none',
+                    borderRadius: '10px',
+                    overflow: 'hidden',
+                    marginBottom: '10px', // Add spacing between images
+                  }}
+                >
+                  <img
+                    src={image}
+                    alt={`Image ${index}`}
+                    style={{
+                      position: 'absolute',
+                      width: '100%',
+                      height: '100%',
+                      top: 0,
+                      left: 0,
+                      objectFit: 'cover',
+                      borderRadius: '10px',
+                    }}
+                  />
+                </Box>
+              </Grid>
+            ))}
           </Grid>
         </Grid>
-        {selectedImage && (
-          <Box my={4}>
-            <Typography variant="h6" component="h2" align="center">
-              Questions for {selectedImage}
-            </Typography>
-            {questions.map((question, index) => (
+
+        {/* Right Side */}
+        <Grid item xs={4}>
+          <Grid container direction="column" spacing={2} height="100%">
+            <Grid item sx={{ flexGrow: 1 }}>
+              <Typography variant="h5" sx={{ textAlign: 'center', paddingTop: 4, marginBottom: 2 }}>
+                Selected Image
+              </Typography>
               <Box
-                key={index}
-                my={2}
-                p={2}
-                onClick={() => handleQuestionClick(question)}
-                style={{
-                  cursor: 'pointer',
-                  border:
-                    highlightedQuestion === question ? '2px solid blue' : '1px solid #ccc',
-                  borderRadius: '4px',
-                  backgroundColor: '#f0f0f0',
+                sx={{
+                  width: '100%',
+                  height: 0,
+                  paddingBottom: '75%',
+                  position: 'relative',
                 }}
               >
-                <Typography variant="body1" component="p">
-                  {question.question}
-                </Typography>
+                {selectedImage ? (
+                  <img
+                    src={selectedImage}
+                    alt="Selected Image"
+                    style={{
+                      position: 'absolute',
+                      width: '100%',
+                      height: '100%',
+                      top: 0,
+                      left: 0,
+                      objectFit: 'contain',
+                      borderRadius: '10px',
+                    }}
+                  />
+                ) : (
+                  <Typography variant="body1" sx={{ textAlign: 'center', padding: 2 }}>
+                    Please select an image
+                  </Typography>
+                )}
               </Box>
-            ))}
-          </Box>
-        )}
-        {selectedQuestion && (
-          <Box my={4}>
-            <Typography variant="h6" component="h2" align="center">
-              Answer for the Selected Question
-            </Typography>
-            <Box
-              my={2}
-              p={2}
-              style={{
-                border: '1px solid #ccc',
-                borderRadius: '4px',
-                backgroundColor: '#f0f0f0',
-              }}
-            >
-              <Typography variant="body1" component="p" align="center">
-                {selectedQuestion.answer}
-              </Typography>
-            </Box>
-          </Box>
-        )}
-        {loading && (
-          <Box display="flex" justifyContent="center" my={4}>
-            <CircularProgress />
-          </Box>
-        )}
-      </Container>
-    </ThemeProvider>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Container>
   );
 };
 
-export default ImageList;
+export default App;

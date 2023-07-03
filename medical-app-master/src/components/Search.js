@@ -1,248 +1,206 @@
-import React, { useState } from 'react';
-// import TextField from '@material-ui/core/TextField';
-// import Button from '@material-ui/core/Button';
-// import SearchIcon from '@material-ui/icons/Search';
+import React, { useState, useEffect } from 'react';
+import {
+  Box,
+  Button,
+  Container,
+  FormControl,
+  Grid,
+  TextField,
+  Autocomplete,
+  Typography,
+  CircularProgress,
+} from '@mui/material';
 
-import { Search as SearchIcon } from '@mui/icons-material';
-import { Autocomplete, Grid, Typography, Button, TextField, styled, Box } from "@mui/material";
+import datasetOptions from './datasetOptions.json';
 
+import image1 from './image1.png';
+import image2 from './image2.png';
+import image3 from './image3.png';
+import image4 from './image4.png';
+import image5 from './image5.png';
 
+const SearchComponent = () => {
+  const [selectedImage, setSelectedImage] = useState('');
+  const [selectedDataset, setSelectedDataset] = useState('');
+  const [question, setQuestion] = useState('');
+  const [answer, setAnswer] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-// const SearchContainer = styled.div
-//     display: 'flex',
-//   flex-direction: column;
-//   justify-content: center;
-//   align-items: center;
-//   height: 100vh;
-// ;
+  const handleImageChange = (event, value) => {
+    setSelectedImage(value);
+  };
 
-const SearchContainer = styled('div')({
-    display: 'flex',
-    alignItems: 'center',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    width: '100%',
-    maxWidth: 'false'
-    // borderRadius: '50px',
-    // backgroundColor: '#fff',
-    // padding: '5px 15px',
-    // width: '100%',
-    // boxShadow: '0px 0px 5px #888888',
-  });
+  const handleDatasetChange = (event, value) => {
+    setSelectedDataset(value);
+    setSelectedImage('');
+  };
 
+  const handleQuestionChange = (event, value) => {
+    setQuestion(value);
+  };
 
-const SearchBox = styled('div')({
-    display: 'flex',
-    alignItems: 'center',
-    borderRadius: '50px',
-    backgroundColor: '#fff',
-    padding: '5px 15px',
-    width: '100%',
-    boxShadow: '0px 0px 5px #888888',
-  });
-  
-  const SearchInput = styled(TextField)({
-    border: 'none',
-    marginLeft: '10px',
-    width: '100%',
-    '& .MuiInputBase-input': {
-      fontSize: '16px',
-    },
-    '& .MuiInputBase-input:focus': {
-      outline: 'none',
-    },
-  });
-  
-  const SearchButton = styled(Button)({
-    borderRadius: '50px',
-    backgroundColor: '#1976d2',
-    color: '#fff',
-    padding: '5px 15px',
-    marginLeft: '10px',
-  });
-  
-  const SearchResult = styled('div')({
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    marginTop: '50px',
-  });
-  
-  const ResultImage = styled('img')({
-    maxWidth: '100%',
-    height: 'auto',
-  });
-  
-  const ResultText = styled(Typography)({
-    marginTop: '20px',
-    textAlign: 'center',
-    fontSize: '18px',
-    fontWeight: 'bold',
-  });
-
-
-  const options = [
-    { title: 'Option 1' },
-    { title: 'Option 2' },
-    { title: 'Option 3' },
-    { title: 'Option 4' },
-    { title: 'Option 5' },
-  ];
-
-const Search = () => {
-  const [query, setQuery] = useState('');
-  const [result, setResult] = useState(null);
-
-  const handleSearch = async () => {
-    try {
-      const response = await fetch(`http://127.0.0.1:5000/search?q=${query}}`);
-      const data = await response.json();
-
-      // Decode the base64-encoded image
-      const decodedImage = atob(data.image);
-
-      // Create a byte array from the decoded image data
-      const byteArray = new Uint8Array(decodedImage.length);
-      for (let i = 0; i < decodedImage.length; i++) {
-        byteArray[i] = decodedImage.charCodeAt(i);
+  const handleSearch = () => {
+    setIsLoading(true);
+    setAnswer('');
+    // Simulating a delay of 3-4 seconds before displaying the answer
+    setTimeout(() => {
+      const dataset = datasetOptions.find((dataset) => dataset.name === selectedDataset);
+      if (dataset && selectedImage && question) {
+        const image = dataset.images.find((image) => image.url === selectedImage);
+        if (image) {
+          const selectedQuestion = image.questions.find((q) => q.questionText === question);
+          if (selectedQuestion) {
+            setAnswer(selectedQuestion.answerText);
+            setIsLoading(false);
+            return;
+          }
+        }
       }
+      setAnswer('Answer not found.');
+      setIsLoading(false);
+    }, 3000);
+  };
 
-      // Create a blob URL for the image
-      const blob = new Blob([byteArray], { type: 'image/jpeg' });
-      const imageUrl = URL.createObjectURL(blob);
+  const getImageOptions = () => {
+    const dataset = datasetOptions.find((dataset) => dataset.name === selectedDataset);
+    if (dataset) {
+      return dataset.images.map((image) => image.url);
+    }
+    return [];
+  };
 
-      // Set the result in the state
-      setResult({
-        image: imageUrl,
-        text: data.caption,
-      });
-    } catch (error) {
-      console.error(error);
-      setResult(null);
+  const getQuestionOptions = () => {
+    const dataset = datasetOptions.find((dataset) => dataset.name === selectedDataset);
+    if (dataset && selectedImage) {
+      const image = dataset.images.find((image) => image.url === selectedImage);
+      if (image) {
+        return image.questions.map((q) => q.questionText);
+      }
+    }
+    return [];
+  };
+
+  const getImageSrc = (imageName) => {
+    switch (imageName) {
+      case 'image1.png':
+        return image1;
+      case 'image2.png':
+        return image2;
+      case 'image3.png':
+        return image3;
+      case 'image4.png':
+        return image4;
+      case 'image5.png':
+        return image5;
+      default:
+        return '';
     }
   };
 
-
   return (
-
-
-    // <Box display="flex">
-    //   <Box display="flex">
-    //   </Box>
-    //   <Box display="flex">
-    //   </Box>
-    // </Box>
-
-
-    <SearchContainer maxWidth="md">
-      <Grid container spacing={3}>
-      <Grid item xs={12} md={8}>
-        <SearchBox>
-          <Autocomplete
-            id="text-field-autocomplete"
-            fullWidth
-            options={options}
-            getOptionLabel={(option) => option.title}
-            renderInput={(params) => (
-                <TextField
-                {...params}
-                label="Autocomplete"
-                variant="outlined"
-                // fullWidth
-                value={query}
-                onChange={(event) => setQuery(event.target.value)}
-                onKeyPress={(e) => {
-                    if (e.key === 'Enter') {
-                      handleSearch();
-                    }
-                  }}
+    <Box sx={{ marginTop: '24px' }}>
+      <Container maxWidth="xl">
+        <Typography variant="h2" align="center" sx={{ marginBottom: '24px', marginTop: '40px', fontWeight: 'bold', fontSize: '36px' }}>
+          Medical VQA
+        </Typography>
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={6}>
+            <Box
+              sx={{
+                backgroundColor: 'rgba(173, 216, 230, 0.3)',
+                padding: '20px',
+                borderRadius: '10px',
+                marginBottom: '20px',
+              }}
+            >
+              <Typography variant="h5" sx={{ marginBottom: '10px' }}>
+                VQA Model
+              </Typography>
+              <FormControl fullWidth sx={{ marginBottom: '20px' }}>
+                <Autocomplete
+                  value={selectedDataset}
+                  onChange={handleDatasetChange}
+                  options={datasetOptions.map((dataset) => dataset.name)}
+                  renderInput={(params) => (
+                    <TextField {...params} label="Dataset" placeholder="Select Dataset" />
+                  )}
                 />
-            )}
-            />
-            <SearchButton onClick={handleSearch}>Search</SearchButton>
-          </SearchBox>
-      </Grid>
-      </Grid>
-      </SearchContainer>
+              </FormControl>
 
+              <FormControl fullWidth sx={{ marginBottom: '20px' }}>
+                <Autocomplete
+                  value={selectedImage}
+                  onChange={handleImageChange}
+                  options={getImageOptions()}
+                  renderInput={(params) => (
+                    <TextField {...params} label="Image" placeholder="Select Image" />
+                  )}
+                />
+              </FormControl>
+
+              <FormControl fullWidth>
+                <Autocomplete
+                  value={question}
+                  onChange={handleQuestionChange}
+                  options={getQuestionOptions()}
+                  renderInput={(params) => (
+                    <TextField {...params} label="Question" placeholder="Enter Question" />
+                  )}
+                />
+              </FormControl>
+
+              <Button variant="contained" onClick={handleSearch} disabled={isLoading} sx={{ marginTop: '20px' }}>
+                {isLoading ? (
+                  <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                    <CircularProgress size={20} sx={{ marginRight: '10px' }} />
+                    Searching...
+                  </Box>
+                ) : (
+                  'Search'
+                )}
+              </Button>
+            </Box>
+          </Grid>
+
+          {answer && (
+            <Grid item xs={12} md={6}>
+              <Box
+                sx={{
+                  backgroundColor: 'rgba(173, 216, 230, 0.3)',
+                  padding: '20px',
+                  borderRadius: '10px',
+                  marginBottom: '20px',
+                }}
+              >
+                <Typography variant="h5" sx={{ marginBottom: '10px' }}>
+                  Output
+                </Typography>
+                {isLoading ? (
+                  <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                    <CircularProgress size={20} sx={{ marginRight: '10px' }} />
+                    <Typography>Loading...</Typography>
+                  </Box>
+                ) : (
+                  <Typography>{answer}</Typography>
+                )}
+              </Box>
+            </Grid>
+          )}
+
+          {selectedImage && (
+            <Grid item xs={12}>
+              <Typography variant="h6">Selected Image:</Typography>
+              <img
+                src={getImageSrc(selectedImage)}
+                alt="Selected"
+                style={{ width: '100%', height: 'auto', maxWidth: '500px' }}
+              />
+            </Grid>
+          )}
+        </Grid>
+      </Container>
+    </Box>
   );
-
 };
-    export default Search;
 
-
-// import React from 'react';
-
-// const Search = () => {
-//   return (
-//     <div className="App">
-//         "Search Page"
-//     </div>
-//   );
-// };
-
-// export default Search;
-
-
-// import React, { useState } from 'react';
-
-// function Search() {
-//     const [query, setQuery] = useState('');
-//     const [image, setImage] = useState('');
-//     const [text, setText] = useState('');
-//     const [data, setData] = useState([]);
-//     const [imageData, setImageData] = useState(null);
-//     const [result, setResult] = useState(null);
-
-//     const handleSearch = async () => {
-//         const response = await fetch(`http://127.0.0.1:5000/search?q=${query}`);
-//         const data = await response.json();
-//         console.log(data.image)
-        
-//         // Decode the base64-encoded image
-//         const decodedImage = atob(data.image);
-    
-//         // Create a blob URL for the image
-//         const blob = new Blob([decodedImage], { type: 'image/png' });
-//         const imageUrl = URL.createObjectURL(blob);
-    
-//         console.log(imageUrl)
-//         // Set the result in the state
-//         setResult({
-//           image: imageUrl,
-//           text: data.caption,
-//         });
-//       };
-
-//     // const handleSearch = async () => {
-//     //     const response = await fetch(`http://127.0.0.1:5000/search?q=${query}`);
-//     //     const contentType = response.headers.get('Content-Type');
-//     //     if (contentType && contentType.indexOf('application/json') !== -1) {
-//     //         data =  await response.json(); // Parse response as JSON if it's JSON data
-//     //       } else {
-//     //         data =  await response.blob(); // Parse response as a blob if it's image data
-//     //     }
-//     //     if (typeof data !== 'string') {
-//     //         setImageData(URL.createObjectURL(data)); // Set image data if it's an image
-//     //     } else {
-//     //         setData(JSON.parse(data)); // Set text data if it's JSON
-//     //     }
-//     //     // setImage(data.image_url);
-//     //     // setText(data.text_response);
-//     // }
-
-//     return (
-//         <div>
-//           <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} />
-//           <button onClick={handleSearch}>Search</button>
-//           {result && (
-//             <div>
-//               <img src={result.image} alt="Search Result" />
-//               <p>{result.text}</p>
-//             </div>
-//           )}
-//         </div>
-//       );
-//     }
-    
-//     export default Search;
+export default SearchComponent;

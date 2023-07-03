@@ -8,7 +8,7 @@ import ResponsiveAppBar from './components/Navbar';
 import Home from "./components/Home";
 import VQA from "./components/VQA";
 import Search from "./components/Search";
-import Visualization from "./components/Visualization";
+import Visualization from "./components/Chatbot";
 import Annotation from "./components/Annotation";
 import { AppStateProvider } from "./AppState";
  
