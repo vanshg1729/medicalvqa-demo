@@ -40,5 +40,5 @@ def answer_question():
     answer = get_answer(user_question, selected_image, data)
     return jsonify({'answer': answer})
 
-if __name__ == '__main__':
-    app.run(port=5000, debug=True)
+# if __name__ == '__main__':
+#     app.run(port=5000, debug=True)
