@@ -9,7 +9,27 @@
           },
           {
             "question": "Is a CT scan a painful procedure?",
-            "answer": "No, CT scans are painless. You may need to lie still during the scan, but it's not typically uncomfortable."
+            "answer": "123456No, CT scans are painless. You may need to lie still during the scan, but it's not typically uncomfortable."
+          },
+          {
+            "question": "Is a CT scan a painful procedure765432?",
+            "answer": "23456No, CT scans are painless. You may need to lie still during the scan, but it's not typically uncomfortable."
+          },
+          {
+            "question": "Is a CT scan a painful procedure76543?",
+            "answer": "3456No, CT scans are painless. You may need to lie still during the scan, but it's not typically uncomfortable."
+          },
+          {
+            "question": "Is a CT scan a painful procedure7654?",
+            "answer": "456No, CT scans are painless. You may need to lie still during the scan, but it's not typically uncomfortable."
+          },
+          {
+            "question": "Is a CT scan a painful procedure765?",
+            "answer": "56No, CT scans are painless. You may need to lie still during the scan, but it's not typically uncomfortable."
+          },
+          {
+            "question": "Is a CT scan a painful procedure76?",
+            "answer": "6No, CT scans are painless. You may need to lie still during the scan, but it's not typically uncomfortable."
           },
           {
             "question": "When is contrast dye used in a CT scan?",
@@ -20,6 +40,26 @@
       {
         "image": "image2.png",
         "questions": [
+          {
+            "question": "Which organs are typically visible on a general abdominal CT scan?",
+            "answer": "Liver, gallbladder, pancreas, spleen, kidneys, adrenal glands, stomach, intestines, and urinary bladder."
+          },
+          {
+            "question": "Which organs are typically visible on a general abdominal CT scan?",
+            "answer": "Liver, gallbladder, pancreas, spleen, kidneys, adrenal glands, stomach, intestines, and urinary bladder."
+          },
+          {
+            "question": "Which organs are typically visible on a general abdominal CT scan?",
+            "answer": "Liver, gallbladder, pancreas, spleen, kidneys, adrenal glands, stomach, intestines, and urinary bladder."
+          },
+          {
+            "question": "Which organs are typically visible on a general abdominal CT scan?",
+            "answer": "Liver, gallbladder, pancreas, spleen, kidneys, adrenal glands, stomach, intestines, and urinary bladder."
+          },
+          {
+            "question": "Which organs are typically visible on a general abdominal CT scan?",
+            "answer": "Liver, gallbladder, pancreas, spleen, kidneys, adrenal glands, stomach, intestines, and urinary bladder."
+          },
           {
             "question": "Which organs are typically visible on a general abdominal CT scan?",
             "answer": "Liver, gallbladder, pancreas, spleen, kidneys, adrenal glands, stomach, intestines, and urinary bladder."
@@ -42,6 +82,26 @@
             "answer": "Follow specific instructions provided by your healthcare provider or imaging center, which may include fasting for a few hours before the scan."
           },
           {
+            "question": "Any specific preparations required before an abdominal CT scan?",
+            "answer": "Follow specific instructions provided by your healthcare provider or imaging center, which may include fasting for a few hours before the scan."
+          },
+          {
+            "question": "Any specific preparations required before an abdominal CT scan?",
+            "answer": "Follow specific instructions provided by your healthcare provider or imaging center, which may include fasting for a few hours before the scan."
+          },
+          {
+            "question": "Any specific preparations required before an abdominal CT scan?",
+            "answer": "Follow specific instructions provided by your healthcare provider or imaging center, which may include fasting for a few hours before the scan."
+          },
+          {
+            "question": "Any specific preparations required before an abdominal CT scan?",
+            "answer": "Follow specific instructions provided by your healthcare provider or imaging center, which may include fasting for a few hours before the scan."
+          },
+          {
+            "question": "Any specific preparations required before an abdominal CT scan?",
+            "answer": "Follow specific instructions provided by your healthcare provider or imaging center, which may include fasting for a few hours before the scan."
+          },
+          {
             "question": "Are blood vessels visible on an abdominal CT scan?",
             "answer": "Yes, abdominal CT scans can also provide information about the blood vessels in the abdomen, such as the aorta and its branches, as well as the portal vein and its tributaries."
           },
@@ -59,6 +119,30 @@
             "answer": "Yes, brain CT scans are generally considered safe. However, they involve exposure to ionizing radiation, so it's important to balance the benefits of the scan with any potential risks, especially if repeated scans are necessary."
           },
           {
+            "question": "Is a brain CT scan safe?",
+            "answer": "Yes, brain CT scans are generally considered safe. However, they involve exposure to ionizing radiation, so it's important to balance the benefits of the scan with any potential risks, especially if repeated scans are necessary."
+          },
+          {
+            "question": "Is a brain CT scan safe?",
+            "answer": "Yes, brain CT scans are generally considered safe. However, they involve exposure to ionizing radiation, so it's important to balance the benefits of the scan with any potential risks, especially if repeated scans are necessary."
+          },
+          {
+            "question": "Is a brain CT scan safe?",
+            "answer": "Yes, brain CT scans are generally considered safe. However, they involve exposure to ionizing radiation, so it's important to balance the benefits of the scan with any potential risks, especially if repeated scans are necessary."
+          },
+          {
+            "question": "Is a brain CT scan safe?",
+            "answer": "Yes, brain CT scans are generally considered safe. However, they involve exposure to ionizing radiation, so it's important to balance the benefits of the scan with any potential risks, especially if repeated scans are necessary."
+          },
+          {
+            "question": "Is a brain CT scan safe?",
+            "answer": "Yes, brain CT scans are generally considered safe. However, they involve exposure to ionizing radiation, so it's important to balance the benefits of the scan with any potential risks, especially if repeated scans are necessary."
+          },
+          {
+            "question": "Is a brain CT scan safe?",
+            "answer": "Yes, brain CT scans are generally considered safe. However, they involve exposure to ionizing radiation, so it's important to balance the benefits of the scan with any potential risks, especially if repeated scans are necessary."
+          },
+          {
             "question": "How is a brain CT scan performed?",
             "answer": "During a brain CT scan, the patient lies on a table that moves through a large, doughnut-shaped machine called a CT scanner. X-ray images are taken from different angles to create detailed cross-sectional images of the brain."
           },
@@ -71,6 +155,26 @@
       {
         "image": "image5.png",
         "questions": [
+          {
+            "question": "What can a brain CT scan help diagnose?",
+            "answer": "A brain CT scan can help diagnose various conditions, including head trauma, brain tumors, bleeding in the brain, stroke, infections, and structural abnormalities."
+          },
+          {
+            "question": "What can a brain CT scan help diagnose?",
+            "answer": "A brain CT scan can help diagnose various conditions, including head trauma, brain tumors, bleeding in the brain, stroke, infections, and structural abnormalities."
+          },
+          {
+            "question": "What can a brain CT scan help diagnose?",
+            "answer": "A brain CT scan can help diagnose various conditions, including head trauma, brain tumors, bleeding in the brain, stroke, infections, and structural abnormalities."
+          },
+          {
+            "question": "What can a brain CT scan help diagnose?",
+            "answer": "A brain CT scan can help diagnose various conditions, including head trauma, brain tumors, bleeding in the brain, stroke, infections, and structural abnormalities."
+          },
+          {
+            "question": "What can a brain CT scan help diagnose?",
+            "answer": "A brain CT scan can help diagnose various conditions, including head trauma, brain tumors, bleeding in the brain, stroke, infections, and structural abnormalities."
+          },
           {
             "question": "What can a brain CT scan help diagnose?",
             "answer": "A brain CT scan can help diagnose various conditions, including head trauma, brain tumors, bleeding in the brain, stroke, infections, and structural abnormalities."
