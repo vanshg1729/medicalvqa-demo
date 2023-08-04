@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
 body {
     height: 100vh;
     width: 100vw;
@@ -21,7 +24,7 @@ body {
     width: 40vmin;
     height: 56vmin;
     object-fit: cover;
-    object-position: 100% center;
+    /* object-position: 100% center; */
 }
 
 .image {
@@ -29,6 +32,13 @@ body {
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
     transition: all 0.5s ease;
     /* -- Transition for hover effect -- */
+}
+
+.image:hover {
+    transform: scale(1.1);
+    /* -- Scale up the image -- */
+    box-shadow: 0px 0px 20px 10px rgba(0, 0, 0, 0.75);
+    /* -- Add a shadow -- */
 }
 
 .heading {
@@ -46,12 +56,40 @@ body {
     font-size: 5rem;
     margin-top: 5vh;
     padding: 0;
+    letter-spacing: 0.4rem;
 }
 
 .heading2 {
     position: absolute;
     top: 15vh;
     font-size: 3rem;
-    margin: 3vh;
+    margin: 5vh;
     padding: 0;
+}
+
+#redDot {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: red;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }

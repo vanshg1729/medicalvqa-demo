@@ -7,6 +7,10 @@ import image2 from './image2.png'
 import image3 from './image3.png'
 import image4 from './image4.png'
 import image5 from './image5.png'
+import image6 from './image6.png'
+import image7 from './image7.png'
+import image8 from './image8.png'
+import image9 from './image9.png'
 
 const Homepage = () => {
 
@@ -52,11 +56,11 @@ const Homepage = () => {
                 transform: `translate(${nextPercentage}%, -50%)`
             }, { duration: 1200, fill: "forwards" });
 
-            for (const image of track.getElementsByClassName("image")) {
-                image.animate({
-                    objectPosition: `${100 + nextPercentage - 48}% center`
-                }, { duration: 1200, fill: "forwards" });
-            }
+            // for (const image of track.getElementsByClassName("image")) {
+            //     image.animate({
+            //         objectPosition: `${100 + nextPercentage - 48}% center`
+            //     }, { duration: 1200, fill: "forwards" });
+            // }
         }
 
         function resetScrollPosition() {
@@ -86,11 +90,11 @@ const Homepage = () => {
                     transform: `translate(${nextPercentage}%, -50%)`
                 }, { duration: 1200, fill: "forwards" });
 
-                for (const image of track.getElementsByClassName("image")) {
-                    image.animate({
-                        objectPosition: `${100 + nextPercentage - 48}% center`
-                    }, { duration: 1200, fill: "forwards" });
-                }
+                // for (const image of track.getElementsByClassName("image")) {
+                //     image.animate({
+                //         objectPosition: `${100 + nextPercentage - 48}% center`
+                //     }, { duration: 1200, fill: "forwards" });
+                // }
 
                 resetScrollPosition();
             }
@@ -112,22 +116,41 @@ const Homepage = () => {
 
         window.addEventListener('wheel', preventScrolling, { passive: false });
 
-        window.onload = () => {
-            for (const image of track.getElementsByClassName("image")) {
-                image.animate({
-                    objectPosition: `${100 - 48}% center`
-                }, { duration: 1200, fill: "forwards" });
-            }
-        }
+        // window.onload = () => {
+        //     for (const image of track.getElementsByClassName("image")) {
+        //         image.animate({
+        //             objectPosition: `${100 - 48}% center`
+        //         }, { duration: 1200, fill: "forwards" });
+        //     }
+        // }
 
 
     }, [])
 
+
+    // const handleHover = (e) => {
+    //     // Apply the transformation on hover
+    //     console.log(e, "e")
+    //     // e.transform = 'scale(1.1)'; // You can adjust the scaling factor to control the pop-out effect
+    // };
+
+    // const handleMouseLeave = (e) => {
+    //     // Reset the transformation when the mouse leaves the image
+    //     console.log(e, "e")
+    //     // e.transform = 'scale(1)';
+    // };
+
     return (
         // <Chat selectedImage={"/static/media/image1.09b4704f81318845d419.png"} />
         <>
-            <Chat selectedImage={selectedImage} chatbotShow={chatbotShow} />
-            <div style={{ display: chatbotShow ? "none" : "block" }}>
+            <Chat selectedImage={selectedImage} chatbotShow={chatbotShow} setChatbotShow={setChatbotShow} />
+            <div style={{
+                // display: chatbotShow ? "none" : "block",
+                fontFamily: '"Bebas Neue", sans-serif',
+                transition: 'opacity 1s ease-in-out',
+                opacity: chatbotShow ? 0 : 1,
+                display: chatbotShow ? "none" : "block",
+            }}>
                 <div className="heading">
                     <div className="heading1">BayMax</div>
                     <div className="heading2">Please select an image to ask questions related to that image</div>
@@ -138,6 +161,10 @@ const Homepage = () => {
                     <img className="image" src={image3} draggable="false" />
                     <img className="image" src={image4} draggable="false" />
                     <img className="image" src={image5} draggable="false" />
+                    <img className="image" src={image6} draggable="false" />
+                    <img className="image" src={image7} draggable="false" />
+                    <img className="image" src={image8} draggable="false" />
+                    <img className="image" src={image9} draggable="false" />
                 </div>
             </div>
         </>

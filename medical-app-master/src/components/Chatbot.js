@@ -4,7 +4,7 @@ import MicIcon from '@mui/icons-material/Mic';
 
 import data from './data.json';
 
-const Chatbot = ({ selectedImage, chatbotShow }) => {
+const Chatbot = ({ selectedImage, chatbotShow, setChatbotShow }) => {
   const [userInput, setUserInput] = useState('');
   const [chatMessages, setChatMessages] = useState([]);
   const chatContainerRef = useRef(null);
@@ -22,9 +22,21 @@ const Chatbot = ({ selectedImage, chatbotShow }) => {
 
   var transcript = '';
 
-  const handleSpeechRecognition = () => {
-    if (!isRecording) {
+  // let recording = false;
 
+  // function toggleRecording() {
+  //   recording = !recording;
+
+  //   if (recording) {
+  //   } else {
+  //   }
+  // }
+
+  const handleSpeechRecognition = () => {
+    // toggleRecording();
+    const redDot = document.getElementById('redDot');
+    if (!isRecording) {
+      redDot.style.display = 'block';
       recognition.onstart = () => {
         setIsRecording(true);
       };
@@ -42,6 +54,7 @@ const Chatbot = ({ selectedImage, chatbotShow }) => {
 
       recognition.start();
     } else {
+      redDot.style.display = 'none';
       recognition.stop();
     }
   };
@@ -184,19 +197,31 @@ const Chatbot = ({ selectedImage, chatbotShow }) => {
     // border: "4px solid rgb(26 94 170)",
   }
 
-  const startRec = () => {
-    console.log("startRec called");
-  }
-
   return (
     <Box style={{
       opacity: chatbotShow ? 1 : 0,
-      transition: 'opacity 2s linear',
+      transition: chatbotShow ? 'opacity 1s ease-in-out' : 'noneT',
       width: '100vw',
       height: '100vh',
       backgroundColor: '#3D4849',
     }}>
 
+      {/* Back component */}
+      <Button variant="contained" style={{
+        position: 'fixed',
+        top: '93vh',
+        left: '93vw',
+        backgroundColor: '#2f3738',
+        color: '#F0EAD6',
+        zIndex: 100,
+      }} onClick={() => {
+        setChatbotShow(false);
+        setAskedQuestion(false);
+        setIsVisible(false);
+        setChatMessages(empty.current);
+      }}>Back</Button>
+
+      
       {/* Side component */}
       <Box style={{
         // display: isVisible ? 'flex' : 'none',
@@ -246,7 +271,8 @@ const Chatbot = ({ selectedImage, chatbotShow }) => {
           }}>
             <Button
               variant="contained"
-              onClick={handleSendQuestion}
+                            onClick={(askedQuestion == true) ? handleSendQuestion : null}
+
               style={gridItem2}
             >{getSuggestionQuestion(0)}</Button>
           </Box>
@@ -255,7 +281,7 @@ const Chatbot = ({ selectedImage, chatbotShow }) => {
           }}>
             <Button
               variant="contained"
-              onClick={handleSendQuestion}
+              onClick={(askedQuestion == true) ? handleSendQuestion : null}
               style={gridItem2}
             >{getSuggestionQuestion(1)}</Button>
           </Box>
@@ -264,7 +290,8 @@ const Chatbot = ({ selectedImage, chatbotShow }) => {
           }}>
             <Button
               variant="contained"
-              onClick={handleSendQuestion}
+                            onClick={(askedQuestion == true) ? handleSendQuestion : null}
+
               style={gridItem2}
             >{getSuggestionQuestion(2)}</Button>
           </Box>
@@ -273,7 +300,8 @@ const Chatbot = ({ selectedImage, chatbotShow }) => {
           }}>
             <Button
               variant="contained"
-              onClick={handleSendQuestion}
+                            onClick={(askedQuestion == true) ? handleSendQuestion : null}
+
               style={gridItem2}
             >{getSuggestionQuestion(3)}</Button>
           </Box>
@@ -311,7 +339,9 @@ const Chatbot = ({ selectedImage, chatbotShow }) => {
                 textAlign: 'center',
                 color: '#F0EAD6',
                 marginTop: '2vh',
-              }} variant="h3">BayMax</Typography>
+                fontFamily: '"Bebas Neue", sans-serif',
+                letterSpacing: '2px',
+              }} variant="h3">BayMax, your personal healthcare companion</Typography>
 
 
               {/* Placing an image here */}
@@ -332,6 +362,7 @@ const Chatbot = ({ selectedImage, chatbotShow }) => {
                 textAlign: 'center',
                 marginTop: '2vh',
                 color: '#F0EAD6',
+                fontFamily: '"Bebas Neue", sans-serif',
               }}>Select or type in a question to ask BayMax</Typography>
               <Box style={{
                 marginTop: "5vh",
@@ -465,7 +496,7 @@ const Chatbot = ({ selectedImage, chatbotShow }) => {
                 handleSendQuestion();
               }
             }}
-            style={{ marginTop: '16px', marginLeft: '16px', color: '#F0EAD6' }}
+            style={{ marginTop: '16px', color: '#F0EAD6' }}
           />
           <Button variant='contained' style={{
             position: 'relative',
@@ -486,7 +517,7 @@ const Chatbot = ({ selectedImage, chatbotShow }) => {
           style={{
             position: 'relative',
             top: '-3vh',
-            left: '0.3vw',
+            left: '-0.5vw',
             margin: '10px',
             marginLeft: '16px',
             color: '#F0EAD6',
@@ -495,6 +526,17 @@ const Chatbot = ({ selectedImage, chatbotShow }) => {
         >
           Send
         </Button>
+        <div claasName="box" style={{
+          width: '50px',
+          height: '50px',
+          position: 'relative',
+          top: '-9vh',
+          left: '46.5vw',
+          borderRadius: '5px',
+        }}>
+          <div id="redDot"></div>
+        </div>
+
       </Paper>
     </Box>
   );
