@@ -3,8 +3,10 @@ import { Box, TextField, Button, Paper, Typography } from '@mui/material';
 import MicIcon from '@mui/icons-material/Mic';
 
 import data from './data.json';
+import { useTheme } from '@mui/material/styles';
 
 const Chatbot = ({ selectedImage, chatbotShow, setChatbotShow }) => {
+  const theme = useTheme();
   const [userInput, setUserInput] = useState('');
   const [chatMessages, setChatMessages] = useState([]);
   const chatContainerRef = useRef(null);
@@ -179,8 +181,7 @@ const Chatbot = ({ selectedImage, chatbotShow, setChatbotShow }) => {
   };
 
   const gridItem = {
-    width: '360px',
-
+    width: '20vw',
     fontSize: "14px",
     textAlign: "center",
     backgroundColor: "#3D4849",
@@ -188,7 +189,7 @@ const Chatbot = ({ selectedImage, chatbotShow, setChatbotShow }) => {
     // border: "4px solid rgb(26 94 170)",
   }
   const gridItem2 = {
-    width: '360px',
+    width: '20vw',
 
     fontSize: "14px",
     textAlign: "center",
@@ -221,7 +222,7 @@ const Chatbot = ({ selectedImage, chatbotShow, setChatbotShow }) => {
         setChatMessages(empty.current);
       }}>Back</Button>
 
-      
+
       {/* Side component */}
       <Box style={{
         // display: isVisible ? 'flex' : 'none',
@@ -263,15 +264,15 @@ const Chatbot = ({ selectedImage, chatbotShow, setChatbotShow }) => {
           textAlign: "center",
           display: "flex",
           flexDirection: "column",
-          gap: "7px",
+          gap: "1vh",
         }}>
           <Box style={{
             // maxWidth: '100%',
-            width: '360px'
+            width: '20vw',
           }}>
             <Button
               variant="contained"
-                            onClick={(askedQuestion == true) ? handleSendQuestion : null}
+              onClick={(askedQuestion == true) ? handleSendQuestion : null}
 
               style={gridItem2}
             >{getSuggestionQuestion(0)}</Button>
@@ -290,7 +291,7 @@ const Chatbot = ({ selectedImage, chatbotShow, setChatbotShow }) => {
           }}>
             <Button
               variant="contained"
-                            onClick={(askedQuestion == true) ? handleSendQuestion : null}
+              onClick={(askedQuestion == true) ? handleSendQuestion : null}
 
               style={gridItem2}
             >{getSuggestionQuestion(2)}</Button>
@@ -300,7 +301,7 @@ const Chatbot = ({ selectedImage, chatbotShow, setChatbotShow }) => {
           }}>
             <Button
               variant="contained"
-                            onClick={(askedQuestion == true) ? handleSendQuestion : null}
+              onClick={(askedQuestion == true) ? handleSendQuestion : null}
 
               style={gridItem2}
             >{getSuggestionQuestion(3)}</Button>
@@ -318,7 +319,6 @@ const Chatbot = ({ selectedImage, chatbotShow, setChatbotShow }) => {
           position: 'fixed',
           bottom: '4vh',
           left: '25%',
-          // padding: '16px',
           height: '92vh',
           width: '50vw',
           backgroundColor: '#2f3738',
@@ -330,10 +330,10 @@ const Chatbot = ({ selectedImage, chatbotShow, setChatbotShow }) => {
             {/* a Box to contain four suggestion questions in boxes */}
             <Typography style={{
               maxHeight: '100vh',
-              height: '72vh',
+              height: '70vh',
               overflowY: 'auto',
-              marginBottom: '8px',
-              padding: '16px',
+              marginBottom: '1vh',
+              padding: '2vh',
             }}>
               <Typography style={{
                 textAlign: 'center',
@@ -351,8 +351,8 @@ const Chatbot = ({ selectedImage, chatbotShow, setChatbotShow }) => {
                 borderRadius: "10px",
               }}>
                 <img src={selectedImage} style={{
-                  maxWidth: "350px",
-                  maxHeight: "350px",
+                  maxWidth: "35vw",
+                  maxHeight: "35vh",
                   borderRadius: "10px",
                 }} />
               </Box>
@@ -369,7 +369,7 @@ const Chatbot = ({ selectedImage, chatbotShow, setChatbotShow }) => {
                 textAlign: "center",
                 display: "grid",
                 gridTemplateColumns: 'repeat(2, 1fr)',
-                gap: "10px",
+                gap: "1vh",
               }}>
                 <Box>
                   <Button
@@ -418,12 +418,23 @@ const Chatbot = ({ selectedImage, chatbotShow, setChatbotShow }) => {
             }} variant="h3">BayMax</Typography>
             <Box
               ref={chatContainerRef}
-              style={{
-                maxHeight: '90vh',
-                height: '63vh',
+              sx={{
+                // maxHeight: '90vh',
+                [theme.breakpoints.up('sm')]: {
+                  height: '55vh',
+                },
+                [theme.breakpoints.up('md')]: {
+                  height: '55vh',
+                },
+                [theme.breakpoints.up('lg')]: {
+                  height: '55vh',
+                },
+                [theme.breakpoints.up('xl')]: {
+                  height: '59vh',
+                },
                 overflowY: 'auto',
-                marginBottom: '8px',
-                padding: '16px',
+                marginBottom: '1vh',
+                padding: '2vh',
               }}
             >
 
@@ -433,7 +444,7 @@ const Chatbot = ({ selectedImage, chatbotShow, setChatbotShow }) => {
                   style={{
                     display: 'flex',
                     justifyContent: message.isUser ? 'flex-start' : 'flex-start',
-                    marginBottom: '8px',
+                    marginBottom: '1vh',
                   }}
                 >
                   {/* {message.isSuggestion ?
@@ -452,8 +463,8 @@ const Chatbot = ({ selectedImage, chatbotShow, setChatbotShow }) => {
                   <Typography
                     variant="body1"
                     style={{
-                      padding: '10px',
-                      borderRadius: '8px',
+                      padding: '1vh',
+                      borderRadius: '1vh',
                       backgroundColor: message.isUser ? 'rgb(105 123 124)' : 'rgb(111 117 130)',
                       marginBottom: message.isUser ? '0px' : '16px',
                       color: '#F0EAD6',
@@ -496,19 +507,19 @@ const Chatbot = ({ selectedImage, chatbotShow, setChatbotShow }) => {
                 handleSendQuestion();
               }
             }}
-            style={{ marginTop: '16px', color: '#F0EAD6' }}
+            style={{ marginTop: '2vh', color: '#F0EAD6' }}
           />
-          <Button variant='contained' style={{
+          <MicIcon variant='contained' style={{
             position: 'relative',
             top: '-5vh',
             left: '46vw',
             // padding: '8px',
-            height: '40px',
-            width: '40px',
-            backgroundColor: '#3D4849',
-          }} onClick={handleSpeechRecognition}>
-            <MicIcon />
-          </Button>
+            height: '4.5vh',
+            width: '2vw',
+            backgroundColor: 'transparent',
+          }} onClick={handleSpeechRecognition} />
+          {/* <MicIcon /> */}
+          {/* </Button> */}
         </Box>
         <Button
           variant="contained"
@@ -516,10 +527,10 @@ const Chatbot = ({ selectedImage, chatbotShow, setChatbotShow }) => {
           disabled={!userInput}
           style={{
             position: 'relative',
-            top: '-3vh',
+            top: '-4.5vh',
             left: '-0.5vw',
             margin: '10px',
-            marginLeft: '16px',
+            marginLeft: '2vh',
             color: '#F0EAD6',
             backgroundColor: userInput ? 'rgb(128 149 151)' : 'rgb(30 36 36)',
           }}
@@ -527,10 +538,10 @@ const Chatbot = ({ selectedImage, chatbotShow, setChatbotShow }) => {
           Send
         </Button>
         <div claasName="box" style={{
-          width: '50px',
-          height: '50px',
+          width: '5vh',
+          height: '5vh',
           position: 'relative',
-          top: '-9vh',
+          top: '-10vh',
           left: '46.5vw',
           borderRadius: '5px',
         }}>

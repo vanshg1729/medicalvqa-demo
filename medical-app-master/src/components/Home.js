@@ -49,7 +49,7 @@ const App = () => {
                     position: 'relative',
                     border: selectedImage === image ? '7px solid red' : 'none',
                     borderRadius: '10px',
-                    overflow: 'hidden',
+                    // overflow: 'hidden',
                     marginBottom: '-50px', // Add spacing between images
                   }}
                 >
