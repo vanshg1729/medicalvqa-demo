@@ -11,6 +11,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "base-64": "^1.0.0",
+    "keyword-extractor": "^0.0.25",
     "react": "^18.2.0",
     "react-axios": "^2.0.6",
     "react-router-dom": "^6.10.0",
@@ -20,6 +21,7 @@
     "spacy-nlp": "github:jeffreyflynt/spacy-nlp",
     "string-similarity": "^4.0.4",
     "styled-components": "^5.3.9",
+    "util": "^0.12.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

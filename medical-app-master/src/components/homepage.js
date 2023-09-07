@@ -1,5 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Chat from './Chatbot'
+import { Box, TextField, Button, Paper, Typography } from '@mui/material';
+
+import data from './data.json';
+
 import './homepage.css'
 
 import image1 from './image1.png'
@@ -13,11 +17,15 @@ import image8 from './image8.png'
 import image9 from './image9.png'
 
 const Homepage = () => {
-
     const [chatbotShow, setChatbotShow] = useState(false)
     const [selectedImage, setSelectedImage] = useState("")
+    const [displayImage, setDisplayImage] = useState([image1, image2, image3, image4, image5, image6, image7, image8, image9])
+    const [tagSearch, setTagSearch] = useState("")
+    const [loading, setLoading] = useState(false);
 
     const chatbotShowRef = useRef(false);
+
+    const imgList = [image1, image2, image3, image4, image5, image6, image7, image8, image9]
 
     useEffect(() => {
 
@@ -27,7 +35,7 @@ const Homepage = () => {
             track.dataset.mouseDownAt = e.clientX;
             if (e.target.classList.contains("image")) {
                 setSelectedImage(e.target.src)
-                console.log(e.target.src, "here")
+                // console.log(e.target.src, "here")
                 setChatbotShow(true)
                 chatbotShowRef.current = true;
             }
@@ -56,11 +64,6 @@ const Homepage = () => {
                 transform: `translate(${nextPercentage}%, -50%)`
             }, { duration: 1200, fill: "forwards" });
 
-            // for (const image of track.getElementsByClassName("image")) {
-            //     image.animate({
-            //         objectPosition: `${100 + nextPercentage - 48}% center`
-            //     }, { duration: 1200, fill: "forwards" });
-            // }
         }
 
         function resetScrollPosition() {
@@ -72,7 +75,7 @@ const Homepage = () => {
             if (event.deltaY === 0) return;
             if (!chatbotShowRef.current) {
                 event.preventDefault();
-                console.log(event.deltaY);
+                // console.log(event.deltaY);
                 // now with this i want to achieve the same thing as we did with the mousemove event
                 // so we do the following
 
@@ -116,32 +119,34 @@ const Homepage = () => {
 
         window.addEventListener('wheel', preventScrolling, { passive: false });
 
-        // window.onload = () => {
-        //     for (const image of track.getElementsByClassName("image")) {
-        //         image.animate({
-        //             objectPosition: `${100 - 48}% center`
-        //         }, { duration: 1200, fill: "forwards" });
-        //     }
-        // }
-
 
     }, [])
 
+    const handleInputChangeTag = (e) => {
+        setTagSearch(e.target.value)
+    }
 
-    // const handleHover = (e) => {
-    //     // Apply the transformation on hover
-    //     console.log(e, "e")
-    //     // e.transform = 'scale(1.1)'; // You can adjust the scaling factor to control the pop-out effect
-    // };
-
-    // const handleMouseLeave = (e) => {
-    //     // Reset the transformation when the mouse leaves the image
-    //     console.log(e, "e")
-    //     // e.transform = 'scale(1)';
-    // };
+    const handleSendQuestionTag = () => {
+        if (tagSearch === "") {
+            setDisplayImage(imgList)
+        }
+        else {
+            setTimeout(() => {
+                const newDisplayImage = []
+                for (let i = 0; i < data.images.length; i++) {
+                    for (let j = 0; j < data.images[i].tags.length; j++) {
+                        if (data.images[i].tags[j].includes(tagSearch)) {
+                            newDisplayImage.push(imgList[i])
+                            break;
+                        }
+                    }
+                }
+                setDisplayImage(newDisplayImage)
+            }, 1500);
+        }
+    }
 
     return (
-        // <Chat selectedImage={"/static/media/image1.09b4704f81318845d419.png"} />
         <>
             <Chat selectedImage={selectedImage} chatbotShow={chatbotShow} setChatbotShow={setChatbotShow} />
             <div style={{
@@ -155,16 +160,52 @@ const Homepage = () => {
                     <div className="heading1">BayMax</div>
                     <div className="heading2">Please select an image to ask questions related to that image</div>
                 </div>
+
+                <TextField
+                    fullWidth
+                    variant="outlined"
+                    label="Search By Tag"
+                    InputLabelProps={{
+                        style: {
+                            color: '#F0EAD6',
+                        },
+                    }}
+                    inputProps={{
+                        style: {
+                            color: '#F0EAD6',
+                        },
+                    }}
+                    value={tagSearch}
+                    onChange={handleInputChangeTag}
+                    onKeyPress={(event) => {
+                        if (event.key === 'Enter') {
+                            handleSendQuestionTag();
+                            // if not empty, then only do this
+                            if (tagSearch !== "") {
+                                setLoading(true);
+                                setTimeout(() => {
+                                    setLoading(false);
+                                }, 1500);
+                            }
+                        }
+                    }}
+                    style={{ position: 'absolute', color: '#F0EAD6', border: '2px solid darkgrey', top: '90vh', width: '40vw', left: '30vw', backgroundColor: 'transparent' }}
+                />
+                {loading ?
+                    <div className="blue-loader-container">
+                        <div className="blue-loader"></div>
+                    </div>
+                    : null}
+
                 <div id="image-track" data-mouse-down-at="0" data-prev-percentage="0">
-                    <img className="image" src={image1} draggable="false" />
-                    <img className="image" src={image2} draggable="false" />
-                    <img className="image" src={image3} draggable="false" />
-                    <img className="image" src={image4} draggable="false" />
-                    <img className="image" src={image5} draggable="false" />
-                    <img className="image" src={image6} draggable="false" />
-                    <img className="image" src={image7} draggable="false" />
-                    <img className="image" src={image8} draggable="false" />
-                    <img className="image" src={image9} draggable="false" />
+                    {
+                        displayImage.map((image, index) => {
+                            return (
+                                <img key={index} className="image" src={image} draggable="false" />
+                            )
+                        }
+                        )
+                    }
                 </div>
             </div>
         </>

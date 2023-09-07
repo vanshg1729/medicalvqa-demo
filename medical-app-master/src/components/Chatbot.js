@@ -114,12 +114,30 @@ const Chatbot = ({ selectedImage, chatbotShow, setChatbotShow }) => {
       imageIdWithExtension = imageName.split('/').pop().split('.')[0] + '.' + imageName.split('/').pop().split('.')[2];
     }
     console.log(selectedImage, 'imageIdWithExtension');
+
+
+
+    const keywordExtractor = require("keyword-extractor");
+
+    const text = "This is an example sentence, and we want to extract important keywords from it.";
+    // console.log(userQuestion, "the user question")
+    const keywords = keywordExtractor.extract(userQuestion, {
+      language: "english",
+      remove_digits: true,
+      return_changed_case: true,
+      remove_duplicates: true,
+    });
+    // converting the keywords array into a string
+    var keywordsString = keywords.join(" ");
+    console.log(keywordsString, "the keywords");
+
+
     const response = await fetch('https://nicemedvqa.onrender.com/api/answer', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ question: userQuestion, selectedImage: imageIdWithExtension }),
+      body: JSON.stringify({ question: keywordsString, selectedImage: imageIdWithExtension }),
     });
     console.log("response recieved");
 
@@ -351,8 +369,8 @@ const Chatbot = ({ selectedImage, chatbotShow, setChatbotShow }) => {
                 borderRadius: "10px",
               }}>
                 <img src={selectedImage} style={{
-                  maxWidth: "35vw",
-                  maxHeight: "35vh",
+                  maxWidth: "33vw",
+                  maxHeight: "33vh",
                   borderRadius: "10px",
                 }} />
               </Box>
@@ -507,7 +525,7 @@ const Chatbot = ({ selectedImage, chatbotShow, setChatbotShow }) => {
                 handleSendQuestion();
               }
             }}
-            style={{ marginTop: '2vh', color: '#F0EAD6' }}
+            style={{ marginTop: '2vh', color: '#F0EAD6', border: '2px solid darkgrey' }}
           />
           <MicIcon variant='contained' style={{
             position: 'relative',
@@ -537,7 +555,7 @@ const Chatbot = ({ selectedImage, chatbotShow, setChatbotShow }) => {
         >
           Send
         </Button>
-        <div claasName="box" style={{
+        <div className="box" style={{
           width: '5vh',
           height: '5vh',
           position: 'relative',

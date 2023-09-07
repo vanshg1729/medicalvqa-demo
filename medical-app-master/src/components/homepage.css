@@ -14,7 +14,7 @@ body {
     gap: 4vmin;
     position: absolute;
     left: 2%;
-    top: 60%;
+    top: 55%;
     transform: translate(0%, -50%);
     user-select: none;
     /* -- Prevent image highlighting -- */
@@ -54,16 +54,16 @@ body {
     position: absolute;
     top: 0vh;
     font-size: 5rem;
-    margin-top: 5vh;
+    margin-top: 4vh;
     padding: 0;
     letter-spacing: 0.4rem;
 }
 
 .heading2 {
     position: absolute;
-    top: 15vh;
+    top: 17vh;
     font-size: 3rem;
-    margin: 5vh;
+    margin: -1vh;
     padding: 0;
 }
 
@@ -91,5 +91,34 @@ body {
 
     100% {
         opacity: 1;
+    }
+}
+
+.blue-loader-container {
+    position: absolute;
+    top: 25.5vh;
+    left: 71vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* height: 100vh; */
+}
+
+.blue-loader {
+    border: 6px solid #007bff;
+    border-top: 6px solid transparent;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
     }
 }
