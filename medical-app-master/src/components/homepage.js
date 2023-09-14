@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Chat from './Chatbot'
 import { Box, TextField, Button, Paper, Typography } from '@mui/material';
+import Autocomplete from '@mui/material/Autocomplete';
+
 
 import data from './data.json';
 
@@ -20,7 +22,7 @@ const Homepage = () => {
     const [chatbotShow, setChatbotShow] = useState(false)
     const [selectedImage, setSelectedImage] = useState("")
     const [displayImage, setDisplayImage] = useState([image1, image2, image3, image4, image5, image6, image7, image8, image9])
-    const [tagSearch, setTagSearch] = useState("")
+    // const [tagSearch, setTagSearch] = useState("")
     const [loading, setLoading] = useState(false);
 
     const chatbotShowRef = useRef(false);
@@ -122,25 +124,45 @@ const Homepage = () => {
 
     }, [])
 
-    const handleInputChangeTag = (e) => {
-        setTagSearch(e.target.value)
-    }
+    const [selectedTags, setSelectedTags] = useState([]);
+    const tags = ['image1', 'image2', 'image3', 'image4', 'image5']
+
+    const handleTagSelect = (event, value) => {
+        // we have to set the selected tags to the value
+        setSelectedTags(value);
+    };
 
     const handleSendQuestionTag = () => {
-        if (tagSearch === "") {
-            setDisplayImage(imgList)
+        // selecting unique tags
+        selectedTags.filter((item, index) => selectedTags.indexOf(item) === index)
+        if (selectedTags.length === 0) {
+            alert("Please select a tag")
         }
         else {
             setTimeout(() => {
                 const newDisplayImage = []
                 for (let i = 0; i < data.images.length; i++) {
+                    let check = 0
                     for (let j = 0; j < data.images[i].tags.length; j++) {
-                        if (data.images[i].tags[j].includes(tagSearch)) {
-                            newDisplayImage.push(imgList[i])
-                            break;
+                        for (let k = 0; k < selectedTags.length; k++) {
+                            if ((data.images[i].tags[j].includes(selectedTags[k]))) {
+                                check = 1
+                            }
                         }
                     }
+                    if (check === 1) {
+                        newDisplayImage.push(imgList[i])
+                    }
                 }
+                console.log(newDisplayImage)
+                // for (let i = 0; i < data.images.length; i++) {
+                //     for (let j = 0; j < data.images[i].tags.length; j++) {
+                //         if (data.images[i].tags[j].includes("hi mom")) {
+                //             newDisplayImage.push(imgList[i])
+                //             break;
+                //         }
+                //     }
+                // }
                 setDisplayImage(newDisplayImage)
             }, 1500);
         }
@@ -161,35 +183,33 @@ const Homepage = () => {
                     <div className="heading2">Please select an image to ask questions related to that image</div>
                 </div>
 
-                <TextField
-                    fullWidth
-                    variant="outlined"
-                    label="Search By Tag"
-                    InputLabelProps={{
-                        style: {
-                            color: '#F0EAD6',
-                        },
-                    }}
-                    inputProps={{
-                        style: {
-                            color: '#F0EAD6',
-                        },
-                    }}
-                    value={tagSearch}
-                    onChange={handleInputChangeTag}
-                    onKeyPress={(event) => {
-                        if (event.key === 'Enter') {
-                            handleSendQuestionTag();
-                            // if not empty, then only do this
-                            if (tagSearch !== "") {
-                                setLoading(true);
-                                setTimeout(() => {
-                                    setLoading(false);
-                                }, 1500);
-                            }
-                        }
-                    }}
-                    style={{ position: 'absolute', color: '#F0EAD6', border: '2px solid darkgrey', top: '90vh', width: '40vw', left: '30vw', backgroundColor: 'transparent' }}
+                <Autocomplete
+                    multiple
+                    id="tag-select"
+                    options={tags} // Replace 'tags' with your list of available tags
+                    onChange={handleTagSelect}
+                    renderInput={(params) => (
+                        <TextField
+                            {...params}
+                            label="Search"
+                            variant="outlined"
+                            // value={tagSearch}
+                            // onChange={handleInputChangeTag}
+                            onKeyPress={(event) => {
+                                if (event.key === 'Enter') {
+                                    handleSendQuestionTag();
+                                    // if not empty, then only do this
+                                    // if (tagSearch !== "") {
+                                    //     setLoading(true);
+                                    //     setTimeout(() => {
+                                    //         setLoading(false);
+                                    //     }, 1500);
+                                    // }
+                                }
+                            }}
+                            style={{ position: 'absolute', color: '#F0EAD6', border: '2px solid darkgrey', top: '25vh', width: '40vw', left: '30vw', backgroundColor: 'transparent' }}
+                        />
+                    )}
                 />
                 {loading ?
                     <div className="blue-loader-container">

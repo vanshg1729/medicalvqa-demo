@@ -5,11 +5,7 @@ import React, { useState,useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 // import ResponsiveAppBar from './components/Navbar';
 
-import Home from "./components/Home";
-import VQA from "./components/VQA";
-import Search from "./components/Search";
-import Visualization from "./components/Chatbot";
-import Annotation from "./components/homepage";
+import Homepage from "./components/homepage";
 import { AppStateProvider } from "./AppState";
  
 
@@ -38,7 +34,7 @@ const App = () => {
         <Route path="VQA" element={<VQA />}></Route>
         <Route path="Search" element={<Search/>}></Route>
         <Route path="Visualization" element={<Visualization />}></Route> */}
-        <Route path="/*" element={<Annotation />}></Route>
+        <Route path="/*" element={<Homepage />}></Route>
       </Routes>
     </AppStateProvider>
 
