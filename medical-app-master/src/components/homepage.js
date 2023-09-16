@@ -133,7 +133,7 @@ const Homepage = () => {
     };
 
     const handleSendQuestionTag = () => {
-        // selecting unique tags
+        setLoading(true);
         selectedTags.filter((item, index) => selectedTags.indexOf(item) === index)
         if (selectedTags.length === 0) {
             alert("Please select a tag")
@@ -154,6 +154,7 @@ const Homepage = () => {
                         newDisplayImage.push(imgList[i])
                     }
                 }
+                setLoading(false)
                 console.log(newDisplayImage)
                 // for (let i = 0; i < data.images.length; i++) {
                 //     for (let j = 0; j < data.images[i].tags.length; j++) {
@@ -207,11 +208,11 @@ const Homepage = () => {
                                     // }
                                 }
                             }}
-                            style={{ position: 'absolute', color: '#F0EAD6', border: '2px solid darkgrey', top: '25vh', width: '40vw', left: '30vw', backgroundColor: 'transparent' }}
+                            style={{ position: 'absolute', color: '#F0EAD6', border: '2px solid darkgrey', top: '25vh', width: '40vw', left: '30vw', backgroundColor: '#ffffff4f' }}
                         />
                     )}
                 />
-                {loading ?
+                {console.log(loading, "yeah") || loading ?
                     <div className="blue-loader-container">
                         <div className="blue-loader"></div>
                     </div>
