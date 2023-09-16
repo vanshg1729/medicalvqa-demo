@@ -10,17 +10,17 @@ const MyCard = ({ title, content }) => {
         window.location.href = '/module'; // Replace '/another-page' with your desired URL
     };
     return (
-        <Card sx={{ maxWidth: '25rem', margin: '3rem auto', height: '30rem', backgroundColor: '#f5f5f5d1', fontSize: '1.8rem' }}>
+        <Card sx={{ maxWidth: '25rem', margin: '3rem auto', height: '30rem', backgroundColor: '#f5f5f5d1' }}>
             <CardHeader
-                titleTypographyProps={{ variant: 'h5', style: { fontSize: '2.2rem', fontFamily: '"Bebas Neue", sans-serif' }}}
+                titleTypographyProps={{ variant: 'h5', style: { fontSize: '2.5rem', fontFamily: '"Bebas Neue", sans-serif' }}}
                 title={title}
                 subheader="Created 12/10/22"
             />
             <CardContent>
-                <Typography paragraph style={{ fontSize: '1.1rem' }}>{content}</Typography>
+                <Typography paragraph style={{ fontSize: '1.2rem' }}>{content}</Typography>
             </CardContent>
 
-            <Button variant="contained" onClick={handleNavigation}>
+            <Button style={{ backgroundColor: 'rgb(113 90 90 / 88%)', color: 'white', height: '6vh' }} variant="contained" onClick={handleNavigation}>
                 Learn More
             </Button>
         </Card>

@@ -84,7 +84,7 @@ export default function Modulepage() {
     return (
         <div style={{ fontFamily: '"Bebas Neue", sans-serif' }}>
             <div className="heading">
-                <div className="heading3">BayMax, your personalised healthcare companion</div>
+                <div className="heading3">BayMax! your personalised healthcare companion</div>
                 <div className="heading4">Choose the module you want to explore</div>
             </div>
             <div className="modules">
