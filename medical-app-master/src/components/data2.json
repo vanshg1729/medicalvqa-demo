@@ -1,0 +1,210 @@
+{
+    "images": [
+        {
+            "image": "image1.jpg",
+            "tags": [
+                "First trimester",
+                "Uterine Artery Doppler"
+            ],
+            "questions": [
+                {
+                    "question": "First-trimester uterine artery evaluation- WHY at 11 + 0 to 13 + 6 weeks?",
+                    "answer": "This is a common time for first-trimester ultrasound examination in many countries to look for early signs of potential fetal abnormalities, and therefore practical in terms of logistics.\nEarlier assessment has not been studied extensively because trophoblast invasion is not yet sufficiently advanced as to be assessable.\n11-13+6 weeks is also an optimal period for risk assessment for preterm preeclampsia and fetal growth restriction and to initiate preventative therapy with low dose aspirin"
+                },
+                {
+                    "question": "Transabdominal technique",
+                    "answer": "Transabdominally, a mid-sagittal section of the uterus is obtained, and the cervical canal is identified.\nThe probe is then moved laterally until the paracervical vascular plexus is seen.\nColor Doppler is turned on and the uterine artery is identified as it turns cranially, to make its ascent to the uterine body.\nSample Volume -2mm,  Angle of Insonation <30 degrees. Measurements are taken at the point before the uterine artery branches into the arcuate arteries.\nAs the PSV decreases from the uterine to the arcuate arteries, a measurement of PSV < 5th centile (60 cm/s should prompt the operator to verify carefully the placement of the sample volume.\nDoppler horizontal sweep speed should be fast enough to separate successive waveforms. Ideal is a display of four to six (but no more than eight to 10) complete cardiac cycles. For fetal heart rates of 110-150 bpm, a sweep speed of 50-100 mm/s is adequate. The PI is measured when at least three identical waveforms are obtained. (ISUOG)."
+                },
+                {
+                    "question": "Screening",
+                    "answer": "Screening by first-trimester uterine artery PI > 90th centile detects 48%(7.9% FPR) of women who will develop early PE,  26%(6.6 %FPR) of those who will develop any PE, for a 10% screen-positive rate and  39.2% of cases of early fetal growth restriction (6.7% FPR) (ISUOG)."
+                },
+                {
+                    "question": "Why PI is more in TVS?",
+                    "answer": "Close proximity to the probe. Angle of insonation is less."
+                },
+                {
+                    "question": "Factors Affecting Uterine Artery PI",
+                    "answer": "Uterine artery PI may be affected by maternal factors, including ethnic origin (African origin is associated with increased PI), BMI (decreasing PI with increasing BMI) and previous PE (associated with increased PI).First trimester uterine artery PI should be expressed as multiples of the median (MoM) rather than absolute values."
+                },
+                {
+                    "question": "Bilateral Notching",
+                    "answer": "Bilateral notching may be observed in around 50% of pregnant women at 11 + 0 to 13 + 6 weeks. This marker therefore has a very low specificity for PE."
+                }
+            ]
+        },
+        {
+            "image": "image2.jpg",
+            "tags": [
+                "Frontal Bone",
+                "Nasal Bone",
+                "Frontal Bone",
+                "Nasal Bone",
+                "Callosal sulcus",
+                "Corpus Callosum",
+                "Parieto occipital sulcus",
+                "Cerebellum",
+                "Cisterna Magna",
+                "Hard Palate",
+                "Thalamus and Brainstem"
+            ],
+            "questions": [
+                {
+                    "question": "Frontal bone",
+                    "answer": "To look at the *ossification* . If hypomineralization present, can think of hypophosphatemia and other conditions.\nAnd also to look at the *slope of the forehead* . It can be mainly constitutional. Sometimes flat forehead could be seen in case of craniosynostosis"
+                },
+                {
+                    "question": "Nasal bone",
+                    "answer": "Whether present or absent (ossified or not ossified)\nAlso the length to be assessed for which nomograms are present.Nasal bone can be hypoplastic or unossified in trisomy 21"
+                },
+                {
+                    "question": "Callosal sulcus",
+                    "answer": "Indirect sign that corpus callosum is present"
+                },
+                {
+                    "question": "Corpus callosum",
+                    "answer": "Better section is the sagittal section as seen here. To rule out corpus callosal agenesis / dysgenesis - continuity of the entire length of corpus callosum can be seen"
+                },
+                {
+                    "question": "CSP - cavum septum pellucidum - CSF space",
+                    "answer": "A very important landmark in assessing for certain midline anomalies. When absent, can suggest septo optic dysplasia and septal agenesis."
+                },
+                {
+                    "question": "Parieto occipital sulcus",
+                    "answer": "Basically parieto occipital sulcus and sylvian fissure, tend to change in their shape during pregnancy. It is important to note the shape and corresponding gestational age because certain developing cortical sulcation anomalies like lissencephaly (absent sulcation). The shapes are usually noted well in the axial sections."
+                },
+                {
+                    "question": "Cerebellum",
+                    "answer": "kidney shaped in sagittal section. Hyperechoic (bright) vermis is the most important structure to tell we are in true midline and also rules out certain Cerebellar anomalies like vermian hypoplasia."
+                },
+                {
+                    "question": "Cisterna magna",
+                    "answer": "most prominent subarachnoid cistern. Size is important. Variant like mega cisterna magna maybe present. And it is pathologically large when there is cerebellar hypoplasia."
+                },
+                {
+                    "question": "Hard palate",
+                    "answer": "continuity of hard palate to be seen(seen as a rectangular box).Discontinuity signifies a cleft palate."
+                },
+                {
+                    "question": "Thalamus and brainstem",
+                    "answer": "Hypoechoic (grey) structures seen superior-anterior to Cerebellum."
+                }
+            ]
+        },
+        {
+            "image": "image3.jpg",
+            "tags": [
+                "Persistent right umbilical vein"
+            ],
+            "questions": [
+                {
+                    "question": "PERSISTENT RIGHT UMBILICAL VEIN",
+                    "answer": "Relatively frequent: 1:500/1200.\nIt can be intra- or extrahepatic. The former is much commoner (about 95% of cases)."
+                },
+                {
+                    "question": "Embryology",
+                    "answer": "The right UV starts obliterating around the fourth week of pregnancy, and it disappears by the seventh week of gestation. In the vast majority of cases, it replaces the left UV; in a few cases, it is found as a supernumerary vein."
+                },
+                {
+                    "question": "Ultrasound diagnosis",
+                    "answer": "The US appearance is characteristic. US finding of PRUV is an indication for a targeted fetal sonography.\nUV curving to the left and toward the stomach, usually connecting to the right portal vein rather than to the left portal vein.\nThe gallbladder will be on the left of the UV (between the stomach and the UV)\nIt may bypass the liver and portal system (extrahepatic type) and may abnormally drain into the IVC or directly into the fetal heart."
+                },
+                {
+                    "question": "Associated anomalies",
+                    "answer": "Seen in 25% of cases\nGastrointestinal malformations, heart anomalies, urinary tract malformations, and single umbilical artery have been reported in association with PRUV."
+                },
+                {
+                    "question": "Risk of chromosomal anomalies",
+                    "answer": "When associated with other anomalies, an underlying chromosomal abnormalities in 8% of cases has been reported. Low, if isolated."
+                },
+                {
+                    "question": "Risk of nonchromosomal syndromes",
+                    "answer": "Relatively high in cases of extrahepatic type of PRUV, which is commonly associated with other anomalies. Low, if isolated"
+                },
+                {
+                    "question": "Prognosis, survival, and quality of life",
+                    "answer": "When isolated and connected to the portal system, PRUV represents a normal anatomical variant.\nBad prognostic signs : Associated anomalies and abnormal draining (extrahepatic type of PRUV) into the fetal heart or IVC.\nPostnatal therapy-None is needed, if isolated."
+                }
+            ]
+        },
+        {
+            "image": "image4.jpg",
+            "tags": [
+                "Normal brain at 11-13 weeks",
+                "Pons",
+                "Midbrain",
+                "Fourth ventricle",
+                "NT",
+                "Nuchal Membrane",
+                "Cisterna Magna"
+            ],
+            "questions": []
+        },
+        {
+            "image": "image5.jpg",
+            "tags": [
+                "Midline Echo"
+            ],
+            "questions": []
+        },
+        {
+            "image": "image6.jpg",
+            "tags": [
+                "Inferior facial angle"
+            ],
+            "questions": [
+                {
+                    "question": "Inferior facial angle",
+                    "answer": "The angle at the intersection of a line drawn perpendicularly to the vertical part of the frontal bone at the level of the nasal bone synostosis and the line drawn from the tip of the mentum and the anterior border of the more protruding lip—An IFA < 50° is considered abnormal"
+                }
+            ]
+        },
+        {
+            "image": "image7.jpg",
+            "tags": [
+                "Frontonasal angle",
+                "Fronto nasal angle"
+            ],
+            "questions": [
+                {
+                    "question": "Fronto nasal angle",
+                    "answer": "Normal - 135 - 162° Abnormal - Reduced in Trisomy 21"
+                }
+            ]
+        },
+        {
+            "image": "image8.jpg",
+            "tags": [
+                "Frontomaxillary Facial Angle",
+                "Frontonasal angle"
+            ],
+            "questions": [
+                {
+                    "question": "Frontomaxillary facial (FMF) angle",
+                    "answer": "he angle between the upper surface of the upper palate and the frontal bone.\nNormal is 85° ± 10 °\nAbnormal in trisomy 21"
+                },
+                {
+                    "question": "Fronto nasal angle",
+                    "answer": "Normal - 135 - 143°\nAbnormal - Reduced in Trisomy 21"
+                }
+            ]
+        },
+        {
+            "image": "image9.jpg",
+            "tags": [
+                "Frontomaxillary Facial Angle",
+                "Mandibulo-maxillary angle"
+            ],
+            "questions": [
+                {
+                    "question": "Frontomaxillary facial (FMF) angle",
+                    "answer": "It is the angle between the upper surface of the upper palate and the frontal bone.\nNormal is 85° ± 10 °\nAbnormal in trisomy 21"
+                },
+                {
+                    "question": "Mandibulo - maxillary angle",
+                    "answer": "The first arm of the angle was drawn along the upper surface of the palate. The second arm drawn downwards and positioned so that the inner aspect of the line was in line with the upper anterior corner of the mandible.\nNormal - 11-13°. \nAbnormal - in trisomy 18"
+                }
+            ]
+        }
+    ]
+}
