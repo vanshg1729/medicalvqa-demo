@@ -6,7 +6,7 @@ body {
     width: 100vw;
     background-color: #2f3738;
     margin: 0rem;
-    overflow: hidden;
+    overflow-x: hidden; /* -- Changed this specifically for the module page-- */
 }
 
 #image-track {
@@ -14,7 +14,7 @@ body {
     gap: 4vmin;
     position: absolute;
     left: 2%;
-    top: 55%;
+    top: 65%;
     transform: translate(0%, -50%);
     user-select: none;
     /* -- Prevent image highlighting -- */
@@ -65,6 +65,32 @@ body {
     font-size: 3rem;
     margin: -1vh;
     padding: 0;
+}
+
+.heading3 {
+    position: absolute;
+    top: 0vh;
+    font-size: 5rem;
+    margin-top: 7vh;
+    padding: 0;
+    letter-spacing: 0.4rem;
+}
+
+.heading4 {
+    position: absolute;
+    top: 22vh;
+    font-size: 3.5rem;
+    margin: -1vh;
+    padding: 0;
+}
+
+.modules {
+    position: absolute;
+    top: 21vh;
+}
+
+.card-container {
+    margin: 5vw;
 }
 
 #redDot {
