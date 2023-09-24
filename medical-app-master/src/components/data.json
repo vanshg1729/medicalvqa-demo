@@ -1,418 +1,210 @@
 {
-  "images": [
-    {
-      "image": "image1.png",
-      "tags": ["image1", "image1+1"],
-      "questions": [
+    "images": [
         {
-          "question": "How does a CT scan work?",
-          "answer": "CT scans use X-rays and computer processing to generate detailed cross-sectional images of the body."
+            "image": "image1.png",
+            "tags": [
+                "First trimester",
+                "Uterine Artery Doppler"
+            ],
+            "questions": [
+                {
+                    "question": "First-trimester uterine artery evaluation- WHY at 11 + 0 to 13 + 6 weeks?",
+                    "answer": "This is a common time for first-trimester ultrasound examination in many countries to look for early signs of potential fetal abnormalities, and therefore practical in terms of logistics.\nEarlier assessment has not been studied extensively because trophoblast invasion is not yet sufficiently advanced as to be assessable.\n11-13+6 weeks is also an optimal period for risk assessment for preterm preeclampsia and fetal growth restriction and to initiate preventative therapy with low dose aspirin"
+                },
+                {
+                    "question": "Transabdominal technique",
+                    "answer": "Transabdominally, a mid-sagittal section of the uterus is obtained, and the cervical canal is identified.\nThe probe is then moved laterally until the paracervical vascular plexus is seen.\nColor Doppler is turned on and the uterine artery is identified as it turns cranially, to make its ascent to the uterine body.\nSample Volume -2mm,  Angle of Insonation <30 degrees. Measurements are taken at the point before the uterine artery branches into the arcuate arteries.\nAs the PSV decreases from the uterine to the arcuate arteries, a measurement of PSV < 5th centile (60 cm/s should prompt the operator to verify carefully the placement of the sample volume.\nDoppler horizontal sweep speed should be fast enough to separate successive waveforms. Ideal is a display of four to six (but no more than eight to 10) complete cardiac cycles. For fetal heart rates of 110-150 bpm, a sweep speed of 50-100 mm/s is adequate. The PI is measured when at least three identical waveforms are obtained. (ISUOG)."
+                },
+                {
+                    "question": "Screening",
+                    "answer": "Screening by first-trimester uterine artery PI > 90th centile detects 48%(7.9% FPR) of women who will develop early PE,  26%(6.6 %FPR) of those who will develop any PE, for a 10% screen-positive rate and  39.2% of cases of early fetal growth restriction (6.7% FPR) (ISUOG)."
+                },
+                {
+                    "question": "Why PI is more in TVS?",
+                    "answer": "Close proximity to the probe. Angle of insonation is less."
+                },
+                {
+                    "question": "Factors Affecting Uterine Artery PI",
+                    "answer": "Uterine artery PI may be affected by maternal factors, including ethnic origin (African origin is associated with increased PI), BMI (decreasing PI with increasing BMI) and previous PE (associated with increased PI).First trimester uterine artery PI should be expressed as multiples of the median (MoM) rather than absolute values."
+                },
+                {
+                    "question": "Bilateral Notching",
+                    "answer": "Bilateral notching may be observed in around 50% of pregnant women at 11 + 0 to 13 + 6 weeks. This marker therefore has a very low specificity for PE."
+                }
+            ]
         },
         {
-          "question": "Is a CT scan a painful procedure?",
-          "answer": "No, CT scans are painless. You may need to lie still during the scan, but it's not typically uncomfortable."
+            "image": "image2.png",
+            "tags": [
+                "Frontal Bone",
+                "Nasal Bone",
+                "Frontal Bone",
+                "Nasal Bone",
+                "Callosal sulcus",
+                "Corpus Callosum",
+                "Parieto occipital sulcus",
+                "Cerebellum",
+                "Cisterna Magna",
+                "Hard Palate",
+                "Thalamus and Brainstem"
+            ],
+            "questions": [
+                {
+                    "question": "Frontal bone",
+                    "answer": "To look at the *ossification* . If hypomineralization present, can think of hypophosphatemia and other conditions.\nAnd also to look at the *slope of the forehead* . It can be mainly constitutional. Sometimes flat forehead could be seen in case of craniosynostosis"
+                },
+                {
+                    "question": "Nasal bone",
+                    "answer": "Whether present or absent (ossified or not ossified)\nAlso the length to be assessed for which nomograms are present.Nasal bone can be hypoplastic or unossified in trisomy 21"
+                },
+                {
+                    "question": "Callosal sulcus",
+                    "answer": "Indirect sign that corpus callosum is present"
+                },
+                {
+                    "question": "Corpus callosum",
+                    "answer": "Better section is the sagittal section as seen here. To rule out corpus callosal agenesis / dysgenesis - continuity of the entire length of corpus callosum can be seen"
+                },
+                {
+                    "question": "CSP - cavum septum pellucidum - CSF space",
+                    "answer": "A very important landmark in assessing for certain midline anomalies. When absent, can suggest septo optic dysplasia and septal agenesis."
+                },
+                {
+                    "question": "Parieto occipital sulcus",
+                    "answer": "Basically parieto occipital sulcus and sylvian fissure, tend to change in their shape during pregnancy. It is important to note the shape and corresponding gestational age because certain developing cortical sulcation anomalies like lissencephaly (absent sulcation). The shapes are usually noted well in the axial sections."
+                },
+                {
+                    "question": "Cerebellum",
+                    "answer": "kidney shaped in sagittal section. Hyperechoic (bright) vermis is the most important structure to tell we are in true midline and also rules out certain Cerebellar anomalies like vermian hypoplasia."
+                },
+                {
+                    "question": "Cisterna magna",
+                    "answer": "most prominent subarachnoid cistern. Size is important. Variant like mega cisterna magna maybe present. And it is pathologically large when there is cerebellar hypoplasia."
+                },
+                {
+                    "question": "Hard palate",
+                    "answer": "continuity of hard palate to be seen(seen as a rectangular box).Discontinuity signifies a cleft palate."
+                },
+                {
+                    "question": "Thalamus and brainstem",
+                    "answer": "Hypoechoic (grey) structures seen superior-anterior to Cerebellum."
+                }
+            ]
         },
         {
-          "question": "When is contrast dye used in a CT scan?",
-          "answer": "Contrast dye may be used to enhance the visibility of certain tissues or blood vessels during a CT scan."
+            "image": "image3.png",
+            "tags": [
+                "Persistent right umbilical vein"
+            ],
+            "questions": [
+                {
+                    "question": "PERSISTENT RIGHT UMBILICAL VEIN",
+                    "answer": "Relatively frequent: 1:500/1200.\nIt can be intra- or extrahepatic. The former is much commoner (about 95% of cases)."
+                },
+                {
+                    "question": "Embryology",
+                    "answer": "The right UV starts obliterating around the fourth week of pregnancy, and it disappears by the seventh week of gestation. In the vast majority of cases, it replaces the left UV; in a few cases, it is found as a supernumerary vein."
+                },
+                {
+                    "question": "Ultrasound diagnosis",
+                    "answer": "The US appearance is characteristic. US finding of PRUV is an indication for a targeted fetal sonography.\nUV curving to the left and toward the stomach, usually connecting to the right portal vein rather than to the left portal vein.\nThe gallbladder will be on the left of the UV (between the stomach and the UV)\nIt may bypass the liver and portal system (extrahepatic type) and may abnormally drain into the IVC or directly into the fetal heart."
+                },
+                {
+                    "question": "Associated anomalies",
+                    "answer": "Seen in 25% of cases\nGastrointestinal malformations, heart anomalies, urinary tract malformations, and single umbilical artery have been reported in association with PRUV."
+                },
+                {
+                    "question": "Risk of chromosomal anomalies",
+                    "answer": "When associated with other anomalies, an underlying chromosomal abnormalities in 8% of cases has been reported. Low, if isolated."
+                },
+                {
+                    "question": "Risk of nonchromosomal syndromes",
+                    "answer": "Relatively high in cases of extrahepatic type of PRUV, which is commonly associated with other anomalies. Low, if isolated"
+                },
+                {
+                    "question": "Prognosis, survival, and quality of life",
+                    "answer": "When isolated and connected to the portal system, PRUV represents a normal anatomical variant.\nBad prognostic signs : Associated anomalies and abnormal draining (extrahepatic type of PRUV) into the fetal heart or IVC.\nPostnatal therapy-None is needed, if isolated."
+                }
+            ]
         },
         {
-          "question": "What does CT stand for?",
-          "answer": "CT stands for Computed Tomography."
+            "image": "image4.png",
+            "tags": [
+                "Normal brain at 11-13 weeks",
+                "Pons",
+                "Midbrain",
+                "Fourth ventricle",
+                "NT",
+                "Nuchal Membrane",
+                "Cisterna Magna"
+            ],
+            "questions": []
         },
         {
-          "question": "What are the common uses of CT scans?",
-          "answer": "CT scans are commonly used to diagnose and monitor conditions like fractures, tumors, infections, and internal injuries."
+            "image": "image5.png",
+            "tags": [
+                "Midline Echo"
+            ],
+            "questions": []
         },
         {
-          "question": "Are there any risks associated with CT scans?",
-          "answer": "CT scans involve exposure to X-rays, so there is a small risk of radiation. However, the benefits usually outweigh the risks in medical situations."
+            "image": "image6.png",
+            "tags": [
+                "Inferior facial angle"
+            ],
+            "questions": [
+                {
+                    "question": "Inferior facial angle",
+                    "answer": "The angle at the intersection of a line drawn perpendicularly to the vertical part of the frontal bone at the level of the nasal bone synostosis and the line drawn from the tip of the mentum and the anterior border of the more protruding lip—An IFA < 50° is considered abnormal"
+                }
+            ]
         },
         {
-          "question": "How long does a typical CT scan take?",
-          "answer": "The duration of a CT scan varies, but it usually takes only a few minutes to complete."
+            "image": "image7.png",
+            "tags": [
+                "Frontonasal angle",
+                "Fronto nasal angle"
+            ],
+            "questions": [
+                {
+                    "question": "Fronto nasal angle",
+                    "answer": "Normal - 135 - 162° Abnormal - Reduced in Trisomy 21"
+                }
+            ]
         },
         {
-          "question": "Can CT scans be performed on pregnant women?",
-          "answer": "CT scans are generally avoided during pregnancy, especially in the early stages, due to the potential risk of radiation to the developing fetus."
+            "image": "image8.png",
+            "tags": [
+                "Frontomaxillary Facial Angle",
+                "Frontonasal angle"
+            ],
+            "questions": [
+                {
+                    "question": "Frontomaxillary facial (FMF) angle",
+                    "answer": "he angle between the upper surface of the upper palate and the frontal bone.\nNormal is 85° ± 10 °\nAbnormal in trisomy 21"
+                },
+                {
+                    "question": "Fronto nasal angle",
+                    "answer": "Normal - 135 - 143°\nAbnormal - Reduced in Trisomy 21"
+                }
+            ]
         },
         {
-          "question": "What is the difference between a CT scan and an MRI?",
-          "answer": "CT scans use X-rays and provide detailed images of bones and soft tissues, while MRI uses magnets and radio waves to visualize soft tissues in greater detail."
-        },
-        {
-          "question": "Is it necessary to fast before a CT scan?",
-          "answer": "In most cases, fasting is not required before a CT scan. However, if contrast dye is used, you may be asked to avoid eating or drinking for a few hours prior to the procedure."
+            "image": "image9.png",
+            "tags": [
+                "Frontomaxillary Facial Angle",
+                "Mandibulo-maxillary angle"
+            ],
+            "questions": [
+                {
+                    "question": "Frontomaxillary facial (FMF) angle",
+                    "answer": "It is the angle between the upper surface of the upper palate and the frontal bone.\nNormal is 85° ± 10 °\nAbnormal in trisomy 21"
+                },
+                {
+                    "question": "Mandibulo - maxillary angle",
+                    "answer": "The first arm of the angle was drawn along the upper surface of the palate. The second arm drawn downwards and positioned so that the inner aspect of the line was in line with the upper anterior corner of the mandible.\nNormal - 11-13°. \nAbnormal - in trisomy 18"
+                }
+            ]
         }
-      ]
-    },
-    {
-      "image": "image2.png",
-      "tags": ["image2", "image2+1"],
-      "questions": [
-        {
-          "question": "What is a brain CT scan?",
-          "answer": "A brain CT scan is a medical imaging technique used to create detailed cross-sectional images of the brain."
-        },
-        {
-          "question": "Why is a brain CT scan performed?",
-          "answer": "A brain CT scan is performed to diagnose various conditions such as head injuries, tumors, bleeding, infections, and neurological disorders."
-        },
-        {
-          "question": "How is a brain CT scan different from a regular CT scan?",
-          "answer": "A brain CT scan focuses specifically on the head and brain area, while a regular CT scan can encompass other parts of the body."
-        },
-        {
-          "question": "Is a brain CT scan safe?",
-          "answer": "Yes, brain CT scans are generally safe. The benefits of obtaining crucial medical information often outweigh the minimal risks associated with radiation exposure."
-        },
-        {
-          "question": "Can a brain CT scan detect brain tumors?",
-          "answer": "Yes, brain CT scans can detect the presence of brain tumors and provide valuable information about their size and location."
-        },
-        {
-          "question": "Does a brain CT scan require contrast dye?",
-          "answer": "In some cases, a brain CT scan may require the use of contrast dye to enhance the visualization of certain brain structures and abnormalities."
-        },
-        {
-          "question": "Can a brain CT scan identify a stroke?",
-          "answer": "Yes, brain CT scans are often used to identify signs of a stroke, such as blood clots or bleeding in the brain."
-        },
-        {
-          "question": "How should I prepare for a brain CT scan?",
-          "answer": "Before a brain CT scan, you may be asked to remove any metal objects, and if contrast dye is used, you might need to avoid eating or drinking for a few hours beforehand."
-        },
-        {
-          "question": "Who interprets the results of a brain CT scan?",
-          "answer": "A radiologist, a specialized medical doctor, will interpret the results of your brain CT scan and provide a report to your healthcare provider."
-        },
-        {
-          "question": "Can a brain CT scan show signs of brain bleeding?",
-          "answer": "Yes, a brain CT scan can identify signs of brain bleeding, such as intracranial hemorrhage, which is crucial for prompt medical intervention."
-        }
-      ]
-    },
-    {
-      "image": "image3.png",
-      "tags": ["image3", "image3+1"],
-      "questions": [
-        {
-          "question": "What are the common reasons for performing an abdominal CT scan?",
-          "answer": "Abdominal CT scans are often performed to investigate conditions such as abdominal pain, organ abnormalities, tumors, kidney stones, and gastrointestinal issues."
-        },
-        {
-          "question": "Can an abdominal CT scan detect appendicitis?",
-          "answer": "Yes, an abdominal CT scan can help diagnose appendicitis and assess the severity of the condition."
-        },
-        {
-          "question": "Are there any side effects of contrast dye used in abdominal CT scans?",
-          "answer": "Some people may experience mild side effects like a metallic taste in the mouth, warmth or flushing sensation, and mild allergic reactions, but serious reactions are rare."
-        },
-        {
-          "question": "What is the difference between a CT scan and an ultrasound?",
-          "answer": "CT scans use X-rays and provide detailed cross-sectional images, while ultrasounds use sound waves to create real-time images and are often used for examining soft tissues and organs."
-        },
-        {
-          "question": "Can a CT scan detect liver and kidney diseases?",
-          "answer": "Yes, CT scans are effective in detecting various liver and kidney diseases, including tumors, cysts, and infections."
-        },
-        {
-          "question": "Are there any special preparations required for an abdominal CT scan?",
-          "answer": "Before an abdominal CT scan, you may be asked to fast for a few hours, and you may need to drink a contrast material to enhance the visibility of certain structures."
-        },
-        {
-          "question": "Is a brain CT scan different from a head MRI?",
-          "answer": "Yes, a brain CT scan uses X-rays and provides detailed images of the brain, while a head MRI uses magnets and radio waves to create more detailed images of soft tissues."
-        },
-        {
-          "question": "Can a CT scan detect lung conditions?",
-          "answer": "Yes, CT scans are commonly used to diagnose and evaluate lung conditions such as lung cancer, pulmonary embolism, and pneumonia."
-        },
-        {
-          "question": "What should I expect during a CT scan procedure?",
-          "answer": "During a CT scan, you will lie on a table that moves through the scanner. You may be asked to hold your breath briefly while the images are being captured."
-        },
-        {
-          "question": "Can a CT scan be performed on children?",
-          "answer": "Yes, CT scans can be performed on children when medically necessary. However, the radiation dose is usually adjusted to reduce potential risks."
-        }
-      ]
-    },
-    {
-      "image": "image4.png",
-      "tags": ["image4", "image4+1"],
-      "questions": [
-        {
-          "question": "What is a chest CT scan?",
-          "answer": "A chest CT scan is a medical imaging technique used to visualize the chest area, including the lungs, heart, blood vessels, and surrounding structures."
-        },
-        {
-          "question": "Why is a chest CT scan performed?",
-          "answer": "A chest CT scan is performed to diagnose and evaluate various conditions such as lung diseases, tumors, infections, and cardiovascular issues."
-        },
-        {
-          "question": "Can a chest CT scan detect lung cancer?",
-          "answer": "Yes, a chest CT scan can detect lung cancer and provide information about its size, location, and spread."
-        },
-        {
-          "question": "Is a chest CT scan useful for assessing heart conditions?",
-          "answer": "Yes, a chest CT scan can provide detailed images of the heart and coronary arteries, making it valuable for evaluating heart conditions."
-        },
-        {
-          "question": "Are there any risks associated with a chest CT scan?",
-          "answer": "Chest CT scans involve exposure to X-rays, so there is a small risk of radiation. However, the benefits usually outweigh the risks when medically necessary."
-        },
-        {
-          "question": "How should I prepare for a chest CT scan?",
-          "answer": "Before a chest CT scan, you may be asked to avoid eating or drinking for a few hours, especially if contrast dye is used."
-        },
-        {
-          "question": "Can a chest CT scan detect pulmonary embolism?",
-          "answer": "Yes, a chest CT scan is an effective tool for diagnosing pulmonary embolism, which is a blockage in the pulmonary arteries."
-        },
-        {
-          "question": "What is the difference between a CT angiogram and a conventional CT scan?",
-          "answer": "A CT angiogram is a type of CT scan that specifically focuses on visualizing blood vessels, while a conventional CT scan provides more generalized images of organs and tissues."
-        },
-        {
-          "question": "Is a chest CT scan the same as an X-ray?",
-          "answer": "No, a chest CT scan and an X-ray are different imaging techniques. A CT scan provides cross-sectional images, whereas an X-ray produces 2D images."
-        },
-        {
-          "question": "Can a chest CT scan identify infections in the lungs?",
-          "answer": "Yes, a chest CT scan can identify various lung infections such as pneumonia and bronchitis, providing valuable information for proper treatment."
-        }
-      ]
-    },
-    {
-      "image": "image5.png",
-      "tags": ["image5", "image5+1"],
-      "questions": [
-        {
-          "question": "What is a sinus CT scan?",
-          "answer": "A sinus CT scan is a medical imaging test used to examine the sinuses, which are air-filled spaces within the bones of the face."
-        },
-        {
-          "question": "Why is a sinus CT scan performed?",
-          "answer": "A sinus CT scan is performed to diagnose and assess conditions such as sinus infections, nasal polyps, and structural abnormalities."
-        },
-        {
-          "question": "Is a sinus CT scan useful for diagnosing sinus headaches?",
-          "answer": "Yes, a sinus CT scan can help identify the cause of chronic sinus headaches by revealing any sinus abnormalities or inflammation."
-        },
-        {
-          "question": "What should I expect during a sinus CT scan?",
-          "answer": "During a sinus CT scan, you will be positioned on a table that moves through the CT scanner. You may need to hold your breath briefly during the scan."
-        },
-        {
-          "question": "Can a sinus CT scan detect deviated septum?",
-          "answer": "Yes, a sinus CT scan can identify a deviated septum, which is a condition where the thin wall between the nasal passages is off-center."
-        },
-        {
-          "question": "Does a sinus CT scan require the use of contrast dye?",
-          "answer": "In most cases, a sinus CT scan does not require the use of contrast dye. It primarily focuses on the anatomy of the sinuses."
-        },
-        {
-          "question": "Can a sinus CT scan detect sinusitis?",
-          "answer": "Yes, a sinus CT scan is one of the best methods for diagnosing acute and chronic sinusitis and assessing the extent of the inflammation."
-        },
-        {
-          "question": "Is a sinus CT scan safe during pregnancy?",
-          "answer": "Generally, CT scans are avoided during pregnancy, including sinus CT scans, unless the benefits clearly outweigh the potential risks to the developing fetus."
-        },
-        {
-          "question": "How long does a sinus CT scan take?",
-          "answer": "A sinus CT scan is a quick procedure and usually takes only a few minutes to complete."
-        },
-        {
-          "question": "Can a sinus CT scan help plan for sinus surgery?",
-          "answer": "Yes, a sinus CT scan provides detailed images of the sinuses, aiding in the planning of sinus surgery and helping the surgeon visualize the anatomy."
-        }
-      ]
-    },
-    {
-      "image": "image6.png",
-      "tags": ["image6", "image6+1"],
-      "questions": [
-        {
-          "question": "What is a virtual colonoscopy?",
-          "answer": "A virtual colonoscopy, also known as CT colonography, is a non-invasive imaging procedure used to examine the colon for polyps and other abnormalities."
-        },
-        {
-          "question": "How does a virtual colonoscopy differ from a traditional colonoscopy?",
-          "answer": "A virtual colonoscopy is less invasive than a traditional colonoscopy, as it uses CT scans and does not require inserting a scope into the colon."
-        },
-        {
-          "question": "Is bowel preparation necessary for a virtual colonoscopy?",
-          "answer": "Yes, bowel preparation is required for a virtual colonoscopy to ensure the colon is clear of fecal matter, providing clearer images for analysis."
-        },
-        {
-          "question": "Can a virtual colonoscopy detect colon cancer?",
-          "answer": "Yes, a virtual colonoscopy can detect colon cancer and precancerous polyps, enabling early detection and timely intervention."
-        },
-        {
-          "question": "What are the advantages of a virtual colonoscopy?",
-          "answer": "Some advantages of a virtual colonoscopy include being less invasive, no need for sedation, and the ability to detect polyps and cancers in the early stages."
-        },
-        {
-          "question": "Are there any risks associated with a virtual colonoscopy?",
-          "answer": "Virtual colonoscopy involves exposure to a small amount of radiation. However, the benefits of early cancer detection often outweigh the risks."
-        },
-        {
-          "question": "Who is a suitable candidate for a virtual colonoscopy?",
-          "answer": "Virtual colonoscopy is generally recommended for average-risk individuals who are unable or unwilling to undergo a traditional colonoscopy."
-        },
-        {
-          "question": "Can a virtual colonoscopy detect other abdominal abnormalities?",
-          "answer": "Yes, a virtual colonoscopy can also detect other abdominal abnormalities such as hernias, kidney stones, and abdominal aortic aneurysms."
-        },
-        {
-          "question": "Is sedation required for a virtual colonoscopy?",
-          "answer": "No, sedation is typically not necessary for a virtual colonoscopy, making the procedure more comfortable for many patients."
-        },
-        {
-          "question": "How often should one undergo a virtual colonoscopy?",
-          "answer": "The frequency of virtual colonoscopy screenings depends on individual risk factors and medical history. It's best to consult a healthcare professional for personalized recommendations."
-        }
-      ]
-    },
-    {
-      "image": "image7.png",
-      "tags": ["image7", "image7+1"],
-      "questions": [
-        {
-          "question": "What is a dental CT scan?",
-          "answer": "A dental CT scan, also known as a cone beam CT (CBCT) scan, is a type of 3D imaging used to visualize the teeth, jaws, and facial structures."
-        },
-        {
-          "question": "Why is a dental CT scan performed?",
-          "answer": "A dental CT scan is performed to assess dental implant placement, orthodontic planning, and evaluate the jaw and facial structures."
-        },
-        {
-          "question": "Is a dental CT scan useful for diagnosing dental problems?",
-          "answer": "Yes, a dental CT scan provides detailed images that can aid in diagnosing dental conditions like impacted teeth, infections, and jaw disorders."
-        },
-        {
-          "question": "Does a dental CT scan require contrast dye?",
-          "answer": "In most cases, a dental CT scan does not require the use of contrast dye. It primarily focuses on the dental and maxillofacial structures."
-        },
-        {
-          "question": "Is a dental CT scan safe?",
-          "answer": "Dental CT scans use lower radiation doses than traditional medical CT scans, making them generally safe for dental imaging purposes."
-        },
-        {
-          "question": "What should I expect during a dental CT scan procedure?",
-          "answer": "During a dental CT scan, you will be asked to sit or lie down while the imaging system rotates around your head, capturing multiple images from different angles."
-        },
-        {
-          "question": "Can a dental CT scan assist with wisdom tooth extraction?",
-          "answer": "Yes, a dental CT scan is often used to visualize the position and orientation of wisdom teeth, aiding in their safe and precise extraction."
-        },
-        {
-          "question": "Can a dental CT scan be used for diagnosing TMJ disorders?",
-          "answer": "Yes, a dental CT scan can provide valuable information about the temporomandibular joint (TMJ) and aid in diagnosing TMJ disorders."
-        },
-        {
-          "question": "Can a dental CT scan reveal bone loss in the jaw?",
-          "answer": "Yes, a dental CT scan can detect bone loss in the jaw, which is crucial for diagnosing and treating periodontal (gum) disease."
-        },
-        {
-          "question": "How long does a dental CT scan take?",
-          "answer": "A dental CT scan is a quick procedure and typically takes only a few minutes to complete."
-        }
-      ]
-    },
-    {
-      "image": "image8.png",
-      "tags": ["image8", "image8+1"],
-      "questions": [
-        {
-          "question": "What is a pelvic CT scan?",
-          "answer": "A pelvic CT scan is a medical imaging test used to visualize the pelvic region, including the reproductive organs, bladder, and surrounding structures."
-        },
-        {
-          "question": "Why is a pelvic CT scan performed?",
-          "answer": "A pelvic CT scan is performed to diagnose and evaluate various conditions such as pelvic pain, tumors, infections, and kidney stones."
-        },
-        {
-          "question": "Can a pelvic CT scan detect ovarian cysts?",
-          "answer": "Yes, a pelvic CT scan can detect ovarian cysts and provide information about their size, location, and characteristics."
-        },
-        {
-          "question": "Is a pelvic CT scan helpful for evaluating prostate issues?",
-          "answer": "Yes, a pelvic CT scan can be used to assess the prostate gland and surrounding structures in males with suspected prostate issues."
-        },
-        {
-          "question": "Is a pelvic CT scan safe during pregnancy?",
-          "answer": "CT scans are generally avoided during pregnancy unless absolutely necessary due to the potential risks of radiation to the developing fetus."
-        },
-        {
-          "question": "Can a pelvic CT scan detect kidney stones?",
-          "answer": "Yes, a pelvic CT scan can identify kidney stones and help determine their size and location, which is important for treatment planning."
-        },
-        {
-          "question": "What are the benefits of using contrast dye in a pelvic CT scan?",
-          "answer": "Contrast dye may enhance the visualization of blood vessels, tumors, and other structures, providing more detailed information for diagnosis."
-        },
-        {
-          "question": "Is fasting required before a pelvic CT scan?",
-          "answer": "In most cases, fasting is not required before a pelvic CT scan, but you may be asked to avoid eating or drinking for a few hours if contrast dye is used."
-        },
-        {
-          "question": "Can a pelvic CT scan help diagnose urinary tract infections?",
-          "answer": "Yes, a pelvic CT scan can detect signs of urinary tract infections and assess any associated complications."
-        },
-        {
-          "question": "How is a pelvic CT scan different from a pelvic MRI?",
-          "answer": "A pelvic CT scan uses X-rays and provides detailed cross-sectional images, while a pelvic MRI uses magnets and radio waves to create more detailed images of soft tissues."
-        }
-      ]
-    },
-    {
-      "image": "image9.png",
-      "tags": ["image9", "image9+1"],
-      "questions": [
-        {
-          "question": "What is a musculoskeletal CT scan?",
-          "answer": "A musculoskeletal CT scan is a medical imaging test used to examine bones, joints, and soft tissues in the musculoskeletal system."
-        },
-        {
-          "question": "Why is a musculoskeletal CT scan performed?",
-          "answer": "A musculoskeletal CT scan is performed to diagnose and evaluate conditions such as fractures, bone tumors, arthritis, and joint disorders."
-        },
-        {
-          "question": "Can a musculoskeletal CT scan detect herniated discs?",
-          "answer": "Yes, a musculoskeletal CT scan can detect herniated discs and provide information about their location and extent."
-        },
-        {
-          "question": "Is a musculoskeletal CT scan helpful for planning joint replacement surgery?",
-          "answer": "Yes, a musculoskeletal CT scan is valuable for assessing the joint and surrounding structures, aiding in the planning of joint replacement surgery."
-        },
-        {
-          "question": "Can a musculoskeletal CT scan visualize cartilage and ligaments?",
-          "answer": "While a musculoskeletal CT scan is excellent for visualizing bones, it is not the preferred modality for assessing cartilage and ligaments. MRI is often used for this purpose."
-        },
-        {
-          "question": "Are there any risks associated with a musculoskeletal CT scan?",
-          "answer": "A musculoskeletal CT scan involves exposure to X-rays, so there is a small risk of radiation. However, the benefits usually outweigh the risks in medical situations."
-        },
-        {
-          "question": "How should I prepare for a musculoskeletal CT scan?",
-          "answer": "In most cases, no specific preparation is required for a musculoskeletal CT scan. You may be asked to remove any metal objects or jewelry before the scan."
-        },
-        {
-          "question": "Can a musculoskeletal CT scan diagnose scoliosis?",
-          "answer": "Yes, a musculoskeletal CT scan can be used to diagnose scoliosis and provide detailed images of the spinal curvature."
-        },
-        {
-          "question": "Is a musculoskeletal CT scan suitable for evaluating sports-related injuries?",
-          "answer": "Yes, a musculoskeletal CT scan can be valuable for evaluating sports-related injuries such as fractures, dislocations, and soft tissue damage."
-        },
-        {
-          "question": "Can a musculoskeletal CT scan identify bone infections?",
-          "answer": "Yes, a musculoskeletal CT scan can detect bone infections, such as osteomyelitis, and aid in determining the extent of the infection."
-        }
-      ]
-    }
-  ]
+    ]
 }
