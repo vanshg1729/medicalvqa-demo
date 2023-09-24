@@ -3,9 +3,6 @@ import React, { createContext, useState } from 'react';
 export const AppStateContext = createContext();
 
 export const AppStateProvider = ({ children }) => {
-  const [inputData, setInputData] = useState('');
-  const [results, setResults] = useState([]);
-
   const [query, setQuery] = useState('');
   const [result, setResult] = useState(null);
   const [options, setOptions] = useState([]);

@@ -16,23 +16,11 @@ const Chatbot = ({ selectedImage, chatbotShow, setChatbotShow }) => {
   const [askedQuestion, setAskedQuestion] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
-  const [isListening, setIsListening] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
-  const [recognizedText, setRecognizedText] = useState('');
 
   const recognition = new window.webkitSpeechRecognition();
 
   var transcript = '';
-
-  // let recording = false;
-
-  // function toggleRecording() {
-  //   recording = !recording;
-
-  //   if (recording) {
-  //   } else {
-  //   }
-  // }
 
   const handleSpeechRecognition = () => {
     // toggleRecording();
@@ -45,8 +33,6 @@ const Chatbot = ({ selectedImage, chatbotShow, setChatbotShow }) => {
 
       recognition.onresult = (event) => {
         transcript = event.results[0][0].transcript;
-        // setUserInput(transcript);
-        setRecognizedText(transcript);
       };
 
       recognition.onend = () => {
@@ -75,11 +61,6 @@ const Chatbot = ({ selectedImage, chatbotShow, setChatbotShow }) => {
     console.log('handleSendQuestion was called');
     setAskedQuestion(true)
     setIsVisible(true);
-    // if (suggestion.current) {
-    //   console.log('this was a suggestion question: ', suggestion.current);
-    //   setUserInput(suggestion.current);
-    //   // suggestion.current = null;
-    // }
     let userQuestion = userInput.toLowerCase();
     if (e && e.target.innerText != 'SEND') {
       userQuestion = e.target.innerText.toLowerCase();
@@ -88,12 +69,6 @@ const Chatbot = ({ selectedImage, chatbotShow, setChatbotShow }) => {
       setUserInput(transcript);
       userQuestion = transcript.toLowerCase();
     }
-
-
-    // if (suggestion.current) {
-    //   userQuestion = suggestion.current.toLowerCase();
-    //   suggestion.current = null;
-    // }
     console.log(userQuestion, 'userQuestion');
     // need to convert /static/media/image2.1b96c51f8712b2e9ac56.png into image2.png
     var imageName = ''
@@ -120,7 +95,6 @@ const Chatbot = ({ selectedImage, chatbotShow, setChatbotShow }) => {
     const keywordExtractor = require("keyword-extractor");
 
     const text = "This is an example sentence, and we want to extract important keywords from it.";
-    // console.log(userQuestion, "the user question")
     const keywords = keywordExtractor.extract(userQuestion, {
       language: "english",
       remove_digits: true,
@@ -181,10 +155,8 @@ const Chatbot = ({ selectedImage, chatbotShow, setChatbotShow }) => {
       return '';
     }
     actualImage = selectedImage.split('/').pop().split('.')[0] + '.' + selectedImage.split('/').pop().split('.')[2];
-    // actualImage = selectedImage;
     for (var i = 0; i < dataLength; i++) {
       if (data.images[i].image === actualImage) {
-        // console.log(data.images[i].questions, 'data[i].questions[i]');
         for (var j = 0; j < data.images[i].questions.length; j++) {
           suggestions.push(data.images[i].questions[j].question);
         }
@@ -192,7 +164,6 @@ const Chatbot = ({ selectedImage, chatbotShow, setChatbotShow }) => {
       }
     }
     if (suggestions && suggestions.length > 0) {
-      // const randomIndex = Math.floor(Math.random() * suggestions.length);
       return suggestions[num];
     }
     return '';
@@ -465,19 +436,6 @@ const Chatbot = ({ selectedImage, chatbotShow, setChatbotShow }) => {
                     marginBottom: '1vh',
                   }}
                 >
-                  {/* {message.isSuggestion ?
-                    <Button
-                      variant="body1"
-                      style={{
-                        padding: '8px',
-                        borderRadius: '8px',
-                        backgroundColor: message.isUser ? 'rgb(105 123 124)' : 'rgb(111 117 130)',
-                        color: message.isSuggestion ? '#3F51B5' : 'inherit'
-                      }}
-                      onClick={(suggestion.current = message.message) && handleSendQuestion}
-                    >
-                      {message.message}
-                    </Button> : */}
                   <Typography
                     variant="body1"
                     style={{
@@ -536,8 +494,6 @@ const Chatbot = ({ selectedImage, chatbotShow, setChatbotShow }) => {
             width: '2vw',
             backgroundColor: 'transparent',
           }} onClick={handleSpeechRecognition} />
-          {/* <MicIcon /> */}
-          {/* </Button> */}
         </Box>
         <Button
           variant="contained"
