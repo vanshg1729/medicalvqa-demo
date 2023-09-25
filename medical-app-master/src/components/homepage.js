@@ -3,7 +3,6 @@ import Chat from './Chatbot'
 import { Box, TextField, Button, Paper, Typography } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
 
-
 import data from './data.json';
 
 import './homepage.css'
@@ -22,6 +21,8 @@ const Homepage = () => {
     const [chatbotShow, setChatbotShow] = useState(false)
     const [selectedImage, setSelectedImage] = useState("")
     const [displayImage, setDisplayImage] = useState([image1, image2, image3, image4, image5, image6, image7, image8, image9])
+    const [searchByGivenTag, setsearchByGivenTag] = useState(true)
+
     // const [tagSearch, setTagSearch] = useState("")
     const [loading, setLoading] = useState(false);
 
@@ -125,7 +126,9 @@ const Homepage = () => {
     }, [])
 
     const [selectedTags, setSelectedTags] = useState([]);
-    const tags = ['image1', 'image2', 'image3', 'image4', 'image5']
+    const tags = [
+        "First trimester", "Uterine Artery Doppler", "Frontal Bone", "Nasal Bone", "Frontal Bone", "Nasal Bone", "Callosal sulcus", "Corpus Callosum", "Parieto occipital sulcus", "Cerebellum", "Cisterna Magna", "Hard Palate", "Thalamus and Brainstem", "Persistent right umbilical vein", "Normal brain at 11-13 weeks", "Pons", "Midbrain", "Fourth ventricle", "NT", "Nuchal Membrane", "Cisterna Magna", "Midline Echo", "Inferior facial angle", "Frontonasal angle", "Fronto nasal angle", "Frontomaxillary Facial Angle", "Frontonasal angle", "Frontomaxillary Facial Angle", "Mandibulo-maxillary angle"
+    ]
 
     const handleTagSelect = (event, value) => {
         // we have to set the selected tags to the value
@@ -133,12 +136,13 @@ const Homepage = () => {
     };
 
     const handleSendQuestionTag = () => {
-        setLoading(true);
-        selectedTags.filter((item, index) => selectedTags.indexOf(item) === index)
         if (selectedTags.length === 0) {
+            setDisplayImage(imgList)
             alert("Please select a tag")
         }
         else {
+            setLoading(true);
+            selectedTags.filter((item, index) => selectedTags.indexOf(item) === index)
             setTimeout(() => {
                 const newDisplayImage = []
                 for (let i = 0; i < data.images.length; i++) {
@@ -169,6 +173,10 @@ const Homepage = () => {
         }
     }
 
+    const func1 = (event) => {
+        console.log(event.target.value)
+    }
+
     return (
         <>
             <Chat selectedImage={selectedImage} chatbotShow={chatbotShow} setChatbotShow={setChatbotShow} />
@@ -184,10 +192,11 @@ const Homepage = () => {
                     <div className="heading2">Please select an image to ask questions related to that image</div>
                 </div>
 
+                {searchByGivenTag == true ?
                 <Autocomplete
                     multiple
                     id="tag-select"
-                    options={tags} // Replace 'tags' with your list of available tags
+                    options={tags}
                     onChange={handleTagSelect}
                     renderInput={(params) => (
                         <TextField
@@ -208,10 +217,35 @@ const Homepage = () => {
                                     // }
                                 }
                             }}
+                            onChange={func1}
                             style={{ position: 'absolute', color: '#F0EAD6', border: '2px solid darkgrey', top: '25vh', width: '40vw', left: '30vw', backgroundColor: '#ffffff4f' }}
                         />
                     )}
                 />
+
+                :
+
+                <TextField
+                    variant="outlined"
+                    label="Search"
+                    // value={tagSearch}
+                    // onChange={handleInputChangeTag}
+                    onKeyPress={(event) => {
+                        if (event.key === 'Enter') {
+                            handleSendQuestionTag();
+                            // if not empty, then only do this
+                            // if (tagSearch !== "") {
+                            //     setLoading(true);
+                            //     setTimeout(() => {
+                            //         setLoading(false);
+                            //     }, 1500);
+                            // }
+                        }
+                    }}
+                    onChange={func1}
+                    style={{ position: 'absolute', color: '#F0EAD6', border: '2px solid darkgrey', top: '25vh', width: '40vw', left: '30vw', backgroundColor: '#ffffff4f' }}
+                />}
+
                 {console.log(loading, "yeah") || loading ?
                     <div className="blue-loader-container">
                         <div className="blue-loader"></div>
