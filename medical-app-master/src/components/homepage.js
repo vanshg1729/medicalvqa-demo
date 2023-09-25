@@ -21,9 +21,8 @@ const Homepage = () => {
     const [chatbotShow, setChatbotShow] = useState(false)
     const [selectedImage, setSelectedImage] = useState("")
     const [displayImage, setDisplayImage] = useState([image1, image2, image3, image4, image5, image6, image7, image8, image9])
-    const [searchByGivenTag, setsearchByGivenTag] = useState(true)
-
-    // const [tagSearch, setTagSearch] = useState("")
+    const [searchByGivenTag, setSearchByGivenTag] = useState(false)
+    const [myTagSearch, setMyTagSearch] = useState("")
     const [loading, setLoading] = useState(false);
 
     const chatbotShowRef = useRef(false);
@@ -135,16 +134,20 @@ const Homepage = () => {
         setSelectedTags(value);
     };
 
-    const handleSendQuestionTag = () => {
-        if (selectedTags.length === 0) {
+    const handleSendQuestionTag = async () => {
+        if (selectedTags.length === 0 && myTagSearch == "") {
             setDisplayImage(imgList)
-            alert("Please select a tag")
+            if (searchByGivenTag == true)
+                alert("Please select a tag")
+            else
+                alert("Please enter a tag")
         }
         else {
             setLoading(true);
-            selectedTags.filter((item, index) => selectedTags.indexOf(item) === index)
-            setTimeout(() => {
-                const newDisplayImage = []
+            if (searchByGivenTag == true) {
+                selectedTags.filter((item, index) => selectedTags.indexOf(item) === index)
+                // setTimeout(() => {
+                let newDisplayImage = []
                 for (let i = 0; i < data.images.length; i++) {
                     let check = 0
                     for (let j = 0; j < data.images[i].tags.length; j++) {
@@ -158,7 +161,6 @@ const Homepage = () => {
                         newDisplayImage.push(imgList[i])
                     }
                 }
-                setLoading(false)
                 console.log(newDisplayImage)
                 // for (let i = 0; i < data.images.length; i++) {
                 //     for (let j = 0; j < data.images[i].tags.length; j++) {
@@ -169,12 +171,39 @@ const Homepage = () => {
                 //     }
                 // }
                 setDisplayImage(newDisplayImage)
-            }, 1500);
+            }
+            else {
+                const response = await fetch('http://127.0.0.1:5000/api/tags', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ userInput: myTagSearch }),
+                });
+                console.log("response recieved");
+                if (response.ok) {
+                    console.log("Response is OK");
+                    const recievedData = await response.json();
+                    const images = recievedData.images
+                    console.log(images[0])
+                    let newDisplayImage = []
+                    for (let i = 0; i < data.images.length; i++) {
+                        if (data.images[i]["image"] == images[0][0] || data.images[i]["image"] == images[1][0] || data.images[i]["image"] == images[2][0])
+                           newDisplayImage.push(imgList[i])
+                    }
+                    console.log(newDisplayImage)
+
+                    setDisplayImage(newDisplayImage)
+                }
+            }
+            setLoading(false)
+            // }, 1500);
         }
     }
 
     const func1 = (event) => {
-        console.log(event.target.value)
+        console.log(event.target.value, "here")
+        setMyTagSearch(event.target.value)
     }
 
     return (
@@ -193,58 +222,44 @@ const Homepage = () => {
                 </div>
 
                 {searchByGivenTag == true ?
-                <Autocomplete
-                    multiple
-                    id="tag-select"
-                    options={tags}
-                    onChange={handleTagSelect}
-                    renderInput={(params) => (
-                        <TextField
-                            {...params}
-                            label="Search"
-                            variant="outlined"
-                            // value={tagSearch}
-                            // onChange={handleInputChangeTag}
-                            onKeyPress={(event) => {
-                                if (event.key === 'Enter') {
-                                    handleSendQuestionTag();
-                                    // if not empty, then only do this
-                                    // if (tagSearch !== "") {
-                                    //     setLoading(true);
-                                    //     setTimeout(() => {
-                                    //         setLoading(false);
-                                    //     }, 1500);
-                                    // }
-                                }
-                            }}
-                            onChange={func1}
-                            style={{ position: 'absolute', color: '#F0EAD6', border: '2px solid darkgrey', top: '25vh', width: '40vw', left: '30vw', backgroundColor: '#ffffff4f' }}
-                        />
-                    )}
-                />
+                    <Autocomplete
+                        multiple
+                        id="tag-select"
+                        options={tags}
+                        onChange={handleTagSelect}
+                        renderInput={(params) => (
+                            <TextField
+                                {...params}
+                                label="Search"
+                                variant="outlined"
+                                // value={tagSearch}
+                                // onChange={handleInputChangeTag}
+                                onKeyPress={(event) => {
+                                    if (event.key === 'Enter') {
+                                        handleSendQuestionTag();
+                                    }
+                                }}
+                                onChange={func1}
+                                style={{ position: 'absolute', color: '#F0EAD6', border: '2px solid darkgrey', top: '25vh', width: '40vw', left: '30vw', backgroundColor: '#ffffff4f' }}
+                            />
+                        )}
+                    />
 
-                :
+                    :
 
-                <TextField
-                    variant="outlined"
-                    label="Search"
-                    // value={tagSearch}
-                    // onChange={handleInputChangeTag}
-                    onKeyPress={(event) => {
-                        if (event.key === 'Enter') {
-                            handleSendQuestionTag();
-                            // if not empty, then only do this
-                            // if (tagSearch !== "") {
-                            //     setLoading(true);
-                            //     setTimeout(() => {
-                            //         setLoading(false);
-                            //     }, 1500);
-                            // }
-                        }
-                    }}
-                    onChange={func1}
-                    style={{ position: 'absolute', color: '#F0EAD6', border: '2px solid darkgrey', top: '25vh', width: '40vw', left: '30vw', backgroundColor: '#ffffff4f' }}
-                />}
+                    <TextField
+                        variant="outlined"
+                        type='text'
+                        label="Search"
+                        value={myTagSearch}
+                        onKeyPress={(event) => {
+                            if (event.key === 'Enter') {
+                                handleSendQuestionTag();
+                            }
+                        }}
+                        onChange={func1}
+                        style={{ position: 'absolute', color: '#F0EAD6', border: '2px solid darkgrey', top: '25vh', width: '40vw', left: '30vw', backgroundColor: '#ffffff4f' }}
+                    />}
 
                 {console.log(loading, "yeah") || loading ?
                     <div className="blue-loader-container">
