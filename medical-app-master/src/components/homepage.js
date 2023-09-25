@@ -21,7 +21,7 @@ const Homepage = () => {
     const [chatbotShow, setChatbotShow] = useState(false)
     const [selectedImage, setSelectedImage] = useState("")
     const [displayImage, setDisplayImage] = useState([image1, image2, image3, image4, image5, image6, image7, image8, image9])
-    const [searchByGivenTag, setSearchByGivenTag] = useState(false)
+    const [searchByGivenTag, setSearchByGivenTag] = useState(true)
     const [myTagSearch, setMyTagSearch] = useState("")
     const [loading, setLoading] = useState(false);
 
@@ -173,7 +173,8 @@ const Homepage = () => {
                 setDisplayImage(newDisplayImage)
             }
             else {
-                const response = await fetch('http://127.0.0.1:5000/api/tags', {
+                console.log("Request being sent")
+                const response = await fetch('https://nicemedvqa.onrender.com/api/tags', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -184,12 +185,13 @@ const Homepage = () => {
                 if (response.ok) {
                     console.log("Response is OK");
                     const recievedData = await response.json();
+                    console.log(recievedData, "the data recieved from fetch")
                     const images = recievedData.images
-                    console.log(images[0])
+                    // console.log(images[0])
                     let newDisplayImage = []
                     for (let i = 0; i < data.images.length; i++) {
                         if (data.images[i]["image"] == images[0][0] || data.images[i]["image"] == images[1][0] || data.images[i]["image"] == images[2][0])
-                           newDisplayImage.push(imgList[i])
+                            newDisplayImage.push(imgList[i])
                     }
                     console.log(newDisplayImage)
 
@@ -201,9 +203,31 @@ const Homepage = () => {
         }
     }
 
+    const toggleButtonStyle = {
+        position: 'absolute',
+        top: '25vh',
+        left: '74vw',
+        color: '#F0EAD6',
+        display: 'flex',
+        alignItems: 'center',
+        textAlign: 'center',
+        border: '2px solid grey',
+        // padding: '1vh',
+        fontSize: '1.5rem',
+        borderRadius: '7px',
+        fontFamily: '"Bebas Neue", sans-serif',
+        backgroundColor: 'rgb(61, 72, 73)'
+    }
+
     const func1 = (event) => {
         console.log(event.target.value, "here")
         setMyTagSearch(event.target.value)
+    }
+
+    const toggleColor = () => {
+        const store = !searchByGivenTag
+        setSearchByGivenTag(store)
+        setMyTagSearch("")
     }
 
     return (
@@ -261,7 +285,16 @@ const Homepage = () => {
                         style={{ position: 'absolute', color: '#F0EAD6', border: '2px solid darkgrey', top: '25vh', width: '40vw', left: '30vw', backgroundColor: '#ffffff4f' }}
                     />}
 
-                {console.log(loading, "yeah") || loading ?
+                <Button
+                    variant='contained'
+                    style={toggleButtonStyle}
+                    onClick={toggleColor}
+                >
+                    {/* {searchByGivenTag == true ? "Search by default tags" : "Type in your input tag"} */}
+                    Toggle to change input format
+                </Button>
+
+                {loading ?
                     <div className="blue-loader-container">
                         <div className="blue-loader"></div>
                     </div>
