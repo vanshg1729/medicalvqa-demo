@@ -174,7 +174,7 @@ const Homepage = () => {
             }
             else {
                 console.log("Request being sent")
-                const response = await fetch('https://nicemedvqa.onrender.com/api/tags', {
+                const response = await fetch('http://127.0.0.1:5000/api/tags', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -290,8 +290,8 @@ const Homepage = () => {
                     style={toggleButtonStyle}
                     onClick={toggleColor}
                 >
-                    {/* {searchByGivenTag == true ? "Search by default tags" : "Type in your input tag"} */}
-                    Toggle to change input format
+                    {searchByGivenTag == true ? "Search by default tags" : "Type in your input tag"}
+                    {/* Toggle to change input format */}
                 </Button>
 
                 {loading ?
