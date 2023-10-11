@@ -18,33 +18,33 @@ const Chatbot = ({ selectedImage, chatbotShow, setChatbotShow }) => {
 
   const [isRecording, setIsRecording] = useState(false);
 
-  const recognition = new window.webkitSpeechRecognition();
+  // const recognition = new window.webkitSpeechRecognition();
 
   var transcript = '';
 
   const handleSpeechRecognition = () => {
     // toggleRecording();
     const redDot = document.getElementById('redDot');
-    if (!isRecording) {
-      redDot.style.display = 'block';
-      recognition.onstart = () => {
-        setIsRecording(true);
-      };
+    // if (!isRecording) {
+    //   redDot.style.display = 'block';
+    //   recognition.onstart = () => {
+    //     setIsRecording(true);
+    //   };
 
-      recognition.onresult = (event) => {
-        transcript = event.results[0][0].transcript;
-      };
+    //   recognition.onresult = (event) => {
+    //     transcript = event.results[0][0].transcript;
+    //   };
 
-      recognition.onend = () => {
-        handleSendQuestion();
-        setIsRecording(false);
-      };
+    //   recognition.onend = () => {
+    //     handleSendQuestion();
+    //     setIsRecording(false);
+    //   };
 
-      recognition.start();
-    } else {
-      redDot.style.display = 'none';
-      recognition.stop();
-    }
+    //   recognition.start();
+    // } else {
+    //   redDot.style.display = 'none';
+    //   recognition.stop();
+    // }
   };
 
   useEffect(() => {
@@ -485,7 +485,7 @@ const Chatbot = ({ selectedImage, chatbotShow, setChatbotShow }) => {
             }}
             style={{ marginTop: '2vh', color: '#F0EAD6', border: '2px solid darkgrey' }}
           />
-          <MicIcon variant='contained' style={{
+          {/* <MicIcon variant='contained' style={{
             position: 'relative',
             top: '-5vh',
             left: '46vw',
@@ -493,7 +493,7 @@ const Chatbot = ({ selectedImage, chatbotShow, setChatbotShow }) => {
             height: '4.5vh',
             width: '2vw',
             backgroundColor: 'transparent',
-          }} onClick={handleSpeechRecognition} />
+          }} onClick={handleSpeechRecognition} /> */}
         </Box>
         <Button
           variant="contained"
@@ -501,7 +501,7 @@ const Chatbot = ({ selectedImage, chatbotShow, setChatbotShow }) => {
           disabled={!userInput}
           style={{
             position: 'relative',
-            top: '-4.5vh',
+            // top: '-0.5vh',
             left: '-0.5vw',
             margin: '10px',
             marginLeft: '2vh',
