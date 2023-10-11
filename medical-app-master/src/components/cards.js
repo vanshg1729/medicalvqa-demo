@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 
 const MyCard = ({ title, content }) => {
     const handleNavigation = () => {
-        window.location.href = '/medical-vqa/module';
+        window.location.href = '/module';
     };
     return (
         <Card sx={{ maxWidth: '25rem', margin: '3rem auto', height: '30rem', backgroundColor: '#f5f5f5d1' }}>

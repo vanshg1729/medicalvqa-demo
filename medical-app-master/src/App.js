@@ -12,8 +12,8 @@ const App = () => {
     <AppStateProvider>
       {/* <ResponsiveAppBar></ResponsiveAppBar> */}
       <Routes>  
-        <Route path="/medical-vqa/module" element={<Homepage />}></Route> {/* it is reverse in our case */}
-        <Route path="/medical-vqa" element={<Modulepage />}></Route>
+        <Route path="/module" element={<Homepage />}></Route> {/* it is reverse in our case */}
+        <Route path="/" element={<Modulepage />}></Route>
       </Routes>
     </AppStateProvider>
 

@@ -17,7 +17,6 @@ const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
 // like /todos/42/static/js/bundle.7289d.js. We have to know the root.
 // the value of process.env.NODE_ENV is set by the scripts in package.json
 // to get this value in the site
-console.log('process.env.NODE_ENV', process.env.NODE_ENV);
 const publicUrlOrPath = getPublicUrlOrPath(
   process.env.NODE_ENV === 'development',
   require(resolveApp('package.json')).homepage,
