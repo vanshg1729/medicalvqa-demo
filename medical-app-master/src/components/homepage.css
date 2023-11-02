@@ -70,7 +70,7 @@ body {
 .heading3 {
     position: absolute;
     top: 0vh;
-    font-size: 5rem;
+    font-size: 4.2rem;
     margin-top: 7vh;
     padding: 0;
     letter-spacing: 0.4rem;
@@ -153,4 +153,18 @@ body {
     100% {
         transform: rotate(360deg);
     }
+}
+
+/* tags */
+
+.tags-values {
+    position: absolute;
+    top: 30vh;
+    left: 3vw;
+    color: #F0EAD6;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    font-size: 1.5rem;
 }

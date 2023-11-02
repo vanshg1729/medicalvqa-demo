@@ -20,63 +20,53 @@ export default function Modulepage() {
         [
             {
                 id: 1,
-                title: "Cardiology",
-                content: "Cardiology is a branch of medicine that deals with the disorders of the heart as well as some parts of the circulatory system. The field includes medical diagnosis and treatment of congenital heart defects, coronary artery disease, heart failure, valvular heart disease and electrophysiology."
+                title: "Early Pregnancy",
+                content: "Early pregnancy, spanning the first 12 weeks, starts with fertilization. During this time, key organs develop, and common symptoms like fatigue and nausea may occur. Timely prenatal care and a healthy lifestyle are important for the well-being of both the mother and the fetus."
             },
             {
                 id: 2,
-                title: "Dermatology",
-                content: "Dermatology is the branch of medicine dealing with the skin. It is a specialty with both medical and surgical aspects. A dermatologist is a specialist doctor who manages skin diseases and deals with both internal and external causes and some cosmetic concerns involving the skin."
+                title: "First Trimester",
+                content: "The first trimester of pregnancy lasts about 12 weeks and begins with fertilization. Key organs develop, and common symptoms include fatigue and nausea. Timely prenatal care and a healthy lifestyle are crucial for the well-being of both the mother and the fetus."
             },
             {
                 id: 3,
-                title: "Endocrinology",
-                content: "Endocrinology is a branch of biology and medicine dealing with the endocrine system, its diseases, and its specific secretions known as hormones. It is also concerned with the integration of developmental events proliferation, growth, and differentiation, and the psychological or behavioral activities of metabolism and growth."
+                title: "Second Trimester",
+                content: "In the second trimester (weeks 13-26), women often feel more comfortable as early symptoms subside. Fetal movements become noticeable, and it's a generally smoother period. Prenatal care remains essential for a healthy pregnancy."
             },
             {
                 id: 4,
-                title: "Gastroenterology",
-                content: "Gastroenterology is the branch of medicine focused on the digestive system and its disorders. Diseases affecting the gastrointestinal tract, which include the organs from mouth into anus, along the alimentary canal, are the focus of this speciality."
+                title: "Third Trimester",
+                content: "The third trimester, weeks 27 to 40, marks the final stretch of pregnancy. As the baby grows, discomfort may return, and the mother may experience new symptoms. Monitoring fetal movement becomes crucial. Regular prenatal check-ups are vital during this phase to ensure a healthy pregnancy and prepare for childbirth."
             },
             {
                 id: 5,
-                title: "Cardiology",
-                content: "Cardiology is a branch of medicine that deals with the disorders of the heart as well as some parts of the circulatory system. The field includes medical diagnosis and treatment of congenital heart defects, coronary artery disease, heart failure, valvular heart disease and electrophysiology."
+                title: "Fetal Doppler",
+                content: "A fetal Doppler is a handheld device used in pregnancy to listen to the baby's heartbeat. It's commonly used in the second and third trimesters, providing reassurance for parents. Consulting healthcare professionals for guidance is recommended."
             },
             {
                 id: 6,
-                title: "Dermatology",
-                content: "Dermatology is the branch of medicine dealing with the skin. It is a specialty with both medical and surgical aspects. A dermatologist is a specialist doctor who manages skin diseases and deals with both internal and external causes and some cosmetic concerns involving the skin."
+                title: "Heart",
+                content: "The heart is a vital organ that pumps blood throughout the body, supplying oxygen and nutrients. In the context of pregnancy, monitoring the baby's heartbeat is crucial. This is often done using a fetal Doppler in later trimesters. Regular heart check-ups for both the mother and the developing baby are essential for a healthy pregnancy."
             },
             {
                 id: 7,
-                title: "Endocrinology",
-                content: "Endocrinology is a branch of biology and medicine dealing with the endocrine system, its diseases, and its specific secretions known as hormones. It is also concerned with the integration of developmental events proliferation, growth, and differentiation, and the psychological or behavioral activities of metabolism and growth."
+                title: "Gastrointestinal",
+                content: "The gastrointestinal (GI) system is the digestive system, including the stomach and intestines. Common issues include acid reflux and irritable bowel syndrome. Lifestyle and diet affect GI health. If persistent symptoms like stomach pain arise, seeking medical advice is important."
             },
             {
                 id: 8,
-                title: "Gastroenterology",
-                content: "Gastroenterology is the branch of medicine focused on the digestive system and its disorders. Diseases affecting the gastrointestinal tract, which include the organs from mouth into anus, along the alimentary canal, are the focus of this speciality."
+                title: "Renal",
+                content: "The renal system involves the kidneys and urinary system. Kidney issues, like kidney stones or infections, are common. Hydration and a balanced diet support renal health. Persistent symptoms like pain during urination warrant medical attention."
             },
             {
                 id: 9,
-                title: "Cardiology",
-                content: "Cardiology is a branch of medicine that deals with the disorders of the heart as well as some parts of the circulatory system. The field includes medical diagnosis and treatment of congenital heart defects, coronary artery disease, heart failure, valvular heart disease and electrophysiology."
+                title: "Brain",
+                content: "The brain is the central organ of the nervous system. It controls thoughts, movements, and vital functions. Brain health is influenced by lifestyle and genetics. Mental health is essential, and symptoms like persistent headaches or changes in cognition should be addressed with medical advice."
             },
             {
                 id: 10,
-                title: "Dermatology",
-                content: "Dermatology is the branch of medicine dealing with the skin. It is a specialty with both medical and surgical aspects. A dermatologist is a specialist doctor who manages skin diseases and deals with both internal and external causes and some cosmetic concerns involving the skin."
-            },
-            {
-                id: 11,
-                title: "Endocrinology",
-                content: "Endocrinology is a branch of biology and medicine dealing with the endocrine system, its diseases, and its specific secretions known as hormones. It is also concerned with the integration of developmental events proliferation, growth, and differentiation, and the psychological or behavioral activities of metabolism and growth."
-            },
-            {
-                id: 12,
-                title: "Gastroenterology",
-                content: "Gastroenterology is the branch of medicine focused on the digestive system and its disorders. Diseases affecting the gastrointestinal tract, which include the organs from mouth into anus, along the alimentary canal, are the focus of this speciality."
+                title: "Skeletal System",
+                content: "The skeletal system includes bones and joints, providing structure and support. Bone health is influenced by diet and exercise. Maintaining a balanced lifestyle is crucial. Persistent issues like joint pain require medical attention."
             },
         ]
     )
@@ -84,7 +74,7 @@ export default function Modulepage() {
     return (
         <div style={{ fontFamily: '"Bebas Neue", sans-serif' }}>
             <div className="heading">
-                <div className="heading3">BayMax! your personalised healthcare companion</div>
+                <div className="heading3">KREST Fetal Radiology Image Bank for Personalized Learning</div>
                 <div className="heading4">Choose the module you want to explore</div>
             </div>
             <div className="modules">

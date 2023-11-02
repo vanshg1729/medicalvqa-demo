@@ -4,6 +4,7 @@ import { Box, TextField, Button, Paper, Typography } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
 
 import data from './data.json';
+import tags from './tags.json';
 
 import './homepage.css'
 
@@ -125,9 +126,6 @@ const Homepage = () => {
     }, [])
 
     const [selectedTags, setSelectedTags] = useState([]);
-    const tags = [
-        "First trimester", "Uterine Artery Doppler", "Frontal Bone", "Nasal Bone", "Frontal Bone", "Nasal Bone", "Callosal sulcus", "Corpus Callosum", "Parieto occipital sulcus", "Cerebellum", "Cisterna Magna", "Hard Palate", "Thalamus and Brainstem", "Persistent right umbilical vein", "Normal brain at 11-13 weeks", "Pons", "Midbrain", "Fourth ventricle", "NT", "Nuchal Membrane", "Cisterna Magna", "Midline Echo", "Inferior facial angle", "Frontonasal angle", "Fronto nasal angle", "Frontomaxillary Facial Angle", "Frontonasal angle", "Frontomaxillary Facial Angle", "Mandibulo-maxillary angle"
-    ]
 
     const handleTagSelect = (event, value) => {
         // we have to set the selected tags to the value
@@ -174,7 +172,7 @@ const Homepage = () => {
             }
             else {
                 console.log("Request being sent")
-                const response = await fetch('http://127.0.0.1:5000/api/tags', {
+                const response = await fetch('http://localhost:5000/api/tags', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -241,7 +239,7 @@ const Homepage = () => {
                 display: chatbotShow ? "none" : "block",
             }}>
                 <div className="heading">
-                    <div className="heading1">BayMax</div>
+                    <div className="heading1">KREST</div>
                     <div className="heading2">Please select an image to ask questions related to that image</div>
                 </div>
 

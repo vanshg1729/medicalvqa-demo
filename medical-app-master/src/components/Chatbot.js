@@ -106,7 +106,7 @@ const Chatbot = ({ selectedImage, chatbotShow, setChatbotShow }) => {
     console.log(keywordsString, "the keywords");
 
 
-    const response = await fetch('https://nicemedvqa.onrender.com/api/answer', {
+    const response = await fetch('http://localhost:5000/api/answer', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -330,7 +330,7 @@ const Chatbot = ({ selectedImage, chatbotShow, setChatbotShow }) => {
                 marginTop: '2vh',
                 fontFamily: '"Bebas Neue", sans-serif',
                 letterSpacing: '2px',
-              }} variant="h3">BayMax, your personal healthcare companion</Typography>
+              }} variant="h3">KREST Fetal Radiology Image Bank for Personalized Learning</Typography>
 
 
               {/* Placing an image here */}
@@ -404,7 +404,7 @@ const Chatbot = ({ selectedImage, chatbotShow, setChatbotShow }) => {
               color: '#F0EAD6',
               marginBottom: '3vh',
               marginTop: '2vh',
-            }} variant="h3">BayMax</Typography>
+            }} variant="h3">KREST</Typography>
             <Box
               ref={chatContainerRef}
               sx={{
