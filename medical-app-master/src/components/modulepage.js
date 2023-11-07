@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Card from './cards'
 import './homepage.css'
 import { Grid } from '@mui/material'
+import Breadcrumbs from './breadcrumbs'
 
 import AOS from 'aos';
 import 'aos/dist/aos.css'; // Import the AOS styles
@@ -72,6 +73,8 @@ export default function Modulepage() {
     )
 
     return (
+        <>
+        <Breadcrumbs />
         <div style={{ fontFamily: '"Bebas Neue", sans-serif' }}>
             <div className="heading">
                 <div className="heading3">KREST Fetal Radiology Image Bank for Personalized Learning</div>
@@ -81,7 +84,7 @@ export default function Modulepage() {
                 <div className="card-container">
                     <Grid container spacing={3}>
                         {cards.map((card) => (
-                            <Grid data-aos="fade-up" item xs={12} sm={6} md={4} lg={3}>
+                            <Grid key={card.id * 100} data-aos="fade-up" item xs={12} sm={6} md={4} lg={3}>
                                 <Card key={card.id} title={card.title} content={card.content} />
                             </Grid>
                     ))}
@@ -89,5 +92,6 @@ export default function Modulepage() {
                 </div>
             </div>
         </div>
+        </>
     )
 }

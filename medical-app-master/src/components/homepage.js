@@ -2,9 +2,12 @@ import React, { useEffect, useRef, useState } from 'react'
 import Chat from './Chatbot'
 import { Box, TextField, Button, Paper, Typography } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
+import { useNavigate } from 'react-router-dom';
 
 import data from './data.json';
 import tags from './tags.json';
+import Breadcrumbs from './breadcrumbs';
+
 
 import './homepage.css'
 
@@ -18,15 +21,17 @@ import image7 from './images/image7.png'
 import image8 from './images/image8.png'
 import image9 from './images/image9.png'
 
-const Homepage = () => {
-    const [chatbotShow, setChatbotShow] = useState(false)
-    const [selectedImage, setSelectedImage] = useState("")
+const Homepage = ({ selectedImage }) => {
+
+    const navigate = useNavigate();
+
+    // const [chatbotShow, setChatbotShow] = useState(false)
     const [displayImage, setDisplayImage] = useState([image1, image2, image3, image4, image5, image6, image7, image8, image9])
     const [searchByGivenTag, setSearchByGivenTag] = useState(true)
     const [myTagSearch, setMyTagSearch] = useState("")
     const [loading, setLoading] = useState(false);
 
-    const chatbotShowRef = useRef(false);
+    // const chatbotShowRef = useRef(false);
 
     const imgList = [image1, image2, image3, image4, image5, image6, image7, image8, image9]
 
@@ -37,10 +42,14 @@ const Homepage = () => {
         const handleOnDown = e => {
             track.dataset.mouseDownAt = e.clientX;
             if (e.target.classList.contains("image")) {
-                setSelectedImage(e.target.src)
+                // setSelectedImage(e.target.src)
+                selectedImage.current = e.target.src;
+                // window.location.href = '/profile/module/chatbot';
+                navigate('/profile/module/chatbot', { selectedImage: selectedImage.current });
+                // console.log(selectedImage.current, "niceto")
                 // console.log(e.target.src, "here")
-                setChatbotShow(true)
-                chatbotShowRef.current = true;
+                // setChatbotShow(true)
+                // chatbotShowRef.current = true;
             }
         }
 
@@ -70,13 +79,13 @@ const Homepage = () => {
         }
 
         function resetScrollPosition() {
-            if (chatbotShow) return;
+            // if (chatbotShow) return;
             window.scrollTo(0, originalScrollPos);
         }
 
         function preventScrolling(event) {
             if (event.deltaY === 0) return;
-            if (!chatbotShowRef.current) {
+            if (true) {
                 event.preventDefault();
                 // console.log(event.deltaY);
                 // now with this i want to achieve the same thing as we did with the mousemove event
@@ -172,7 +181,7 @@ const Homepage = () => {
             }
             else {
                 console.log("Request being sent")
-                const response = await fetch('http://localhost:5000/api/tags', {
+                const response = await fetch('https://tagsmedvqa.onrender.com/api/tags', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -230,13 +239,15 @@ const Homepage = () => {
 
     return (
         <>
-            <Chat selectedImage={selectedImage} chatbotShow={chatbotShow} setChatbotShow={setChatbotShow} />
+            <Breadcrumbs />
+            {/* <Chat selectedImage.current={selectedImage.current} /> */}
+            {/* {console.log(selectedImage.current, "hellownice")} */}
             <div style={{
                 // display: chatbotShow ? "none" : "block",
                 fontFamily: '"Bebas Neue", sans-serif',
                 transition: 'opacity 1s ease-in-out',
-                opacity: chatbotShow ? 0 : 1,
-                display: chatbotShow ? "none" : "block",
+                // opacity: chatbotShow ? 0 : 1,
+                // display: chatbotShow ? "none" : "block",
             }}>
                 <div className="heading">
                     <div className="heading1">KREST</div>
