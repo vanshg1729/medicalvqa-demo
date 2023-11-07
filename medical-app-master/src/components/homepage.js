@@ -44,8 +44,8 @@ const Homepage = ({ selectedImage }) => {
             if (e.target.classList.contains("image")) {
                 // setSelectedImage(e.target.src)
                 selectedImage.current = e.target.src;
-                // window.location.href = '/profile/module/chatbot';
-                navigate('/profile/module/chatbot', { selectedImage: selectedImage.current });
+                // window.location.href = '/module/chatbot';
+                navigate('/module/chatbot', { selectedImage: selectedImage.current });
                 // console.log(selectedImage.current, "niceto")
                 // console.log(e.target.src, "here")
                 // setChatbotShow(true)

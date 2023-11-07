@@ -4,20 +4,29 @@ import { Link, useLocation } from 'react-router-dom';
 
 const Breadcrumbs = () => {
   const location = useLocation();
-  const pathnames = location.pathname.split('/').filter((x) => x);
+  const pathnames = location.pathname.split('/').filter((x) => " " + x + " ");
+  pathnames.unshift("Home ")
   return (
-    <div>
-      {pathnames.length == 0 ? 
-      <Link to="/">Home</Link> : null}
+    <div style={{
+      fontSize: '25px',
+      padding: '15px',
+      backgroundColor: 'rgb(61, 72, 73)',
+    }}>
+      {/* {pathnames.length == 0 ? 
+      <Link to="/">Home</Link> : null} */}
       
       {pathnames.map((name, index) => {
         const routeTo = `/${pathnames.slice(0, index + 1).join('/')}`;
         const isLast = index === pathnames.length - 1;
         console.log("name: ", name)
         return isLast ? (
-          <span key={name}>{name}</span>
+          <span key={name}>{" " + name}</span>
         ) : (
-          <Link key={name} to={routeTo}>
+          <Link key={name} to={routeTo} style={{
+            // removing underline
+            textDecoration: 'none',
+            color: 'grey',
+          }}>
             {name}
           </Link>
         );
