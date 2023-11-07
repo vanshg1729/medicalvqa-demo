@@ -6,10 +6,16 @@ const Breadcrumbs = () => {
   const location = useLocation();
   const pathnames = location.pathname.split('/').filter((x) => " " + x + " ");
   pathnames.unshift("Home ")
+
+  // locations = [
+  //   {name: "Home", path: "/"},
+  //   {name: 
+  // ]
+  
   return (
     <div style={{
       fontSize: '25px',
-      padding: '15px',
+      padding: '10px',
       backgroundColor: 'rgb(61, 72, 73)',
     }}>
       {/* {pathnames.length == 0 ? 

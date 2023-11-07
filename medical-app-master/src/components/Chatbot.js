@@ -200,10 +200,10 @@ const Chatbot = ({ selectedImage }) => {
       }}>
 
         {/* Back component */}
-        <Button variant="contained" style={{
+        {/* <Button variant="contained" style={{
           position: 'fixed',
           top: '93vh',
-          left: '93vw',
+          left: '93vw', 
           backgroundColor: '#2f3738',
           color: '#F0EAD6',
           zIndex: 100,
@@ -212,7 +212,7 @@ const Chatbot = ({ selectedImage }) => {
           setAskedQuestion(false);
           setIsVisible(false);
           setChatMessages(empty.current);
-        }}>Back</Button>
+        }}>Back</Button> */}
 
 
         {/* Side component */}

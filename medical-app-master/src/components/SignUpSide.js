@@ -60,7 +60,11 @@ export default function SignInSide() {
                         backgroundPosition: 'center',
                     }}
                 />
-                <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+                <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square style={
+                    {
+                        backgroundColor: 'rgb(75 85 86 / 49%)',
+                    }
+                }>
                     <Box
                         sx={{
                             my: 9,
