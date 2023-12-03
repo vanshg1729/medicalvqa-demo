@@ -44,8 +44,9 @@ const Homepage = ({ selectedImage }) => {
             if (e.target.classList.contains("image")) {
                 // setSelectedImage(e.target.src)
                 selectedImage.current = e.target.src;
-                // window.location.href = '/profile/module/chatbot';
-                navigate('/profile/module/chatbot', { selectedImage: selectedImage.current });
+                localStorage.setItem('selectedImage', e.target.src);
+                // window.location.href = '/module/chatbot';
+                navigate('/module/chatbot', { selectedImage: selectedImage.current });
                 // console.log(selectedImage.current, "niceto")
                 // console.log(e.target.src, "here")
                 // setChatbotShow(true)
@@ -212,18 +213,19 @@ const Homepage = ({ selectedImage }) => {
 
     const toggleButtonStyle = {
         position: 'absolute',
-        top: '25vh',
+        top: '30vh',
         left: '74vw',
         color: '#F0EAD6',
         display: 'flex',
-        alignItems: 'center',
-        textAlign: 'center',
+        // alignItems: 'center',
+        // textAlign: 'center',
         border: '2px solid grey',
         // padding: '1vh',
         fontSize: '1.5rem',
         borderRadius: '7px',
         fontFamily: '"Bebas Neue", sans-serif',
-        backgroundColor: 'rgb(61, 72, 73)'
+        backgroundColor: 'rgb(61, 72, 73)',
+        height: '7vh',
     }
 
     const func1 = (event) => {
@@ -273,7 +275,7 @@ const Homepage = ({ selectedImage }) => {
                                     }
                                 }}
                                 onChange={func1}
-                                style={{ position: 'absolute', color: '#F0EAD6', border: '2px solid darkgrey', top: '25vh', width: '40vw', left: '30vw', backgroundColor: '#ffffff4f' }}
+                                style={{ position: 'absolute', color: '#F0EAD6', border: '2px solid darkgrey', top: '30vh', width: '40vw', left: '30vw', backgroundColor: '#ffffff4f' }}
                             />
                         )}
                     />
@@ -291,7 +293,7 @@ const Homepage = ({ selectedImage }) => {
                             }
                         }}
                         onChange={func1}
-                        style={{ position: 'absolute', color: '#F0EAD6', border: '2px solid darkgrey', top: '25vh', width: '40vw', left: '30vw', backgroundColor: '#ffffff4f' }}
+                        style={{ position: 'absolute', color: '#F0EAD6', border: '2px solid darkgrey', top: '30vh', width: '40vw', left: '30vw', backgroundColor: '#ffffff4f' }}
                     />}
 
                 <Button
@@ -299,8 +301,20 @@ const Homepage = ({ selectedImage }) => {
                     style={toggleButtonStyle}
                     onClick={toggleColor}
                 >
+                    <span style={{
+                        fontSize: '1.2rem',
+                        position: 'relative',
+                        top: '-0.5vh',
+                    }}>
                     {searchByGivenTag == true ? "Search by default tags" : "Type in your input tag"}
-                    {/* Toggle to change input format */}
+                    </span>
+                    <span style={{
+                        fontSize: '0.7rem',
+                        position: 'absolute',
+                        top: '4vh',
+                    }}>
+                    (Click to change input format)
+                    </span>
                 </Button>
 
                 {loading ?

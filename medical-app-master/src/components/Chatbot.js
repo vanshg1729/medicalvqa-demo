@@ -48,6 +48,13 @@ const Chatbot = ({ selectedImage }) => {
   //   // }
   // };
 
+  // read the selected image from the local storage when the page loads
+  useEffect(() => {
+    console.log(localStorage.getItem('selectedImage'), 'selectedImage nice');
+    selectedImage.current = localStorage.getItem('selectedImage');
+
+  }, []);
+
   useEffect(() => {
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
@@ -75,7 +82,7 @@ const Chatbot = ({ selectedImage }) => {
     var imageName = ''
     var imageId = ''
     var imageIdWithExtension = ''
-    if (selectedImage.current === null) {
+    if (localStorage.getItem('selectedImage') === null) {
       // set the bot respnse to please select an image first
       const errorMessage = {
         id: chatMessages.length + 1,
@@ -84,12 +91,12 @@ const Chatbot = ({ selectedImage }) => {
       };
     }
     else {
-      imageName = selectedImage.current
+      imageName = localStorage.getItem('selectedImage')
       // imageId = imageName.split('.')[0];
       // now joining it with the imageName.split('.')[2]
       imageIdWithExtension = imageName.split('/').pop().split('.')[0] + '.' + imageName.split('/').pop().split('.')[2];
     }
-    console.log(selectedImage.current, 'imageIdWithExtension');
+    console.log(localStorage.getItem('selectedImage'), 'imageIdWithExtension');
 
 
 
@@ -152,10 +159,13 @@ const Chatbot = ({ selectedImage }) => {
     var actualImage = ''
     var suggestions = []
     const dataLength = Object.keys(data.images).length;
-    if (selectedImage.current === null) {
+    if (localStorage.getItem('selectedImage') === null) {
       return '';
     }
-    actualImage = selectedImage.current.split('/').pop().split('.')[0] + '.' + selectedImage.current.split('/').pop().split('.')[2];
+    const imageName2 = localStorage.getItem('selectedImage').toString();
+    console.log(imageName2, "imageName2")
+    console.log(localStorage.getItem('selectedImage'), typeof(localStorage.getItem('selectedImage')), "nicenicenice")
+    actualImage = imageName2.split('/').pop().split('.')[0] + '.' + imageName2.split('/').pop().split('.')[2];
     for (var i = 0; i < dataLength; i++) {
       if (data.images[i].image === actualImage) {
         for (var j = 0; j < data.images[i].questions.length; j++) {
@@ -200,10 +210,10 @@ const Chatbot = ({ selectedImage }) => {
       }}>
 
         {/* Back component */}
-        <Button variant="contained" style={{
+        {/* <Button variant="contained" style={{
           position: 'fixed',
           top: '93vh',
-          left: '93vw',
+          left: '93vw', 
           backgroundColor: '#2f3738',
           color: '#F0EAD6',
           zIndex: 100,
@@ -212,7 +222,7 @@ const Chatbot = ({ selectedImage }) => {
           setAskedQuestion(false);
           setIsVisible(false);
           setChatMessages(empty.current);
-        }}>Back</Button>
+        }}>Back</Button> */}
 
 
         {/* Side component */}
@@ -242,7 +252,7 @@ const Chatbot = ({ selectedImage }) => {
               marginBottom: '1vh',
             }} variant="h4">Selected Image</Typography>
 
-            <img src={selectedImage.current} style={{
+            <img src={localStorage.getItem('selectedImage')} style={{
               margin: 'auto',
               maxWidth: "95%",
               maxHeight: "95%",
@@ -267,7 +277,7 @@ const Chatbot = ({ selectedImage }) => {
                 onClick={(askedQuestion == true) ? handleSendQuestion : null}
 
                 style={gridItem2}
-              >{getSuggestionQuestion(0)}</Button>
+              >{getSuggestionQuestion(4)}</Button>
             </Box>
             <Box style={{
               maxWidth: '100%'
@@ -276,17 +286,7 @@ const Chatbot = ({ selectedImage }) => {
                 variant="contained"
                 onClick={(askedQuestion == true) ? handleSendQuestion : null}
                 style={gridItem2}
-              >{getSuggestionQuestion(1)}</Button>
-            </Box>
-            <Box style={{
-              maxWidth: '100%'
-            }}>
-              <Button
-                variant="contained"
-                onClick={(askedQuestion == true) ? handleSendQuestion : null}
-
-                style={gridItem2}
-              >{getSuggestionQuestion(2)}</Button>
+              >{getSuggestionQuestion(5)}</Button>
             </Box>
             <Box style={{
               maxWidth: '100%'
@@ -296,7 +296,17 @@ const Chatbot = ({ selectedImage }) => {
                 onClick={(askedQuestion == true) ? handleSendQuestion : null}
 
                 style={gridItem2}
-              >{getSuggestionQuestion(3)}</Button>
+              >{getSuggestionQuestion(6)}</Button>
+            </Box>
+            <Box style={{
+              maxWidth: '100%'
+            }}>
+              <Button
+                variant="contained"
+                onClick={(askedQuestion == true) ? handleSendQuestion : null}
+
+                style={gridItem2}
+              >{getSuggestionQuestion(7)}</Button>
             </Box>
           </Box>
 
@@ -309,9 +319,9 @@ const Chatbot = ({ selectedImage }) => {
           sx={{
             // overflowX: 'hidden',
             position: 'fixed',
-            bottom: '4vh',
+            bottom: '0vh',
             left: '25%',
-            height: '92vh',
+            height: '93vh',
             width: '50vw',
             backgroundColor: '#2f3738',
           }}
@@ -342,7 +352,7 @@ const Chatbot = ({ selectedImage }) => {
                   textAlign: "center",
                   borderRadius: "10px",
                 }}>
-                  <img src={selectedImage.current} style={{
+                  <img src={localStorage.getItem('selectedImage')} style={{
                     maxWidth: "33vw",
                     maxHeight: "33vh",
                     borderRadius: "10px",
@@ -355,7 +365,7 @@ const Chatbot = ({ selectedImage }) => {
                   marginTop: '2vh',
                   color: '#F0EAD6',
                   fontFamily: '"Bebas Neue", sans-serif',
-                }}>Select or type in a question to ask BayMax</Typography>
+                }}>Select or type in a question</Typography>
                 <Box style={{
                   marginTop: "5vh",
                   textAlign: "center",
@@ -368,7 +378,7 @@ const Chatbot = ({ selectedImage }) => {
                       variant="contained"
                       onClick={handleSendQuestion}
                       style={gridItem}
-                    >{getSuggestionQuestion(4)}
+                    >{getSuggestionQuestion(0)}
                     </Button>
                   </Box>
                   <Box>
@@ -376,7 +386,7 @@ const Chatbot = ({ selectedImage }) => {
                       variant="contained"
                       onClick={handleSendQuestion}
                       style={gridItem}
-                    >{getSuggestionQuestion(5)}
+                    >{getSuggestionQuestion(1)}
                     </Button>
                   </Box>
                   <Box>
@@ -384,7 +394,7 @@ const Chatbot = ({ selectedImage }) => {
                       variant="contained"
                       onClick={handleSendQuestion}
                       style={gridItem}
-                    >{getSuggestionQuestion(6)}
+                    >{getSuggestionQuestion(2)}
                     </Button>
                   </Box>
                   <Box>
@@ -392,7 +402,7 @@ const Chatbot = ({ selectedImage }) => {
                       variant="contained"
                       onClick={handleSendQuestion}
                       style={gridItem}
-                    >{getSuggestionQuestion(7)}
+                    >{getSuggestionQuestion(3)}
                     </Button>
                   </Box>
                 </Box>
@@ -486,7 +496,7 @@ const Chatbot = ({ selectedImage }) => {
                   handleSendQuestion();
                 }
               }}
-              style={{ marginTop: '2vh', color: '#F0EAD6', border: '2px solid darkgrey' }}
+              style={{ marginTop: '4vh', color: '#F0EAD6', border: '2px solid darkgrey' }}
             />
             {/* <MicIcon variant='contained' style={{
             position: 'relative',
