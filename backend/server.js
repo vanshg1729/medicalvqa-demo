@@ -1,5 +1,7 @@
 const express = require('express')
 const userRoutes = require('./routes/userRoute')
+const categoryRoutes = require('./routes/categoryRoute')
+const tagRoutes = require('./routes/tagRoute')
 const mongoose = require('mongoose')
 
 require('dotenv').config()
@@ -17,6 +19,12 @@ app.use((req, res, next) => {
 
 // login and signup user routes
 app.use('/api/user', userRoutes)
+
+// Category routes
+app.use('/api/category', categoryRoutes)
+
+// Tag routes
+app.use('/api/tag', tagRoutes)
 
 // suppressing the warnings
 mongoose.set('strictQuery', false);
