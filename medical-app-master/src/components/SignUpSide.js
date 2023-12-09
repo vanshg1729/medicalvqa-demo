@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -20,7 +21,7 @@ function Copyright(props) {
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
             {'Copyright © '}
             <Link color="inherit" href="https://mui.com/">
-                Your Website
+                Medical VQA App
             </Link>{' '}
             {new Date().getFullYear()}
             {'.'}
@@ -33,19 +34,67 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignInSide() {
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [fname, setFname] = useState('');
+    const [lname, setLname] = useState('');
+
+    const [errMsg, setErrMsg] = useState('');
+    
     const handleSubmit = (event) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
+        // console.log('Inside handleSubmit', event.currentTarget)
+        // event.currentTarget is the button, not the form
+
+        // console.log({
+        //     email: email,
+        //     password: password,
+        //     fname: fname,
+        //     lname: lname,
+        // });
+
+        const url = "http://localhost:5000/api/user/signup";
+        const data = {
+            email: email,
+            password: password,
+            fname: fname,
+            lname: lname,
+            age: 21,
+            contact: 1234567890,
+        };
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+            // body: data,
+        }) // we also need to add a try catch for handling errors
+            .then((response) => {
+                console.log('Response = ', response)
+                if (response.status === 200) {
+                    console.log('User created successfully')
+                    window.location.href = "/";
+                } else {
+                    console.log('User not created')
+                }
+            })
+            .catch((error) => {
+                console.log('Error = ', error)
+            })
     };
 
-    const doSignIn = (event) => {
-        event.preventDefault();
-        window.location.href = "/";
-    }
+    // const doSignUp = (event) => {
+    //     event.preventDefault();
+
+    //     // we need to send a backend post request here to signup the user
+    //     const url = "/api/user/signup";
+        
+        
+    //     window.location.href = "/";
+    // }
 
     return (
         <ThemeProvider theme={defaultTheme}>
@@ -98,6 +147,8 @@ export default function SignInSide() {
                                             fullWidth
                                             id="firstName"
                                             label="First Name"
+                                            value={fname}
+                                            onChange={(e) => setFname(e.target.value)}
                                             autoFocus
                                         />
                                     </Grid>
@@ -110,6 +161,8 @@ export default function SignInSide() {
                                             label="Last Name"
                                             name="lastName"
                                             autoComplete="lname"
+                                            value={lname}
+                                            onChange={(e) => setLname(e.target.value)}
                                         />
                                     </Grid>
                                     <Grid item xs={12}>
@@ -121,6 +174,8 @@ export default function SignInSide() {
                                             label="Email Address"
                                             name="email"
                                             autoComplete="email"
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
                                         />
                                     </Grid>
                                     <Grid item xs={12}>
@@ -133,6 +188,8 @@ export default function SignInSide() {
                                             type="password"
                                             id="password"
                                             autoComplete="current-password"
+                                            value={password}
+                                            onChange={(e) => setPassword(e.target.value)}
                                         />
                                     </Grid>
                                     {/* <Grid item xs={12}>
@@ -148,7 +205,7 @@ export default function SignInSide() {
                                     variant="contained"
                                     color="primary"
                                     className={"submit"}
-                                    onClick={doSignIn}
+                                    onClick={handleSubmit}
                                     style={
                                         {
                                             marginTop: '20px',

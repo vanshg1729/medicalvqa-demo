@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -17,8 +18,8 @@ function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
+      <Link color="inherit" href="/">
+        Medical VQA App
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -26,22 +27,52 @@ function Copyright(props) {
   );
 }
 
-const doLogin = (event) => {
-  window.location.href = "/home";
-}
-
 // TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 
 export default function SignInSide() {
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const [errMsg, setErrMsg] = useState('');
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    const data = {
+      email: email,
+      password: password,
+    }
     console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+      email: email,
+      password: password
     });
+
+    // just like we did in signupside.js, we need to make a fetch request to our backend to login the user
+    const url = 'http://localhost:5000/api/user/login';
+    fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        console.log('Response = ', response)
+        if (response.status === 200) {
+          console.log('User logged in successfully')
+          window.location.href = "/home";
+        } else {
+          console.log('Login failed')
+          setErrMsg('Invalid email or password')
+        }
+      })
+      .catch((error) => {
+        console.log('Error = ', error)
+        setErrMsg('Request failed')
+      })
+
   };
 
   return (
@@ -92,6 +123,8 @@ export default function SignInSide() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
                 autoFocus
               />
               <TextField
@@ -102,17 +135,22 @@ export default function SignInSide() {
                 label="Password"
                 type="password"
                 id="password"
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
                 autoComplete="current-password"
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
               />
+              <Typography variant="body2" color="error" align="center">
+                {errMsg}
+              </Typography>
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
-                onClick={doLogin}
+                onClick={handleSubmit}
                 sx={{ mt: 3, mb: 2 }}
               >
                 Sign In
