@@ -1,4 +1,5 @@
 const Tag = require('../models/tagModel')
+const Image = require('../models/imageModel')
 
 // @Status: Completed
 // @params: {}

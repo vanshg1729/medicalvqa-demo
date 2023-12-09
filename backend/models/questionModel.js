@@ -19,6 +19,12 @@ const questionSchema = new Schema({
         ref: 'User', // Reference to the User schema (creator)
         required: true,
     },
+    status: {
+        type: Schema.Types.String,
+        required: true,
+        enum: ["submitted", "approved"],
+        default: "submitted"
+    },
     admin: {
         type: Schema.Types.ObjectId,
         ref: 'User', // Reference to the User schema (approving admin)

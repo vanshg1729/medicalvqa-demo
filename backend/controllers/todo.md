@@ -8,6 +8,8 @@
 - getAllCategories
 - createCategory
 - getCategoryByName
+- getCategoryImages
+- addImageToCategory
 - editCategory: left
 
 ### Tag routes
@@ -21,6 +23,12 @@
 - getAllImages
 - getImageById
 - getImageTags
+- addTagToImage
+- addQuestionToImage
 
+- getImageQuestions
 
 ### Question routes
+- createQuestion
+- getAllQuestions
+- getQuestionById

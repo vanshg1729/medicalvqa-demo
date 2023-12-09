@@ -2,6 +2,8 @@ const express = require('express')
 const userRoutes = require('./routes/userRoute')
 const categoryRoutes = require('./routes/categoryRoute')
 const tagRoutes = require('./routes/tagRoute')
+const imageRoutes = require('./routes/imageRoute')
+const questionRoutes = require('./routes/questionRoute')
 const mongoose = require('mongoose')
 
 require('dotenv').config()
@@ -28,6 +30,12 @@ app.use('/api/category', categoryRoutes)
 
 // Tag routes
 app.use('/api/tag', tagRoutes)
+
+// Image routes
+app.use('/api/image', imageRoutes)
+
+// Question routes
+app.use('/api/question', questionRoutes)
 
 // suppressing the warnings
 mongoose.set('strictQuery', false);
