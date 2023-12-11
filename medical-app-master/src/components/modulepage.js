@@ -230,7 +230,7 @@ export default function Modulepage() {
                         onRequestClose={() => setModalOpen(false)}
                         onAddModule={handleAddModule}
                     /> */}
-                    <div className={`modal ${showModal ? 'show' : ''}`} style={{ display: showModal ? 'flex' : 'none', justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0, 0, 0, 0.8)', position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 100000 }}>
+                    <div className={`modal ${showModal ? 'show' : ''}`} style={{ display: showModal ? 'flex' : 'none', justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0, 0, 0, 0.8)', position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 100000, letterSpacing: '0.1rem' }}>
                         <Modal.Dialog style={{ width: '50%', background: 'none', height: '50%' }}>
                             <Modal.Header closeButton onHide={handleClose} >
                                 <h1>Add Module</h1>

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Chat from './Chatbot'
+import { Modal, Form } from 'react-bootstrap';
 import { Box, TextField, Button, Paper, Typography } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
 import { useNavigate } from 'react-router-dom';
@@ -8,7 +9,7 @@ import data from './data.json';
 import tags from './tags.json';
 import Breadcrumbs from './breadcrumbs';
 
-
+import './CustomModal.css';
 import './homepage.css'
 
 import image1 from './images/image1.png'
@@ -231,6 +232,24 @@ const Homepage = ({ selectedImage }) => {
         height: '7vh',
     }
 
+    const toggleButtonStyle2 = {
+        position: 'absolute',
+        top: '29.5vh',
+        left: '90vw',
+        color: '#F0EAD6',
+        display: 'flex',
+        // alignItems: 'center',
+        // textAlign: 'center',
+        border: '2px solid grey',
+        // padding: '1vh',
+        fontSize: '1.5rem',
+        borderRadius: '7px',
+        fontFamily: '"Bebas Neue", sans-serif',
+        backgroundColor: 'rgb(61, 72, 73)',
+        height: '7vh',
+        zIndex: '10000',
+    }
+
     const func1 = (event) => {
         console.log(event.target.value, "here")
         setMyTagSearch(event.target.value)
@@ -241,6 +260,67 @@ const Homepage = ({ selectedImage }) => {
         setSearchByGivenTag(store)
         setMyTagSearch("")
     }
+
+    const [showModal, setShowModal] = useState(false);
+    const [moduleName, setModuleName] = useState('');
+    const [moduleDescription, setModuleDescription] = useState('');
+
+
+    const handleShow = () => setShowModal(true);
+    const handleClose = () => {
+        // setShowModal(false);
+        setShowModal(false);
+        setModuleName('');
+        setModuleDescription('');
+    }
+
+    const handleAddModule = () => {
+        // Add your logic to handle the module data
+        console.log('Adding module:', { name: moduleName, description: moduleDescription });
+
+        // Close the modal and reset form fields
+        handleClose();
+        setModuleName('');
+        setModuleDescription('');
+
+        // adding the module to the database
+        const addModule = async () => {
+
+            const url = 'http://localhost:5000/api/category/create';
+            // const token = localStorage.getItem('token');
+
+            // const response = await fetch(url, {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //         'Authorization': `Bearer ${token}`,
+            //     },
+            //     body: JSON.stringify({
+            //         name: moduleName,
+            //         text: moduleDescription,
+            //     }),
+            // })
+            // const res = await response.json();
+            // console.log(response, "res");
+            // if (response.ok) {
+            //     console.log(res, "resultsnfsdfn");
+
+            //     const newCard = {
+            //         id: res._id,
+            //         title: res.name,
+            //         content: res.text
+            //     }
+
+            //     setCards([...cards, newCard])
+                
+            // } else {
+            //     console.log(res.error, "erriefhha");
+            // }
+        }
+
+        addModule();
+        
+    };
 
     return (
         <>
@@ -309,14 +389,14 @@ const Homepage = ({ selectedImage }) => {
                         position: 'relative',
                         top: '-0.5vh',
                     }}>
-                    {searchByGivenTag == true ? "Search by default tags" : "Type in your input tag"}
+                        {searchByGivenTag == true ? "Search by default tags" : "Type in your input tag"}
                     </span>
                     <span style={{
                         fontSize: '0.7rem',
                         position: 'absolute',
                         top: '4vh',
                     }}>
-                    (Click to change input format)
+                        (Click to change input format)
                     </span>
                 </Button>
 
@@ -336,6 +416,78 @@ const Homepage = ({ selectedImage }) => {
                         )
                     }
                 </div>
+
+
+
+
+                <Button
+                    variant='contained'
+                    style={toggleButtonStyle2}
+                    onClick={handleShow}
+                // onClick={() => setModalOpen(true)}
+                >
+                    <span style={{
+                        fontSize: '1.5rem',
+                        position: 'relative',
+                        // top: '-0.5vh',
+                    }}>
+                        Add Image
+                    </span>
+                </Button>
+                {/* <CustomModal
+                        isOpen={isModalOpen}
+                        onRequestClose={() => setModalOpen(false)}
+                        onAddModule={handleAddModule}
+                    /> */}
+                <div className={`modal ${showModal ? 'show' : ''}`} style={{ display: showModal ? 'flex' : 'none', justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0, 0, 0, 0.8)', position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 100000, color: '#F0EAD6', letterSpacing: '0.1rem' }}>
+                    <Modal.Dialog style={{ width: '50%', background: 'none', height: '50%' }}>
+                        <Modal.Header closeButton onHide={handleClose} >
+                            <h1>Add Module</h1>
+                        </Modal.Header>
+
+                        <Modal.Body>
+                            <Form>
+                                <Form.Group controlId="moduleName">
+                                    <h2>Module Name:</h2>
+                                    <Form.Control
+                                        type="text"
+                                        value={moduleName}
+                                        onChange={(e) => setModuleName(e.target.value)}
+                                        style={
+                                            {
+                                                width: '75%',
+                                                height: '5vh',
+                                                fontSize: '1.5rem',
+                                            }
+                                        }
+                                    />
+                                </Form.Group>
+                                <Form.Group controlId="moduleDescription">
+                                    <h2>Module Description:</h2>
+                                    <Form.Control
+                                        as="textarea"
+                                        rows={3}
+                                        style={{ width: '75%', fontSize: '1rem' }} // Set the width here
+                                        value={moduleDescription}
+                                        onChange={(e) => setModuleDescription(e.target.value)}
+                                    />
+                                </Form.Group>
+                            </Form>
+                        </Modal.Body>
+
+                        <Modal.Footer>
+                            <Button variant="secondary" onClick={handleClose}>
+                                Close
+                            </Button>
+                            <Button variant="primary" onClick={handleAddModule}>
+                                Add Module
+                            </Button>
+                        </Modal.Footer>
+                    </Modal.Dialog>
+                </div>
+
+
+
             </div>
         </>
     )
