@@ -28,7 +28,7 @@ const App = () => {
         <Route path='/signup' element={<SignUpSide />}></Route>
         {/* <Route path='/random1' element={<Login />}></Route>
         <Route path='/random2' element={<SignUp />}></Route> */}
-        <Route path="/module" element={<Homepage selectedImage={selectedImage} />}></Route> {/* it is reverse in our case */}
+        <Route path="/module/:moduleName" element={<Homepage selectedImage={selectedImage} />}></Route> {/* it is reverse in our case */}
         <Route path="/module/chatbot" element={<Chat selectedImage={selectedImage} />}></Route> {/* it is reverse in our case */}
         <Route path="/module/addContent" element={<AddContentModal />}></Route> {/* it is reverse in our case ""/addContent" */}
         <Route path="/tags" element={<Tags />}></Route> {/* it is reverse in our case */}

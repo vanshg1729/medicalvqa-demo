@@ -148,7 +148,12 @@ export default function Modulepage() {
     const [moduleDescription, setModuleDescription] = useState('');
 
     const handleShow = () => setShowModal(true);
-    const handleClose = () => setShowModal(false);
+    const handleClose = () => {
+        // setShowModal(false);
+        setShowModal(false);
+        setModuleName('');
+        setModuleDescription('');
+    }
 
     const handleAddModule = () => {
         // Add your logic to handle the module data
@@ -158,6 +163,44 @@ export default function Modulepage() {
         handleClose();
         setModuleName('');
         setModuleDescription('');
+
+        // adding the module to the database
+        const addModule = async () => {
+
+            const url = 'http://localhost:5000/api/category/create';
+            const token = localStorage.getItem('token');
+
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    name: moduleName,
+                    text: moduleDescription,
+                }),
+            })
+            const res = await response.json();
+            console.log(response, "res");
+            if (response.ok) {
+                console.log(res, "resultsnfsdfn");
+
+                const newCard = {
+                    id: res._id,
+                    title: res.name,
+                    content: res.text
+                }
+
+                setCards([...cards, newCard])
+                
+            } else {
+                console.log(res.error, "erriefhha");
+            }
+        }
+
+        addModule();
+        
     };
 
 

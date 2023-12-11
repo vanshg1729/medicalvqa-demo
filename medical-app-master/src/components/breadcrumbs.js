@@ -7,9 +7,9 @@ const Breadcrumbs = () => {
   const navigate = useNavigate();
 
   const func = (e) => {
-    console.log("e.target.innerText+", e.target.innerText, "+hi")
+    // console.log("e.target.innerText+", e.target.innerText, "+hi")
     if (e.target.innerText.toLowerCase().includes("home")) {
-      console.log("navigate to home")
+      // console.log("navigate to home")
       window.location.href = "/home"
     }
     // if the inner te
@@ -27,7 +27,7 @@ const Breadcrumbs = () => {
 
   const pathnames = location.pathname.split('/').filter((x) => x);
   const goToTagsPage = () => {
-    console.log("go to tags page")
+    // console.log("go to tags page")
     window.location.href = "/tags"
   }
   pathnames.unshift("Home ")
@@ -37,7 +37,7 @@ const Breadcrumbs = () => {
     { name: "module", path: "/module" },
     { name: "chatbot", path: "/module/chatbot" },
   ]
-  console.log("pathnames", pathnames)
+  // console.log("pathnames", pathnames)
   return (
     <div style={{
       fontSize: '25px',
@@ -57,7 +57,7 @@ const Breadcrumbs = () => {
         {pathnames.map((name, index) => {
           const routeTo = `/${pathnames.slice(0, index + 1).join('/')}`;
           const isLast = index === pathnames.length - 1;
-          console.log("name: ", name)
+          // console.log("name: ", name)
           return (
             <span onClick={func} style={{
               // removing underline
