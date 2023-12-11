@@ -84,8 +84,9 @@ export default function SignInSide() {
                 setFname('');
                 setLname('');
                 setErrMsg('');
+                
+                window.location.href = '/home';
 
-                // window.location.href = '/';
             } else {
                 setEmail('');
                 setPassword('');

@@ -11,6 +11,8 @@ import SignInSide from './components/SignInSide';
 // import Login from './components/login';
 // import SignUp from './components/SignUp';
 import SignUpSide from './components/SignUpSide';
+// import Create from './components/create';
+
 
 const App = () => {
 

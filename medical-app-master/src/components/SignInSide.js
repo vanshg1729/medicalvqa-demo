@@ -71,7 +71,7 @@ export default function SignInSide() {
         setEmail('');
         setPassword('');
         
-        // window.location.href = '/';
+        window.location.href = '/home';
       } else {
         setEmail('');
         setPassword('');

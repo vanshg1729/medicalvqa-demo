@@ -1,3 +1,4 @@
+const cors = require('cors')
 const express = require('express')
 const userRoutes = require('./routes/userRoute')
 const categoryRoutes = require('./routes/categoryRoute')
@@ -12,13 +13,14 @@ const port = process.env.PORT || 5000;
 const app = express()
 
 app.use(express.json())
+app.use(cors())
 
 // log all the incoming requests
 app.use((req, res, next) => {
     console.log(req.path, req.method)
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type", "Authorization");
+    // res.setHeader("Access-Control-Allow-Origin", "*");
+    // res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
+    // res.setHeader("Access-Control-Allow-Headers", "Content-Type", "Authorization");
     next()
 })
 
