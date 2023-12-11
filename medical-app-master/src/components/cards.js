@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 
 const MyCard = ({ title, content }) => {
     const handleNavigation = () => {
-        window.location.href = '/module/' + title;
+        window.location.href = title
     };
     return (
         <Card sx={{ maxWidth: '25rem', margin: '3rem auto', height: '30rem', backgroundColor: '#f5f5f5d1' }}>

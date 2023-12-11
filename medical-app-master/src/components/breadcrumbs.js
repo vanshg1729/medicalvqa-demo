@@ -8,35 +8,50 @@ const Breadcrumbs = () => {
 
   const func = (e) => {
     // console.log("e.target.innerText+", e.target.innerText, "+hi")
-    if (e.target.innerText.toLowerCase().includes("home")) {
-      // console.log("navigate to home")
+    // if (e.target.innerText.toLowerCase().includes("home")) {
+    //   // console.log("navigate to home")
+    //   window.location.href = "/home"
+    // }
+    // // if the inner te
+    // else if (e.target.innerText.toLowerCase().includes("module")) {
+    //   window.location.href = "/module"
+    // }
+    // else if (e.target.innerText.toLowerCase().includes("chatbot")) {
+    //   window.location.href = "/module/chatbot"
+    // }
+    // else if (e.target.innerText.toLowerCase().includes("tags")) {
+    //   window.location.href = "/tags"
+    // }
+    const url = e.target.innerText
+    const num = e.target.id
+
+    if (num == 0) {
       window.location.href = "/home"
+    } else if (num == 1) {
+      // # not taking the last character as it is a space
+      const url = e.target.innerText.slice(0, -2)
+      window.location.href = `/${url}`
+    } else if (num == 2) {
+      const url = e.target.innerText.slice(0, -2)
+      window.location.href = url
     }
-    // if the inner te
-    else if (e.target.innerText.toLowerCase().includes("module")) {
-      window.location.href = "/module"
-    }
-    else if (e.target.innerText.toLowerCase().includes("chatbot")) {
-      window.location.href = "/module/chatbot"
-    }
-    else if (e.target.innerText.toLowerCase().includes("tags")) {
-      window.location.href = "/tags"
-    }
+
+    
+    // 
+    
   }
 
 
   const pathnames = location.pathname.split('/').filter((x) => x);
+  console.log(pathnames, "pathnames")
   const goToTagsPage = () => {
     // console.log("go to tags page")
     window.location.href = "/tags"
   }
   pathnames.unshift("Home ")
 
-  const locations = [
-    { name: "Home", path: "/home" },
-    { name: "module", path: "/module" },
-    { name: "chatbot", path: "/module/chatbot" },
-  ]
+  const urlEncodedString = "First%20Trimester";
+  console.log("Decoded url ", decodeURIComponent(urlEncodedString))
   // console.log("pathnames", pathnames)
   return (
     <div style={{
@@ -51,20 +66,14 @@ const Breadcrumbs = () => {
       // extreme left adnd right
       justifyContent: 'space-between',
     }}>
-      {/* {pathnames.length == 0 ? 
-      <Link to="/">Home</Link> : null} */}
       <div>
         {pathnames.map((name, index) => {
-          const routeTo = `/${pathnames.slice(0, index + 1).join('/')}`;
-          const isLast = index === pathnames.length - 1;
-          // console.log("name: ", name)
           return (
-            <span onClick={func} style={{
-              // removing underline
+            <span id={index} onClick={func} style={{
               textDecoration: 'none',
               color: 'grey',
             }}>
-              {name == 'home' ? " " : name + " / "}
+              {name == 'home' ? " " : decodeURIComponent(name) + " / "}
             </span>
           );
         })}
@@ -77,7 +86,6 @@ const Breadcrumbs = () => {
       }}
         onClick={goToTagsPage}
       >
-        {/* here we create a tags page link so if the user clicks on it we go to the tags page */}
         Tags page
       </div>
     </div>

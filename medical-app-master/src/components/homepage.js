@@ -25,6 +25,9 @@ const Homepage = ({ selectedImage }) => {
 
     const navigate = useNavigate();
 
+    const module = decodeURIComponent(window.location.href.split("/")[3])
+    console.log(module, "module")
+
     // const [chatbotShow, setChatbotShow] = useState(false)
     const [displayImage, setDisplayImage] = useState([image1, image2, image3, image4, image5, image6, image7, image8, image9])
     const [searchByGivenTag, setSearchByGivenTag] = useState(true)
@@ -46,7 +49,7 @@ const Homepage = ({ selectedImage }) => {
                 selectedImage.current = e.target.src;
                 localStorage.setItem('selectedImage', e.target.src);
                 // window.location.href = '/module/chatbot';
-                navigate('/module/chatbot', { selectedImage: selectedImage.current });
+                navigate(`/${module}/chatbot`, { selectedImage: selectedImage.current });
                 // console.log(selectedImage.current, "niceto")
                 // console.log(e.target.src, "here")
                 // setChatbotShow(true)
@@ -213,7 +216,7 @@ const Homepage = ({ selectedImage }) => {
 
     const toggleButtonStyle = {
         position: 'absolute',
-        top: '30vh',
+        top: '29.5vh',
         left: '74vw',
         color: '#F0EAD6',
         display: 'flex',
