@@ -43,7 +43,7 @@ const Breadcrumbs = () => {
 
 
   const pathnames = location.pathname.split('/').filter((x) => x);
-  console.log(pathnames, "pathnames")
+  // console.log(pathnames, "pathnames")
   const goToTagsPage = () => {
     // console.log("go to tags page")
     window.location.href = "/tags"
@@ -51,7 +51,7 @@ const Breadcrumbs = () => {
   pathnames.unshift("Home ")
 
   const urlEncodedString = "First%20Trimester";
-  console.log("Decoded url ", decodeURIComponent(urlEncodedString))
+  // console.log("Decoded url ", decodeURIComponent(urlEncodedString))
   // console.log("pathnames", pathnames)
   return (
     <div style={{

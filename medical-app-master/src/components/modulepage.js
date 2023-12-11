@@ -100,8 +100,9 @@ export default function Modulepage() {
                 console.log(res, "res");
 
                 const newCards = res.map((card) => {
+                    console.log("cardid", card._id)
                     return {
-                        id: card.id,
+                        id: card._id,
                         title: card.name,
                         content: card.text,
                     }
@@ -283,7 +284,8 @@ export default function Modulepage() {
                         <Grid container spacing={3}>
                             {cards.map((card) => (
                                 <Grid key={card.id * 100} data-aos="fade-up" item xs={12} sm={6} md={4} lg={3}>
-                                    <Card key={card.id} title={card.title} content={card.content} />
+                                    {console.log(card, "carhalfdhkd")}
+                                    <Card key={card.id} id={card.id} title={card.title} content={card.content} />
                                 </Grid>
                             ))}
                         </Grid>
