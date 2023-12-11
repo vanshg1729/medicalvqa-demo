@@ -50,28 +50,38 @@ export default function SignInSide() {
     });
 
     // just like we did in signupside.js, we need to make a fetch request to our backend to login the user
-    const url = 'http://localhost:5000/api/user/login';
-    fetch(url, {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((response) => {
-        console.log('Response = ', response)
-        if (response.status === 200) {
-          console.log('User logged in successfully')
-          window.location.href = "/home";
-        } else {
-          console.log('Login failed')
-          setErrMsg('Invalid email or password')
-        }
+    const login = async () => {
+      const url = 'http://localhost:5000/api/user/login';
+      const response = await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+        },
       })
-      .catch((error) => {
-        console.log('Error = ', error)
-        setErrMsg('Request failed')
-      })
+      const res = await response.json();
+      console.log(res, "res");
+      if (response.status === 200) {
+        const token = res.token;
+        console.log(token, "token");
+        // store the token in localStorage
+
+        localStorage.setItem('token', token);
+        setErrMsg('');
+        setEmail('');
+        setPassword('');
+        
+        // window.location.href = '/';
+      } else {
+        setEmail('');
+        setPassword('');
+        setErrMsg(res.error);
+        console.log(errMsg, "errMsg");
+      }
+    }
+
+    login();
+    
 
   };
 

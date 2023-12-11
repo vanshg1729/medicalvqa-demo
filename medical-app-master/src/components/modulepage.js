@@ -16,14 +16,15 @@ export default function Modulepage() {
           mirror: false, // Whether elements should animate out while scrolling up
         });
       }, []);
+
       
     const [cards, setCards] = useState(
         [
-            {
-                id: 1,
-                title: "Early Pregnancy",
-                content: "Early pregnancy, spanning the first 12 weeks, starts with fertilization. During this time, key organs develop, and common symptoms like fatigue and nausea may occur. Timely prenatal care and a healthy lifestyle are important for the well-being of both the mother and the fetus."
-            },
+            // {
+            //     id: 1,
+            //     title: "Early Pregnancy",
+            //     content: "Early pregnancy, spanning the first 12 weeks, starts with fertilization. During this time, key organs develop, and common symptoms like fatigue and nausea may occur. Timely prenatal care and a healthy lifestyle are important for the well-being of both the mother and the fetus."
+            // },
             {
                 id: 2,
                 title: "First Trimester",
@@ -71,6 +72,31 @@ export default function Modulepage() {
             },
         ]
     )
+
+    useEffect(() => {
+        const url = 'http://localhost:5000/api/category/';
+        const token = localStorage.getItem('token');
+
+        const getCategories = async () => {
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+            })
+            const res = await response.json();
+            console.log(res, "res");
+            if (response.status === 200) {
+                console.log(res, "res");
+                setCards(res);
+            } else {
+                console.log(res.error);
+            }
+        }
+        getCategories();
+    }
+    , [])
 
     return (
         <>
