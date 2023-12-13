@@ -4,12 +4,12 @@ import { Modal, Form } from 'react-bootstrap';
 import { Box, TextField, Button, Paper, Typography } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { useDropzone } from 'react-dropzone';
 
 import data from './data.json';
 import tags from './tags.json';
 import Breadcrumbs from './breadcrumbs';
-
-import image1 from './images/image1.png';
 
 import './CustomModal.css';
 import './homepage.css'
@@ -59,7 +59,7 @@ const Homepage = ({ selectedImage }) => {
             if (response.ok) {
                 console.log(res, "resultsnfsdfn");
                 if (res.length != 0) {
-                    const newImage = image1;
+                    const newImage = 0
                     setDisplayImage([newImage, ...displayImage])
                 }
 
@@ -338,10 +338,13 @@ const Homepage = ({ selectedImage }) => {
                 console.log(res, "resultsnfsdfn");
 
                 // now we add this image to the displayImage array
-                console.log("image path is as ", typeof (imgPath))
-                const newImagePath = `./images/${imgPath}`;
-                // let newImage = require(newImagePath); # for now lets do something else
-                const newImage = image1;
+                console.log("image path is as ", imgPath)
+                // one example of imgPath is uploads/Screenshot from 2023-12-13 01-00-57.png
+                // taking all the stuff other than the uploads/ part
+                const splitArr = imgPath.split("/")
+                const newImagePath = splitArr.slice(1, splitArr.length).join("/")
+                console.log(newImagePath, "newImagePath is the")
+                let newImage = newImagePath; // for now lets do something else
                 setDisplayImage([newImage, ...displayImage])
 
 
@@ -382,8 +385,8 @@ const Homepage = ({ selectedImage }) => {
                             console.log(res3.error, "3333333333");
                         }
                     }
-                    
-                    
+
+
                 } else {
                     console.log(res2.error, "2222222222");
                 }
@@ -396,6 +399,51 @@ const Homepage = ({ selectedImage }) => {
         addImage();
 
     };
+
+    const handleImageUpload = async (e) => {
+        const file = e.target.files[0];
+
+        if (file) {
+            const formData = new FormData();
+            formData.append('image', file);
+
+            try {
+                const response = await axios.post('http://localhost:5001/upload', formData);
+                setImagePath(response.data.imagePath);
+            } catch (error) {
+                console.error('Error uploading image:', error);
+            }
+        }
+    };
+
+
+    const onDrop = async (acceptedFiles) => {
+        const formData = new FormData();
+        formData.append('image', acceptedFiles[0]);
+
+        try {
+            const response = await axios.post('http://localhost:5001/upload', formData);
+            setImagePath(response.data.imagePath);
+        } catch (error) {
+            console.error('Error uploading image:', error);
+        }
+    };
+
+    const { getRootProps, getInputProps } = useDropzone({
+        onDrop,
+        accept: 'image/*',
+        maxFiles: 1,
+    });
+
+    const dropzoneStyle = {
+        border: '2px dashed #cccccc',
+        borderRadius: '4px',
+        padding: '20px',
+        textAlign: 'center',
+        cursor: 'pointer',
+        width: '70%',
+    };
+
 
     return (
         <>
@@ -484,8 +532,9 @@ const Homepage = ({ selectedImage }) => {
                 <div id="image-track" data-mouse-down-at="0" data-prev-percentage="0">
                     {
                         displayImage.map((image, index) => {
+                            console.log("image the theh theis ", `http://localhost:5001/uploads/${encodeURIComponent(image)}`, image)
                             return (
-                                <img key={index} className="image" src={image} draggable="false" />
+                                <img key={index} className="image" src={`http://localhost:5001/uploads/${encodeURIComponent(image)}`} alt="Uploaded" draggable="false" />
                             )
                         }
                         )
@@ -522,35 +571,37 @@ const Homepage = ({ selectedImage }) => {
 
                         <Modal.Body>
                             <Form>
-                                <Form.Group controlId="imgPath">
-                                    <h2>Image Path:</h2>
-                                    <Form.Control
-                                        type="text"
-                                        value={imgPath}
-                                        onChange={(e) => setImagePath(e.target.value)}
-                                        style={
-                                            {
-                                                width: '75%',
-                                                height: '5vh',
-                                                fontSize: '1.5rem',
-                                            }
-                                        }
-                                    />
+                                <Form.Group controlId="imgUpload">
+                                    <h2>Upload Image:</h2>
+                                    <div {...getRootProps()} style={dropzoneStyle}>
+                                        <input {...getInputProps()} />
+                                        <p>Drag & drop an image here, or click to select one</p>
+                                    </div>
+                                    {imgPath && (
+                                        <img
+                                            src={`http://localhost:5001/${imgPath}`}
+                                            alt="Uploaded"
+                                            style={{ maxWidth: '100%', maxHeight: '200px', marginTop: '10px' }}
+                                        />
+                                    )}
                                 </Form.Group>
                                 <Form.Group controlId="addTags">
-                                    <h2>List of tags (Comma seperated):</h2>
+                                    <h2>List of tags (Comma separated):</h2>
                                     <Form.Control
                                         as="textarea"
                                         rows={3}
-                                        style={{ width: '75%', fontSize: '1rem' }} // Set the width here
+                                        style={{ width: '75%', fontSize: '1rem' }}
                                         value={addTags}
                                         onChange={(e) => setAddTags(e.target.value)}
                                     />
                                 </Form.Group>
                             </Form>
+
                         </Modal.Body>
 
-                        <Modal.Footer>
+                        <Modal.Footer style={{
+                            margin: '20px 0px',
+                        }}>
                             <Button variant="secondary" onClick={handleClose}>
                                 Close
                             </Button>
