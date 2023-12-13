@@ -11,7 +11,7 @@ import SignInSide from './components/SignInSide';
 // import Login from './components/login';
 // import SignUp from './components/SignUp';
 import SignUpSide from './components/SignUpSide';
-// import Create from './components/create';
+import Create from './components/create';
 
 
 const App = () => {
@@ -33,6 +33,7 @@ const App = () => {
         <Route path="/module/addContent" element={<AddContentModal />}></Route> {/* it is reverse in our case ""/addContent" */}
         <Route path="/tags" element={<Tags />}></Route> {/* it is reverse in our case */}
         <Route path="/home" element={<Modulepage />}></Route>
+        <Route path="/create" element={<Create />}></Route>
       </Routes>
     </AppStateProvider>
 
