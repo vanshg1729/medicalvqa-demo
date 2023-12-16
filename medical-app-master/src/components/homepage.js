@@ -33,7 +33,7 @@ const Homepage = ({ selectedImage }) => {
     }
     // console.log(imgImportList, "imgImportList")
     // const [chatbotShow, setChatbotShow] = useState(false)
-    const [displayImage, setDisplayImage] = useState(imgImportList)
+    const [displayImage, setDisplayImage] = useState([])
     const [searchByGivenTag, setSearchByGivenTag] = useState(true)
     const [myTagSearch, setMyTagSearch] = useState("")
     const [loading, setLoading] = useState(false);
@@ -59,8 +59,15 @@ const Homepage = ({ selectedImage }) => {
             if (response.ok) {
                 console.log(res, "resultsnfsdfn");
                 if (res.length != 0) {
-                    const newImage = 0
-                    setDisplayImage([newImage, ...displayImage])
+                    const len = res.length;
+                    const newImages = []
+                    for (let i = 0; i < len; i++) {
+                        const thePath = res[i].path
+                        const splitArr = thePath.split("/")
+                        const newImagePath = splitArr.slice(1, splitArr.length).join("/")
+                        newImages.push(newImagePath)
+                    }
+                    setDisplayImage([...newImages, ...displayImage])
                 }
 
                 // now we add these images to the displayImage array
@@ -329,7 +336,7 @@ const Homepage = ({ selectedImage }) => {
                     'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify({
-                    path: imgPath,
+                    path: imgPath
                 }),
             })
             const res = await response.json();
