@@ -186,7 +186,8 @@ const Chatbot = ({ selectedImage }) => {
       imageName = localStorage.getItem('selectedImage')
       // imageId = imageName.split('.')[0];
       // now joining it with the imageName.split('.')[2]
-      imageIdWithExtension = imageName.split('/').pop().split('.')[0] + '.' + imageName.split('/').pop().split('.')[2];
+      // imageIdWithExtension = imageName.split('/').pop().split('.')[0] + '.' + imageName.split('/').pop().split('.')[2];
+      imageIdWithExtension = imageName
     }
     console.log(localStorage.getItem('selectedImage'), 'imageIdWithExtension');
 
@@ -205,18 +206,27 @@ const Chatbot = ({ selectedImage }) => {
     var keywordsString = keywords.join(" ");
     console.log(keywordsString, "the keywords");
 
-
-    const response = await fetch('https://nicemedvqa.onrender.com/api/answer', {
+    const url = 'http://localhost:8000/get_question';
+    const response = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ question: keywordsString, selectedImage: imageIdWithExtension }),
+      body: JSON.stringify({ token: localStorage.getItem('token'), question: keywordsString, selectedImageId: localStorage.getItem('selectedImageId') }),
     });
-    console.log("response recieved");
+
+    // const response = await fetch('https://nicemedvqa.onrender.com/api/answer', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({ question: keywordsString, selectedImage: imageIdWithExtension }),
+    // });
+    // console.log("response recieved");
 
     if (response.ok) {
       const data = await response.json();
+      console.log(data, "data");
       const answer = data.answer;
 
       const newMessage = {
@@ -265,7 +275,6 @@ const Chatbot = ({ selectedImage }) => {
     //   }
     // }
     if (questions && questions.length > 0) {
-      console.log(questions, 'questions');
       return questions[num];
     }
     return '';

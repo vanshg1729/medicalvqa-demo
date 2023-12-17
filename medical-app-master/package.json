@@ -2,6 +2,7 @@
   "name": "medical-data-app",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:8000",
   "dependencies": {
     "@babel/core": "^7.16.0",
     "@emotion/react": "^11.11.1",
