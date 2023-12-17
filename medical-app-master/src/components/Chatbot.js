@@ -2,9 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Box, TextField, Button, Paper, Typography } from '@mui/material';
 import MicIcon from '@mui/icons-material/Mic';
 import Breadcrumbs from './breadcrumbs';
+import { Modal, Form } from 'react-bootstrap';
 
 import data from './data.json';
 import { useTheme } from '@mui/material/styles';
+
 
 const Chatbot = ({ selectedImage }) => {
   const theme = useTheme();
@@ -17,7 +19,69 @@ const Chatbot = ({ selectedImage }) => {
   const [askedQuestion, setAskedQuestion] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
+  const [questions, setQuestions] = useState([]);
+  const [answers, setAnswers] = useState([]);
+
   const [isRecording, setIsRecording] = useState(false);
+
+  const toggleButtonStyle = {
+    position: 'absolute',
+    top: '25vh',
+    left: '82.5vw',
+    color: '#F0EAD6',
+    display: 'flex',
+    // alignItems: 'center',
+    // textAlign: 'center',
+    border: '2px solid grey',
+    // padding: '1vh',
+    fontSize: '1.5rem',
+    borderRadius: '7px',
+    fontFamily: '"Bebas Neue", sans-serif',
+    backgroundColor: 'rgb(61, 72, 73)',
+    height: '7vh',
+    zIndex: '10000',
+  }
+
+  const [showModal, setShowModal] = useState(false);
+  const [question, setQuestion] = useState('');
+  const [answer, setAnswer] = useState('');
+
+  const handleShow = () => setShowModal(true);
+  const handleClose = () => {
+    // setShowModal(false);
+    setShowModal(false);
+    setQuestion('');
+    setAnswer('');
+  }
+
+  const addQNA = () => {
+    const selectedImageId = localStorage.getItem('selectedImageId');
+    const newQNA = {
+      questionText: question,
+      answerText: answer,
+    };
+    const url = 'http://localhost:5000/api/image/' + selectedImageId + '/addquestion';
+    const token = localStorage.getItem('token');
+    const addingQNA = async () => {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token,
+        },
+        body: JSON.stringify(newQNA),
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setQuestions([...questions, question]);
+        setAnswers([...answers, answer]);
+      }
+    };
+    addingQNA();
+    // setQuestion('');
+    // setAnswer('');
+    setShowModal(false);
+  }
 
   // const recognition = new window.webkitSpeechRecognition();
 
@@ -50,9 +114,37 @@ const Chatbot = ({ selectedImage }) => {
 
   // read the selected image from the local storage when the page loads
   useEffect(() => {
-    console.log(localStorage.getItem('selectedImage'), 'selectedImage nice');
     selectedImage.current = localStorage.getItem('selectedImage');
+    // getting all the questions and answers of the selected image
 
+    const selectedImageId = localStorage.getItem('selectedImageId');
+    const url = 'http://localhost:5000/api/image/' + selectedImageId + '/questions';
+    const token = localStorage.getItem('token');
+
+    const getQuestions = async () => {
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Authorization': 'Bearer ' + token,
+        },
+      });
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data, "dtaa");
+        const qs = []
+        const ans = []
+        for (var i = 0; i < data.questions.length; i++) {
+          qs.push(data.questions[i].questionText);
+          ans.push(data.questions[i].answerText);
+        }
+        setQuestions(qs);
+        setAnswers(ans);
+      } else {
+        console.log('error in getting the images');
+      }
+    }
+    getQuestions();
+    
   }, []);
 
   useEffect(() => {
@@ -162,20 +254,19 @@ const Chatbot = ({ selectedImage }) => {
     if (localStorage.getItem('selectedImage') === null) {
       return '';
     }
-    const imageName2 = localStorage.getItem('selectedImage').toString();
-    console.log(imageName2, "imageName2")
-    console.log(localStorage.getItem('selectedImage'), typeof(localStorage.getItem('selectedImage')), "nicenicenice")
-    actualImage = imageName2.split('/').pop().split('.')[0] + '.' + imageName2.split('/').pop().split('.')[2];
-    for (var i = 0; i < dataLength; i++) {
-      if (data.images[i].image === actualImage) {
-        for (var j = 0; j < data.images[i].questions.length; j++) {
-          suggestions.push(data.images[i].questions[j].question);
-        }
-        break;
-      }
-    }
-    if (suggestions && suggestions.length > 0) {
-      return suggestions[num];
+    // const imageName2 = localStorage.getItem('selectedImage').toString();
+    // actualImage = imageName2.split('/').pop().split('.')[0] + '.' + imageName2.split('/').pop().split('.')[2];
+    // for (var i = 0; i < dataLength; i++) {
+    //   if (data.images[i].image === actualImage) {
+    //     for (var j = 0; j < data.images[i].questions.length; j++) {
+    //       suggestions.push(data.images[i].questions[j].question);
+    //     }
+    //     break;
+    //   }
+    // }
+    if (questions && questions.length > 0) {
+      console.log(questions, 'questions');
+      return questions[num];
     }
     return '';
   };
@@ -537,6 +628,72 @@ const Chatbot = ({ selectedImage }) => {
 
         </Paper>
       </Box>
+
+      <Button
+        variant='contained'
+        style={toggleButtonStyle}
+        onClick={handleShow}
+      // onClick={() => setModalOpen(true)}
+      >
+        <span style={{
+          fontSize: '1.5rem',
+          position: 'relative',
+          // top: '-0.5vh',
+        }}>
+          Add New Question
+        </span>
+      </Button>
+      {/* <CustomModal
+                        isOpen={isModalOpen}
+                        onRequestClose={() => setModalOpen(false)}
+                        onAddModule={handleAddModule}
+                    /> */}
+      <div className={`modal ${showModal ? 'show' : ''}`} style={{ display: showModal ? 'flex' : 'none', justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0, 0, 0, 0.8)', position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 100000, letterSpacing: '0.1rem' }}>
+        <Modal.Dialog style={{ width: '50%', background: 'none', height: '50%' }}>
+          <Modal.Header closeButton onHide={handleClose} >
+            <h1>Add New Question</h1>
+          </Modal.Header>
+
+          <Modal.Body>
+            <Form>
+              <Form.Group controlId="question">
+                <h2>Question:</h2>
+                <Form.Control
+                  type="text"
+                  value={question}
+                  onChange={(e) => setQuestion(e.target.value)}
+                  style={
+                    {
+                      width: '75%',
+                      height: '5vh',
+                      fontSize: '1.5rem',
+                    }
+                  }
+                />
+              </Form.Group>
+              <Form.Group controlId="answer">
+                <h2>Answer:</h2>
+                <Form.Control
+                  as="textarea"
+                  rows={3}
+                  style={{ width: '75%', fontSize: '1rem' }} // Set the width here
+                  value={answer}
+                  onChange={(e) => setAnswer(e.target.value)}
+                />
+              </Form.Group>
+            </Form>
+          </Modal.Body>
+
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={addQNA}>
+              Add
+            </Button>
+          </Modal.Footer>
+        </Modal.Dialog>
+      </div>
     </>
   );
 };

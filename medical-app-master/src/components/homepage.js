@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react'
-import Chat from './Chatbot'
 import { Modal, Form } from 'react-bootstrap';
 import { Box, TextField, Button, Paper, Typography } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -22,30 +21,32 @@ const Homepage = ({ selectedImage }) => {
     const module = decodeURIComponent(window.location.href.split("/")[3])
     // console.log(module, "module")
     const imgImportList = []
-    for (let i = 1; i < data.images.length; i++) { // we left the first image to just test it out
+    const imgIDImportList = []
+    for (let i = 0; i < data.images.length; i++) { // we left the first image to just test it out
         // importing images inside the images folder
-        const imagePath = `./images/image${i + 1}.png`;
+        const imagePath = data.images[i].image
 
         // Import the image using the dynamic import syntax
-        let img = require(`${imagePath}`);
         // console.log(img, "img.default")
-        imgImportList.push(img)
+        imgImportList.push(imagePath)
+        imgIDImportList.push((i + 1).toString()) // TODO CHANGE THIS LATER
     }
-    // console.log(imgImportList, "imgImportList")
-    // const [chatbotShow, setChatbotShow] = useState(false)
-    const [displayImage, setDisplayImage] = useState([])
+    const [displayImage, setDisplayImage] = useState(imgImportList)
+    const [displayImageId, setDisplayImageId] = useState(imgIDImportList)
+    
     const [searchByGivenTag, setSearchByGivenTag] = useState(true)
     const [myTagSearch, setMyTagSearch] = useState("")
     const [loading, setLoading] = useState(false);
 
-    // const chatbotShowRef = useRef(false);
 
 
     useEffect(() => {
 
         const getImages = async () => {
-            const url = 'http://localhost:5000/api/image';
+
             const token = localStorage.getItem('token');
+            const moduleId = localStorage.getItem('module');
+            const url = 'http://localhost:5000/api/category/' + moduleId + '/images';
 
             const response = await fetch(url, {
                 method: 'GET',
@@ -55,19 +56,25 @@ const Homepage = ({ selectedImage }) => {
                 },
             })
             const res = await response.json();
-
             if (response.ok) {
-                console.log(res, "resultsnfsdfn");
-                if (res.length != 0) {
-                    const len = res.length;
+                const receivedImages = res.images;
+                if (receivedImages.length != 0) {
+                    const len = receivedImages.length;
                     const newImages = []
+                    const newImageIDS = []
                     for (let i = 0; i < len; i++) {
-                        const thePath = res[i].path
+                        const thePath = receivedImages[i].path
                         const splitArr = thePath.split("/")
                         const newImagePath = splitArr.slice(1, splitArr.length).join("/")
                         newImages.push(newImagePath)
+                        console.log(receivedImages[i], "checking the id")
+                        newImageIDS.push(receivedImages[i].id)
                     }
+                    newImages.reverse() // so that the latest images are shown first
                     setDisplayImage([...newImages, ...displayImage])
+                    setDisplayImageId([...newImageIDS, ...displayImageId])
+                    console.log("New image ids", newImageIDS)
+                    console.log("Old image ids", displayImageId)
                 }
 
                 // now we add these images to the displayImage array
@@ -86,12 +93,11 @@ const Homepage = ({ selectedImage }) => {
                 // setSelectedImage(e.target.src)
                 selectedImage.current = e.target.src;
                 localStorage.setItem('selectedImage', e.target.src);
+                localStorage.setItem('selectedImageId', e.target.id);
                 // window.location.href = '/module/chatbot';
                 navigate(`/${module}/chatbot`, { selectedImage: selectedImage.current });
                 // console.log(selectedImage.current, "niceto")
                 // console.log(e.target.src, "here")
-                // setChatbotShow(true)
-                // chatbotShowRef.current = true;
             }
         }
 
@@ -121,7 +127,6 @@ const Homepage = ({ selectedImage }) => {
         }
 
         function resetScrollPosition() {
-            // if (chatbotShow) return;
             window.scrollTo(0, originalScrollPos);
         }
 
@@ -340,17 +345,13 @@ const Homepage = ({ selectedImage }) => {
                 }),
             })
             const res = await response.json();
-            console.log(response, "res");
             if (response.ok) {
-                console.log(res, "resultsnfsdfn");
 
                 // now we add this image to the displayImage array
-                console.log("image path is as ", imgPath)
                 // one example of imgPath is uploads/Screenshot from 2023-12-13 01-00-57.png
                 // taking all the stuff other than the uploads/ part
                 const splitArr = imgPath.split("/")
                 const newImagePath = splitArr.slice(1, splitArr.length).join("/")
-                console.log(newImagePath, "newImagePath is the")
                 let newImage = newImagePath; // for now lets do something else
                 setDisplayImage([newImage, ...displayImage])
 
@@ -407,21 +408,21 @@ const Homepage = ({ selectedImage }) => {
 
     };
 
-    const handleImageUpload = async (e) => {
-        const file = e.target.files[0];
+    // const handleImageUpload = async (e) => {
+    //     const file = e.target.files[0];
 
-        if (file) {
-            const formData = new FormData();
-            formData.append('image', file);
+    //     if (file) {
+    //         const formData = new FormData();
+    //         formData.append('image', file);
 
-            try {
-                const response = await axios.post('http://localhost:5001/upload', formData);
-                setImagePath(response.data.imagePath);
-            } catch (error) {
-                console.error('Error uploading image:', error);
-            }
-        }
-    };
+    //         try {
+    //             const response = await axios.post('http://localhost:5001/upload', formData);
+    //             setImagePath(response.data.imagePath);
+    //         } catch (error) {
+    //             console.error('Error uploading image:', error);
+    //         }
+    //     }
+    // };
 
 
     const onDrop = async (acceptedFiles) => {
@@ -455,14 +456,10 @@ const Homepage = ({ selectedImage }) => {
     return (
         <>
             <Breadcrumbs />
-            {/* <Chat selectedImage.current={selectedImage.current} /> */}
             {/* {console.log(selectedImage.current, "hellownice")} */}
             <div style={{
-                // display: chatbotShow ? "none" : "block",
                 fontFamily: '"Bebas Neue", sans-serif',
                 transition: 'opacity 1s ease-in-out',
-                // opacity: chatbotShow ? 0 : 1,
-                // display: chatbotShow ? "none" : "block",
             }}>
                 <div className="heading">
                     <div className="heading1">KREST</div>
@@ -539,9 +536,8 @@ const Homepage = ({ selectedImage }) => {
                 <div id="image-track" data-mouse-down-at="0" data-prev-percentage="0">
                     {
                         displayImage.map((image, index) => {
-                            console.log("image the theh theis ", `http://localhost:5001/uploads/${encodeURIComponent(image)}`, image)
                             return (
-                                <img key={index} className="image" src={`http://localhost:5001/uploads/${encodeURIComponent(image)}`} alt="Uploaded" draggable="false" />
+                                <img key={index} id={displayImageId[index]} className="image" src={`http://localhost:5001/uploads/${encodeURIComponent(image)}`} alt="Uploaded" draggable="false" />
                             )
                         }
                         )

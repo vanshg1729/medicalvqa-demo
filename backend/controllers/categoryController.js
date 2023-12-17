@@ -87,6 +87,7 @@ const getCategoryImages = async (req, res) => {
       const questions = await Question.find({ _id: { $in: image.questions } }).select('questionText answerText');
 
       return {
+        id: image._id,
         path: image.path,
         tags: tagNames.map(tag => tag.name),
         questions: questions,
