@@ -193,18 +193,18 @@ const Chatbot = ({ selectedImage }) => {
 
 
 
-    const keywordExtractor = require("keyword-extractor");
+    // const keywordExtractor = require("keyword-extractor");
 
-    const text = "This is an example sentence, and we want to extract important keywords from it.";
-    const keywords = keywordExtractor.extract(userQuestion, {
-      language: "english",
-      remove_digits: true,
-      return_changed_case: true,
-      remove_duplicates: true,
-    });
-    // converting the keywords array into a string
-    var keywordsString = keywords.join(" ");
-    console.log(keywordsString, "the keywords");
+    // const text = "This is an example sentence, and we want to extract important keywords from it.";
+    // const keywords = keywordExtractor.extract(userQuestion, {
+    //   language: "english",
+    //   remove_digits: true,
+    //   return_changed_case: true,
+    //   // remove_duplicates: true,
+    // });
+    // // converting the keywords array into a string
+    // var keywordsString = keywords.join(" ");
+    // console.log(keywordsString, "the keywords");
 
     const url = 'http://localhost:8000/get_question';
     const response = await fetch(url, {
@@ -212,7 +212,7 @@ const Chatbot = ({ selectedImage }) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ token: localStorage.getItem('token'), question: keywordsString, selectedImageId: localStorage.getItem('selectedImageId') }),
+      body: JSON.stringify({ token: localStorage.getItem('token'), question: userQuestion, selectedImageId: localStorage.getItem('selectedImageId') }),
     });
 
     // const response = await fetch('https://nicemedvqa.onrender.com/api/answer', {
@@ -227,7 +227,7 @@ const Chatbot = ({ selectedImage }) => {
     if (response.ok) {
       const data = await response.json();
       console.log(data, "data");
-      const answer = data.answer;
+      const answer = data.closest_question.answerText;
 
       const newMessage = {
         id: chatMessages.length + 1,

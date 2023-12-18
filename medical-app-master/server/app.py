@@ -7,11 +7,11 @@ app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
 # Load the spaCy English model
-nlp = spacy.load("en_core_web_sm")
+nlp = spacy.load("en_core_web_md")  # or "en_core_web_lg"
 
 def find_closest_question(question_text, existing_questions):
     # Use spaCy to get the similarity between the input question and each existing question
-    similarities = [(nlp(question_text).similarity(nlp(q['questionText'])), q) for q in existing_questions]
+    similarities = [(nlp(question_text).similarity(nlp(q['questionText'] + q['answerText'])), q) for q in existing_questions]
 
     # Sort by similarity in descending order
     similarities.sort(key=lambda x: x[0], reverse=True)
