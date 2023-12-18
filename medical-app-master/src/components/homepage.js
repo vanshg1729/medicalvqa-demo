@@ -95,7 +95,8 @@ const Homepage = ({ selectedImage }) => {
             if (e.target.classList.contains("image")) {
                 // setSelectedImage(e.target.src)
                 selectedImage.current = e.target.src;
-                localStorage.setItem('selectedImage', arr1.current[e.target.id]);
+                console.log(e.target.src, "here1111111111111")
+                localStorage.setItem('selectedImage', e.target.src);
                 console.log(e.target.id, "here")
                 localStorage.setItem('selectedImageId', arr2.current[e.target.id]);
                 // window.location.href = '/module/chatbot';
