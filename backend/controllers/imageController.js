@@ -211,6 +211,7 @@ const getImageQuestions = async (req, res) => {
   }
 };
 
+
 module.exports = {
     getAllImages,
     getImageById,
