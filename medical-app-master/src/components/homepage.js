@@ -38,10 +38,10 @@ const Homepage = ({ selectedImage }) => {
     const [myTagSearch, setMyTagSearch] = useState("")
     const [loading, setLoading] = useState(false);
 
-
+    const arr1 = useRef([]);
+    const arr2 = useRef([]);
 
     useEffect(() => {
-
         const getImages = async () => {
 
             const token = localStorage.getItem('token');
@@ -71,8 +71,11 @@ const Homepage = ({ selectedImage }) => {
                         newImageIDS.push(receivedImages[i].id)
                     }
                     newImages.reverse() // so that the latest images are shown first
+                    newImageIDS.reverse()
                     setDisplayImage([...newImages, ...displayImage])
                     setDisplayImageId([...newImageIDS, ...displayImageId])
+                    arr1.current = [...newImages, ...displayImage]
+                    arr2.current = [...newImageIDS, ...displayImageId]
                     console.log("New image ids", newImageIDS)
                     console.log("Old image ids", displayImageId)
                 }
@@ -87,13 +90,14 @@ const Homepage = ({ selectedImage }) => {
 
         const track = document.getElementById("image-track");
 
-        const handleOnDown = e => {
+        const handleOnDown = (e) => {
             track.dataset.mouseDownAt = e.clientX;
             if (e.target.classList.contains("image")) {
                 // setSelectedImage(e.target.src)
                 selectedImage.current = e.target.src;
-                localStorage.setItem('selectedImage', e.target.src);
-                localStorage.setItem('selectedImageId', e.target.id);
+                localStorage.setItem('selectedImage', arr1.current[e.target.id]);
+                console.log(e.target.id, "here")
+                localStorage.setItem('selectedImageId', arr2.current[e.target.id]);
                 // window.location.href = '/module/chatbot';
                 navigate(`/${module}/chatbot`, { selectedImage: selectedImage.current });
                 // console.log(selectedImage.current, "niceto")
@@ -537,7 +541,7 @@ const Homepage = ({ selectedImage }) => {
                     {
                         displayImage.map((image, index) => {
                             return (
-                                <img key={index} id={displayImageId[index]} className="image" src={`http://localhost:5001/uploads/${encodeURIComponent(image)}`} alt="Uploaded" draggable="false" />
+                                <img key={index} id={index} className="image" src={`http://localhost:5001/uploads/${encodeURIComponent(image)}`} alt="Uploaded" draggable="false" />
                             )
                         }
                         )
