@@ -4,9 +4,11 @@ import CardContent from '@mui/joy/CardContent';
 import { CardHeader, Typography } from '@mui/material'
 import Button from '@mui/material/Button';
 
-const MyCard = ({ title, content }) => {
+const MyCard = ({ id, title, content }) => {
     const handleNavigation = () => {
-        window.location.href = '/module';
+        // we store the module id that we just chose in the local storage
+        localStorage.setItem('module', id)
+        window.location.href = title
     };
     return (
         <Card sx={{ maxWidth: '25rem', margin: '3rem auto', height: '30rem', backgroundColor: '#f5f5f5d1' }}>

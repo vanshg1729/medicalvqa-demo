@@ -1,41 +1,89 @@
 import React, { useEffect, useRef, useState } from 'react'
-import Chat from './Chatbot'
+import { Modal, Form } from 'react-bootstrap';
 import { Box, TextField, Button, Paper, Typography } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { useDropzone } from 'react-dropzone';
 
 import data from './data.json';
 import tags from './tags.json';
 import Breadcrumbs from './breadcrumbs';
 
-
+import './CustomModal.css';
 import './homepage.css'
 
-import image1 from './images/image1.png'
-import image2 from './images/image2.png'
-import image3 from './images/image3.png'
-import image4 from './images/image4.png'
-import image5 from './images/image5.png'
-import image6 from './images/image6.png'
-import image7 from './images/image7.png'
-import image8 from './images/image8.png'
-import image9 from './images/image9.png'
 
 const Homepage = ({ selectedImage }) => {
 
     const navigate = useNavigate();
 
-    // const [chatbotShow, setChatbotShow] = useState(false)
-    const [displayImage, setDisplayImage] = useState([image1, image2, image3, image4, image5, image6, image7, image8, image9])
+    const module = decodeURIComponent(window.location.href.split("/")[3])
+    // console.log(module, "module")
+    const imgImportList = []
+    const imgIDImportList = []
+    for (let i = 0; i < data.images.length; i++) { // we left the first image to just test it out
+        // importing images inside the images folder
+        const imagePath = data.images[i].image
+
+        // Import the image using the dynamic import syntax
+        // console.log(img, "img.default")
+        imgImportList.push(imagePath)
+        imgIDImportList.push((i + 1).toString()) // TODO CHANGE THIS LATER
+    }
+    const [displayImage, setDisplayImage] = useState(imgImportList)
+    const [displayImageId, setDisplayImageId] = useState(imgIDImportList)
+    
     const [searchByGivenTag, setSearchByGivenTag] = useState(true)
     const [myTagSearch, setMyTagSearch] = useState("")
     const [loading, setLoading] = useState(false);
 
-    // const chatbotShowRef = useRef(false);
 
-    const imgList = [image1, image2, image3, image4, image5, image6, image7, image8, image9]
 
     useEffect(() => {
+
+        const getImages = async () => {
+
+            const token = localStorage.getItem('token');
+            const moduleId = localStorage.getItem('module');
+            const url = 'http://localhost:5000/api/category/' + moduleId + '/images';
+
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+            })
+            const res = await response.json();
+            if (response.ok) {
+                const receivedImages = res.images;
+                if (receivedImages.length != 0) {
+                    const len = receivedImages.length;
+                    const newImages = []
+                    const newImageIDS = []
+                    for (let i = 0; i < len; i++) {
+                        const thePath = receivedImages[i].path
+                        const splitArr = thePath.split("/")
+                        const newImagePath = splitArr.slice(1, splitArr.length).join("/")
+                        newImages.push(newImagePath)
+                        console.log(receivedImages[i], "checking the id")
+                        newImageIDS.push(receivedImages[i].id)
+                    }
+                    newImages.reverse() // so that the latest images are shown first
+                    setDisplayImage([...newImages, ...displayImage])
+                    setDisplayImageId([...newImageIDS, ...displayImageId])
+                    console.log("New image ids", newImageIDS)
+                    console.log("Old image ids", displayImageId)
+                }
+
+                // now we add these images to the displayImage array
+            } else {
+                console.log(res.error, "erriefhha");
+            }
+        }
+
+        getImages();
 
         const track = document.getElementById("image-track");
 
@@ -45,12 +93,11 @@ const Homepage = ({ selectedImage }) => {
                 // setSelectedImage(e.target.src)
                 selectedImage.current = e.target.src;
                 localStorage.setItem('selectedImage', e.target.src);
+                localStorage.setItem('selectedImageId', e.target.id);
                 // window.location.href = '/module/chatbot';
-                navigate('/module/chatbot', { selectedImage: selectedImage.current });
+                navigate(`/${module}/chatbot`, { selectedImage: selectedImage.current });
                 // console.log(selectedImage.current, "niceto")
                 // console.log(e.target.src, "here")
-                // setChatbotShow(true)
-                // chatbotShowRef.current = true;
             }
         }
 
@@ -80,7 +127,6 @@ const Homepage = ({ selectedImage }) => {
         }
 
         function resetScrollPosition() {
-            // if (chatbotShow) return;
             window.scrollTo(0, originalScrollPos);
         }
 
@@ -144,7 +190,7 @@ const Homepage = ({ selectedImage }) => {
 
     const handleSendQuestionTag = async () => {
         if (selectedTags.length === 0 && myTagSearch == "") {
-            setDisplayImage(imgList)
+            setDisplayImage(imgImportList)
             if (searchByGivenTag == true)
                 alert("Please select a tag")
             else
@@ -166,14 +212,14 @@ const Homepage = ({ selectedImage }) => {
                         }
                     }
                     if (check === 1) {
-                        newDisplayImage.push(imgList[i])
+                        newDisplayImage.push(imgImportList[i])
                     }
                 }
-                console.log(newDisplayImage)
+                // console.log(newDisplayImage)
                 // for (let i = 0; i < data.images.length; i++) {
                 //     for (let j = 0; j < data.images[i].tags.length; j++) {
                 //         if (data.images[i].tags[j].includes("hi mom")) {
-                //             newDisplayImage.push(imgList[i])
+                //             newDisplayImage.push(imgImportList[i])
                 //             break;
                 //         }
                 //     }
@@ -199,7 +245,7 @@ const Homepage = ({ selectedImage }) => {
                     let newDisplayImage = []
                     for (let i = 0; i < data.images.length; i++) {
                         if (data.images[i]["image"] == images[0][0] || data.images[i]["image"] == images[1][0] || data.images[i]["image"] == images[2][0])
-                            newDisplayImage.push(imgList[i])
+                            newDisplayImage.push(imgImportList[i])
                     }
                     console.log(newDisplayImage)
 
@@ -213,7 +259,7 @@ const Homepage = ({ selectedImage }) => {
 
     const toggleButtonStyle = {
         position: 'absolute',
-        top: '30vh',
+        top: '29.5vh',
         left: '74vw',
         color: '#F0EAD6',
         display: 'flex',
@@ -228,8 +274,26 @@ const Homepage = ({ selectedImage }) => {
         height: '7vh',
     }
 
+    const toggleButtonStyle2 = {
+        position: 'absolute',
+        top: '29.5vh',
+        left: '90vw',
+        color: '#F0EAD6',
+        display: 'flex',
+        // alignItems: 'center',
+        // textAlign: 'center',
+        border: '2px solid grey',
+        // padding: '1vh',
+        fontSize: '1.5rem',
+        borderRadius: '7px',
+        fontFamily: '"Bebas Neue", sans-serif',
+        backgroundColor: 'rgb(61, 72, 73)',
+        height: '7vh',
+        zIndex: '10000',
+    }
+
     const func1 = (event) => {
-        console.log(event.target.value, "here")
+        // console.log(event.target.value, "here")
         setMyTagSearch(event.target.value)
     }
 
@@ -239,17 +303,163 @@ const Homepage = ({ selectedImage }) => {
         setMyTagSearch("")
     }
 
+    const [showModal, setShowModal] = useState(false);
+    const [imgPath, setImagePath] = useState('');
+    const [addTags, setAddTags] = useState('');
+
+
+    const handleShow = () => setShowModal(true);
+    const handleClose = () => {
+        // setShowModal(false);
+        setShowModal(false);
+        setImagePath('');
+        setAddTags('');
+    }
+
+    const handleAddImageTags = () => {
+        // Add your logic to handle the module data
+        console.log('Adding image:', { name: imgPath, description: addTags });
+
+        const theTags = addTags.split(",").map((item) => item.trim())
+        console.log(theTags, "theTags")
+
+        // Close the modal and reset form fields
+        handleClose();
+        setImagePath('');
+        setAddTags('');
+
+        // adding the module to the database
+        const addImage = async () => {
+
+            const url = 'http://localhost:5000/api/image/create';
+            const token = localStorage.getItem('token');
+
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    path: imgPath
+                }),
+            })
+            const res = await response.json();
+            if (response.ok) {
+
+                // now we add this image to the displayImage array
+                // one example of imgPath is uploads/Screenshot from 2023-12-13 01-00-57.png
+                // taking all the stuff other than the uploads/ part
+                const splitArr = imgPath.split("/")
+                const newImagePath = splitArr.slice(1, splitArr.length).join("/")
+                let newImage = newImagePath; // for now lets do something else
+                setDisplayImage([newImage, ...displayImage])
+
+
+                // first we add the image to the module
+                const moduleId = localStorage.getItem('module');
+                // this is the url at which we have to POST: router.post('/:categoryId/addimage/:imageId', requireAuth, addImageToCategory)
+
+                const url2 = `http://localhost:5000/api/category/${moduleId}/addimage/${res._id}`;
+                const response2 = await fetch(url2, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`,
+                    },
+                })
+                const res2 = await response2.json();
+                console.log(response2, "res2");
+                if (response2.ok) {
+                    console.log(res2, "result222222222");
+
+
+                    // now we add the tags to the image
+
+                    for (let i = 0; i < theTags.length; i++) {
+                        const url3 = `http://localhost:5000/api/image/${res._id}/addtag/${theTags[i]}`;
+                        const response3 = await fetch(url3, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${token}`,
+                            },
+                        })
+                        const res3 = await response3.json();
+                        console.log(response3, "res3");
+                        if (response3.ok) {
+                            console.log(res3, "result333333333");
+                        } else {
+                            console.log(res3.error, "3333333333");
+                        }
+                    }
+
+
+                } else {
+                    console.log(res2.error, "2222222222");
+                }
+
+            } else {
+                console.log(res.error, "erriefhha");
+            }
+        }
+
+        addImage();
+
+    };
+
+    // const handleImageUpload = async (e) => {
+    //     const file = e.target.files[0];
+
+    //     if (file) {
+    //         const formData = new FormData();
+    //         formData.append('image', file);
+
+    //         try {
+    //             const response = await axios.post('http://localhost:5001/upload', formData);
+    //             setImagePath(response.data.imagePath);
+    //         } catch (error) {
+    //             console.error('Error uploading image:', error);
+    //         }
+    //     }
+    // };
+
+
+    const onDrop = async (acceptedFiles) => {
+        const formData = new FormData();
+        formData.append('image', acceptedFiles[0]);
+
+        try {
+            const response = await axios.post('http://localhost:5001/upload', formData);
+            setImagePath(response.data.imagePath);
+        } catch (error) {
+            console.error('Error uploading image:', error);
+        }
+    };
+
+    const { getRootProps, getInputProps } = useDropzone({
+        onDrop,
+        accept: 'image/*',
+        maxFiles: 1,
+    });
+
+    const dropzoneStyle = {
+        border: '2px dashed #cccccc',
+        borderRadius: '4px',
+        padding: '20px',
+        textAlign: 'center',
+        cursor: 'pointer',
+        width: '70%',
+    };
+
+
     return (
         <>
             <Breadcrumbs />
-            {/* <Chat selectedImage.current={selectedImage.current} /> */}
             {/* {console.log(selectedImage.current, "hellownice")} */}
             <div style={{
-                // display: chatbotShow ? "none" : "block",
                 fontFamily: '"Bebas Neue", sans-serif',
                 transition: 'opacity 1s ease-in-out',
-                // opacity: chatbotShow ? 0 : 1,
-                // display: chatbotShow ? "none" : "block",
             }}>
                 <div className="heading">
                     <div className="heading1">KREST</div>
@@ -306,14 +516,14 @@ const Homepage = ({ selectedImage }) => {
                         position: 'relative',
                         top: '-0.5vh',
                     }}>
-                    {searchByGivenTag == true ? "Search by default tags" : "Type in your input tag"}
+                        {searchByGivenTag == true ? "Search by default tags" : "Type in your input tag"}
                     </span>
                     <span style={{
                         fontSize: '0.7rem',
                         position: 'absolute',
                         top: '4vh',
                     }}>
-                    (Click to change input format)
+                        (Click to change input format)
                     </span>
                 </Button>
 
@@ -327,12 +537,86 @@ const Homepage = ({ selectedImage }) => {
                     {
                         displayImage.map((image, index) => {
                             return (
-                                <img key={index} className="image" src={image} draggable="false" />
+                                <img key={index} id={displayImageId[index]} className="image" src={`http://localhost:5001/uploads/${encodeURIComponent(image)}`} alt="Uploaded" draggable="false" />
                             )
                         }
                         )
                     }
                 </div>
+
+
+
+
+                <Button
+                    variant='contained'
+                    style={toggleButtonStyle2}
+                    onClick={handleShow}
+                // onClick={() => setModalOpen(true)}
+                >
+                    <span style={{
+                        fontSize: '1.5rem',
+                        position: 'relative',
+                        // top: '-0.5vh',
+                    }}>
+                        Add Image
+                    </span>
+                </Button>
+                {/* <CustomModal
+                        isOpen={isModalOpen}
+                        onRequestClose={() => setModalOpen(false)}
+                        onAddModule={handleAddImageTags}
+                    /> */}
+                <div className={`modal ${showModal ? 'show' : ''}`} style={{ display: showModal ? 'flex' : 'none', justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0, 0, 0, 0.8)', position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 100000, color: '#F0EAD6', letterSpacing: '0.1rem' }}>
+                    <Modal.Dialog style={{ width: '50%', background: 'none', height: '50%' }}>
+                        <Modal.Header closeButton onHide={handleClose} >
+                            <h1>Add Module</h1>
+                        </Modal.Header>
+
+                        <Modal.Body>
+                            <Form>
+                                <Form.Group controlId="imgUpload">
+                                    <h2>Upload Image:</h2>
+                                    <div {...getRootProps()} style={dropzoneStyle}>
+                                        <input {...getInputProps()} />
+                                        <p>Drag & drop an image here, or click to select one</p>
+                                    </div>
+                                    {imgPath && (
+                                        <img
+                                            src={`http://localhost:5001/${imgPath}`}
+                                            alt="Uploaded"
+                                            style={{ maxWidth: '100%', maxHeight: '200px', marginTop: '10px' }}
+                                        />
+                                    )}
+                                </Form.Group>
+                                <Form.Group controlId="addTags">
+                                    <h2>List of tags (Comma separated):</h2>
+                                    <Form.Control
+                                        as="textarea"
+                                        rows={3}
+                                        style={{ width: '75%', fontSize: '1rem' }}
+                                        value={addTags}
+                                        onChange={(e) => setAddTags(e.target.value)}
+                                    />
+                                </Form.Group>
+                            </Form>
+
+                        </Modal.Body>
+
+                        <Modal.Footer style={{
+                            margin: '20px 0px',
+                        }}>
+                            <Button variant="secondary" onClick={handleClose}>
+                                Close
+                            </Button>
+                            <Button variant="primary" onClick={handleAddImageTags}>
+                                Add Module
+                            </Button>
+                        </Modal.Footer>
+                    </Modal.Dialog>
+                </div>
+
+
+
             </div>
         </>
     )

@@ -41,7 +41,7 @@ export default function SignInSide() {
     const [lname, setLname] = useState('');
 
     const [errMsg, setErrMsg] = useState('');
-    
+
     const handleSubmit = (event) => {
         event.preventDefault();
         // console.log('Inside handleSubmit', event.currentTarget)
@@ -54,7 +54,6 @@ export default function SignInSide() {
         //     lname: lname,
         // });
 
-        const url = "http://localhost:5000/api/user/signup";
         const data = {
             email: email,
             password: password,
@@ -63,27 +62,39 @@ export default function SignInSide() {
             age: 21,
             contact: 1234567890,
         };
+        const signup = async () => {
+            const url = 'http://localhost:5000/api/user/signup';
+            const response = await fetch(url, {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            const res = await response.json();
+            console.log(res, "res");
+            if (response.status === 200) {
+                const token = res.token;
+                console.log(token, "token");
+                // store the token in localStorage
 
-        fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-            // body: data,
-        }) // we also need to add a try catch for handling errors
-            .then((response) => {
-                console.log('Response = ', response)
-                if (response.status === 200) {
-                    console.log('User created successfully')
-                    window.location.href = "/";
-                } else {
-                    console.log('User not created')
-                }
-            })
-            .catch((error) => {
-                console.log('Error = ', error)
-            })
+                localStorage.setItem('token', token);
+                setEmail('');
+                setPassword('');
+                setFname('');
+                setLname('');
+                setErrMsg('');
+                
+                window.location.href = '/home';
+
+            } else {
+                setEmail('');
+                setPassword('');
+                setErrMsg(res.error);
+                console.log(errMsg, "errMsg");
+            }
+        }
+        signup();
     };
 
     // const doSignUp = (event) => {
@@ -91,8 +102,8 @@ export default function SignInSide() {
 
     //     // we need to send a backend post request here to signup the user
     //     const url = "/api/user/signup";
-        
-        
+
+
     //     window.location.href = "/";
     // }
 
@@ -199,6 +210,9 @@ export default function SignInSide() {
                                         />
                                     </Grid> */}
                                 </Grid>
+                                <Typography variant="body2" color="error" align="center">
+                                    {errMsg}
+                                </Typography>
                                 <Button
                                     type="submit"
                                     fullWidth
