@@ -1,6 +1,8 @@
 // routes/imageRoute.jsimages of a tag
 
 const express = require('express')
+const multer = require('multer')
+const {v4: uuidv4} = require('uuid')
 const requireAuth = require('../middleware/requireAuth')
 const {
     getAllImages,
@@ -13,6 +15,19 @@ const {
 } = require('../controllers/imageController')
 
 const router = express.Router()
+
+// Set up multer storage with diskStorage
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'uploads/'); // Specify the directory where files will be stored
+    },
+    filename: function (req, file, cb) {
+      const uniqueFilename = `${uuidv4()}-${file.originalname}`;
+      cb(null, uniqueFilename); // Specify the filename
+    },
+  });
+  
+const upload = multer({storage: storage})
 
 // @route Get /api/image/
 // @desc Get All Images
@@ -48,5 +63,10 @@ router.post('/:imageId/addquestion/', requireAuth, addQuestionToImage)
 // @desc Gets all the questions of an image
 // @access Private
 router.get('/:imageId/questions', requireAuth, getImageQuestions)
+
+// @route POST /api/image/upload
+// @desc Upload an image
+// @access Private
+router.post('/upload', )
 
 module.exports = router
