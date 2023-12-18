@@ -7,7 +7,6 @@ import axios from 'axios';
 import { useDropzone } from 'react-dropzone';
 
 import data from './data.json';
-import tags from './tags.json';
 import Breadcrumbs from './breadcrumbs';
 
 import './CustomModal.css';
@@ -40,8 +39,27 @@ const Homepage = ({ selectedImage }) => {
 
     const arr1 = useRef([]);
     const arr2 = useRef([]);
+    const tags = useRef([]);
 
     useEffect(() => {
+
+        const getTheTags = async () => {
+            const response = await fetch('http://localhost:5000/api/tag', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                },
+            });
+            const responseData = await response.json();
+            if (response.ok) {
+                tags.current = responseData.map(obj => obj.name);
+                console.log(tags, "tags");
+            }
+        }
+        getTheTags();
+
+
         const getImages = async () => {
 
             const token = localStorage.getItem('token');
@@ -475,7 +493,7 @@ const Homepage = ({ selectedImage }) => {
                     <Autocomplete
                         multiple
                         id="tag-select"
-                        options={tags}
+                        options={tags.current}
                         onChange={handleTagSelect}
                         renderInput={(params) => (
                             <TextField

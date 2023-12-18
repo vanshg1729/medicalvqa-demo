@@ -1,25 +1,52 @@
 import React from 'react';
-
+import { useEffect } from 'react';
+import { useRef, useState } from 'react';
 import Breadcrumbs from './breadcrumbs';
-import tags from './tags.json';
+// import tags from './tags.json';
 import './homepage.css';
 
 const TagsPage = () => {
-    const groupTagsAlphabetically = () => {
-        const groupedTags = {};
-        const sortedTags = tags.sort(); // for grouping the tags alphabetically
-        sortedTags.forEach((tag) => {
-            const firstChar = tag.charAt(0).toUpperCase();
-            if (!groupedTags[firstChar]) {
-                groupedTags[firstChar] = [];
+
+    const tags = useRef([]);
+    const [groupedTags, setGroupedTags] = useState({});
+
+    useEffect(() => {
+            
+        const getTheTags = async () => {
+            const response = await fetch('http://localhost:5000/api/tag', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                },
+            });
+            const responseData = await response.json();
+            if (response.ok) {
+                tags.current = responseData.map(obj => obj.name);
+                const groupTagsAlphabetically = () => {
+                    const groupedTagsInner = {};
+                    const sortedTags = tags.current.sort(); // for grouping the tags alphabetically
+                    console.log(sortedTags, "sortedTags");
+                    sortedTags.forEach((tag) => {
+                        const firstChar = tag.charAt(0).toUpperCase();
+                        if (!groupedTagsInner[firstChar]) {
+                            groupedTagsInner[firstChar] = [];
+                        }
+                        groupedTagsInner[firstChar].push(tag);
+                    });
+            
+                    return groupedTagsInner;
+                };
+            
+                const result = groupTagsAlphabetically();
+                setGroupedTags(result);
+                console.log(tags, "tags");
             }
-            groupedTags[firstChar].push(tag);
-        });
+        }
+        getTheTags();
+    }, []);
 
-        return groupedTags;
-    };
-
-    const groupedTags = groupTagsAlphabetically();
+    
 
     return (
         <>
