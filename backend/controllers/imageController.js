@@ -1,4 +1,5 @@
 const Image = require('../models/imageModel')
+const User = require('../models/userModel')
 const Question = require('../models/questionModel')
 const Tag = require('../models/tagModel')
 
@@ -55,6 +56,9 @@ const createImage = async (req, res) => {
       });
   
       const savedImage = await newImage.save();
+  
+      // Add the image ID to the user's images array
+      await User.findByIdAndUpdate(user._id, { $push: { images: savedImage._id } });
   
       res.status(201).json(savedImage);
     } catch (error) {
