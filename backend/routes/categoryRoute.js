@@ -1,7 +1,7 @@
 // routes/categoryRoute.js
 
 const express = require('express')
-const requireAuth = require('../middleware/requireAuth')
+const {requireAuth, requireEditorOrAdmin} = require('../middleware/requireAuth')
 const {
     getAllCatgories,
     createCategory,
@@ -25,7 +25,7 @@ router.get('/:name', requireAuth, getCategoryByName)
 // @route POST /api/category/create
 // @desc Create a category
 // @access Private
-router.post('/create', requireAuth, createCategory)
+router.post('/create', requireAuth, requireEditorOrAdmin, createCategory)
 
 // @route GET /api/category/:id/images
 // @desc Get all images along with tagNames of a category
@@ -35,6 +35,6 @@ router.get('/:id/images', requireAuth, getCategoryImages)
 // @route Post /api/cateogory/:categoryId/addimage/:imageId
 // @desc Add an image to a category
 // @access Private
-router.post('/:categoryId/addimage/:imageId', requireAuth, addImageToCategory)
+router.post('/:categoryId/addimage/:imageId', requireAuth, requireEditorOrAdmin, addImageToCategory)
 
 module.exports = router
