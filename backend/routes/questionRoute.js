@@ -1,7 +1,7 @@
 // routes/questionRoute.jsimages of a tag
 
 const express = require('express')
-const requireAuth = require('../middleware/requireAuth')
+const {requireAuth, requireEditorOrAdmin} = require('../middleware/requireAuth')
 const {
     getAllQuestions, 
     getQuestionById,

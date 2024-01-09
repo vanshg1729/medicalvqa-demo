@@ -3,7 +3,7 @@
 const express = require('express')
 const multer = require('multer')
 const {v4: uuidv4} = require('uuid')
-const requireAuth = require('../middleware/requireAuth')
+const {requireAuth, requireEditorOrAdmin} = require('../middleware/requireAuth')
 const {
     getAllImages,
     getImageById,
@@ -43,7 +43,7 @@ router.get('/:id', requireAuth, getImageById)
 // @route POST /api/image/create
 // @desc Create an Image
 // @access Private
-router.post('/create', requireAuth, createImage)
+router.post('/create', requireAuth, requireEditorOrAdmin, createImage)
 
 // @route Get /api/image/:id/tags
 // @desc Get all tags of an image
@@ -53,12 +53,12 @@ router.get('/:id/tags', requireAuth, getImageTags)
 // @route Post /api/image/:id/addtag/:tagName
 // @desc Adds a tag to an image
 // @access Private
-router.post('/:id/addtag/:tagName', requireAuth, addTagToImage)
+router.post('/:id/addtag/:tagName', requireAuth, requireEditorOrAdmin, addTagToImage)
 
 // @route Post /api/image/:imageId/addquestion
 // @desc Adds a question to an image
 // @access Private
-router.post('/:imageId/addquestion/', requireAuth, addQuestionToImage)
+router.post('/:imageId/addquestion/', requireAuth, requireEditorOrAdmin, addQuestionToImage)
 
 // @route GET /api/image/:imageId/questions
 // @desc Gets all the questions of an image
@@ -68,6 +68,6 @@ router.get('/:imageId/questions', requireAuth, getImageQuestions)
 // @route POST /api/image/:imageId/removeTag/:tagName
 // @desc Removes a tag from an image given the tagName
 // @access Private
-router.delete('/:imageId/removeTag/:tagName', requireAuth, removeTagFromImage)
+router.delete('/:imageId/removeTag/:tagName', requireAuth, requireEditorOrAdmin, removeTagFromImage)
 
 module.exports = router

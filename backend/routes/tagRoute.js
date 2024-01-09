@@ -1,7 +1,7 @@
 // routes/tagRoute.js
 
 const express = require('express')
-const requireAuth = require('../middleware/requireAuth')
+const {requireAuth, requireEditorOrAdmin} = require('../middleware/requireAuth')
 const {
     getAllTags,
     getTagByName,

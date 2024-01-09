@@ -25,4 +25,20 @@ const requireAuth = async (req, res, next) => {
     }
 }
 
-module.exports = requireAuth
+// Middleware function to check if the user is an editor or admin
+const requireEditorOrAdmin = async (req, res, next) => {
+    try {
+        const user = await User.findById(req.user.id); // Assuming you are using passport for authentication and req.user is available
+        if (!user || (user.role !== 'editor' && user.role !== 'admin')) {
+            return res.status(403).json({ message: 'Access forbidden. You need to be an editor or admin.' });
+        }
+        next();
+    } catch (error) {
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
+module.exports = {
+    requireAuth,
+    requireEditorOrAdmin
+}
