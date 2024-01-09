@@ -11,7 +11,8 @@ const {
     getImageTags,
     addTagToImage,
     addQuestionToImage,
-    getImageQuestions
+    getImageQuestions,
+    removeTagFromImage
 } = require('../controllers/imageController')
 
 const router = express.Router()
@@ -25,7 +26,7 @@ const storage = multer.diskStorage({
       const uniqueFilename = `${uuidv4()}-${file.originalname}`;
       cb(null, uniqueFilename); // Specify the filename
     },
-  });
+});
   
 const upload = multer({storage: storage})
 
@@ -64,9 +65,9 @@ router.post('/:imageId/addquestion/', requireAuth, addQuestionToImage)
 // @access Private
 router.get('/:imageId/questions', requireAuth, getImageQuestions)
 
-// @route POST /api/image/upload
-// @desc Upload an image
+// @route POST /api/image/:imageId/removeTag/:tagName
+// @desc Removes a tag from an image given the tagName
 // @access Private
-router.post('/upload', )
+router.delete('/:imageId/removeTag/:tagName', requireAuth, removeTagFromImage)
 
 module.exports = router

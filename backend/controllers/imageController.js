@@ -179,6 +179,9 @@ const addQuestionToImage = async (req, res) => {
     image.questions.push(savedQuestion._id);
     await image.save();
 
+    // Add the question ID to the user's questions array
+    await User.findByIdAndUpdate(userId, { $push: { questions: savedQuestion._id } });
+
     res.status(201).json({ message: 'Question added to the image successfully', question: savedQuestion });
   } catch (error) {
     console.error(error);
@@ -215,6 +218,47 @@ const getImageQuestions = async (req, res) => {
   }
 };
 
+// Controller function to remove a tag from an image by image ID and tag name
+const removeTagFromImage = async (req, res) => {
+  const imageId = req.params.imageId;
+  const tagName = req.params.tagName;
+
+  try {
+    // Find the image by ID
+    const image = await Image.findById(imageId);
+
+    if (!image) {
+      return res.status(404).json({ message: 'Image not found' });
+    }
+
+    // Find the tag by name
+    const tag = await Tag.findOne({ name: tagName });
+
+    if (!tag) {
+      return res.status(404).json({ message: 'Tag not found' });
+    }
+
+    // Check if the tag exists in the image's tags array
+    const tagIndex = image.tags.findIndex(tagId => tagId.equals(tag._id));
+
+    if (tagIndex === -1) {
+      return res.status(404).json({ message: 'Tag not found in the image' });
+    }
+
+    // Remove the tag from the image's tags array
+    image.tags.splice(tagIndex, 1);
+    await image.save();
+
+    // Remove the image ID from the particular tag in the Tags collection
+    await Tag.updateOne({ name: tagName }, { $pull: { images: imageId } });
+
+    res.json({ message: 'Tag removed from the image successfully', updatedImage: image });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+};
+
 
 module.exports = {
     getAllImages,
@@ -223,5 +267,6 @@ module.exports = {
     getImageTags,
     addTagToImage,
     addQuestionToImage,
-    getImageQuestions
+    getImageQuestions,
+    removeTagFromImage
 }

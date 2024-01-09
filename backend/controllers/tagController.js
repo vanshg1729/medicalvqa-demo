@@ -84,9 +84,35 @@ const getTagImages = async (req, res) => {
     }
   };
 
+// Controller function to delete a tag by name
+const deleteTagByName = async (req, res) => {
+  const tagName = req.params.tagName;
+
+  try {
+    // Find the tag by name
+    const tag = await Tag.findOne({ name: tagName });
+
+    if (!tag) {
+      return res.status(404).json({ message: 'Tag not found' });
+    }
+
+    // Remove the tag from the Tags database
+    await Tag.findOneAndDelete({ name: tagName });
+
+    // Remove references to the tag from the images in the Images database
+    await Image.updateMany({ tags: tag._id }, { $pull: { tags: tag._id } });
+
+    res.json({ message: 'Tag deleted successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+};
+
 module.exports = {
     getAllTags,
     createTag,
     getTagByName,
-    getTagImages
+    getTagImages,
+    deleteTagByName
 }

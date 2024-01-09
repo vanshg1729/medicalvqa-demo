@@ -6,7 +6,8 @@ const {
     getAllTags,
     getTagByName,
     createTag,
-    getTagImages
+    getTagImages,
+    deleteTagByName
 } = require('../controllers/tagController')
 
 const router = express.Router()
@@ -30,5 +31,10 @@ router.post('/create', requireAuth, createTag)
 // @desc Get all images of a tag
 // @access Private
 router.get('/:name/images/paths', requireAuth, getTagImages)
+
+// @route Delete /api/tag/delete/:tagName
+// @desc Delete the tag from the database with all it's references
+// @access Private
+router.delete('/delete/:tagName', requireAuth, deleteTagByName)
 
 module.exports = router

@@ -5,7 +5,9 @@ const requireAuth = require('../middleware/requireAuth')
 const {
     getAllQuestions, 
     getQuestionById,
-    createQuestion
+    createQuestion,
+    deleteQuestionById,
+    editQuestion
 } = require('../controllers/questionController')
 
 const router = express.Router()
@@ -24,5 +26,15 @@ router.get('/:id', requireAuth, getQuestionById)
 // @desc Create a question
 // @access Private
 router.post('/create', requireAuth, createQuestion)
+
+// @route DELETE /api/question/delete/:questionId
+// @desc Delete a question along with it's references in Images and Users database
+// @access Private
+router.delete('/delete/:questionId', requireAuth, deleteQuestionById)
+
+// @route PUT /api/question/edit/:questionId
+// @desc Edits a question with new questionText and answerText
+// @access Private
+router.put('/edit/:questionId', requireAuth, editQuestion)
 
 module.exports = router
