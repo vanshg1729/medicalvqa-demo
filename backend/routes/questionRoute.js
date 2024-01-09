@@ -25,16 +25,16 @@ router.get('/:id', requireAuth, getQuestionById)
 // @route Post /api/question/create
 // @desc Create a question
 // @access Private
-router.post('/create', requireAuth, createQuestion)
+router.post('/create', requireAuth, requireEditorOrAdmin, createQuestion)
 
 // @route DELETE /api/question/delete/:questionId
 // @desc Delete a question along with it's references in Images and Users database
 // @access Private
-router.delete('/delete/:questionId', requireAuth, deleteQuestionById)
+router.delete('/delete/:questionId', requireAuth, requireEditorOrAdmin, deleteQuestionById)
 
 // @route PUT /api/question/edit/:questionId
 // @desc Edits a question with new questionText and answerText
 // @access Private
-router.put('/edit/:questionId', requireAuth, editQuestion)
+router.put('/edit/:questionId', requireAuth, requireEditorOrAdmin, editQuestion)
 
 module.exports = router
