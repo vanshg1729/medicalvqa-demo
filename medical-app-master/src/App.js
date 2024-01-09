@@ -12,7 +12,7 @@ import SignInSide from './components/SignInSide';
 // import SignUp from './components/SignUp';
 import SignUpSide from './components/SignUpSide';
 import Create from './components/create';
-
+import Edit from './components/edit';
 
 const App = () => {
 
@@ -34,6 +34,7 @@ const App = () => {
         <Route path="/tags" element={<Tags />}></Route> {/* it is reverse in our case */}
         <Route path="/home" element={<Modulepage />}></Route>
         <Route path="/create" element={<Create />}></Route>
+        <Route path="/edit" element={<Edit />}></Route>
       </Routes>
     </AppStateProvider>
 
