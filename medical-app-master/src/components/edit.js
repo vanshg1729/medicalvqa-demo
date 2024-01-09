@@ -18,24 +18,15 @@ const Edit = () => {
             id: 1,
             name: 'Image 1',
             tags: [
-                { id: 1, name: 'Tag 1' },
-                { id: 2, name: 'Tag 2' },
-                { id: 3, name: 'Tag 3' },
-                { id: 4, name: 'Tag 4' },
-                { id: 5, name: 'Tag 5' },
-                { id: 6, name: 'Tag 6' },
-                { id: 7, name: 'Tag 7' },
-                { id: 8, name: 'Tag 8' },
-                { id: 9, name: 'Tag 9' },
+                { id: 1, name: 'First trimester' },
+                { id: 2, name: 'Uterine Artery Doppler' },
             ],
-            url: 'http://localhost:5001/uploads/Screenshot%20from%202023-12-31%2016-11-00.png',
+            url: 'http://localhost:5001/uploads/image1.png',
             pairs: [
-                { id: 1, question: 'nice to meet you, how are you nice to meet you, how are you nice to meet you, how are you nice to meet you, how are you nice to meet you, how are you ?', answer: 'It is a test image.' },
-                { id: 2, question: '222nice to meet you, how are you nice to meet you, how are you nice to meet you, how are you nice to meet you, how are you nice to meet you, how are you ?', answer: 'It is a test image.' },
-                { id: 3, question: 'nice to meet you, how are you nice to meet you, how are you nice to meet you, how are you nice to meet you, how are you nice to meet you, how are you ?', answer: 'It is a test image.' },
-                { id: 4, question: 'nice to meet you, how are you nice to meet you, how are you nice to meet you, how are you nice to meet you, how are you nice to meet you, how are you ?', answer: 'It is a test image.' },
-                { id: 5, question: 'nice to meet you, how are you nice to meet you, how are you nice to meet you, how are you nice to meet you, how are you nice to meet you, how are you ?', answer: 'It is a test image.' },
-                { id: 6, question: 'nice to meet you, how are you nice to meet you, how are you nice to meet you, how are you nice to meet you, how are you nice to meet you, how are you ?', answer: 'It is a test image.' },
+                { id: 1, question: "First-trimester uterine artery evaluation- WHY at 11 + 0 to 13 + 6 weeks?", answer: "This is a common time for first-trimester ultrasound examination in many countries to look for early signs of potential fetal abnormalities, and therefore practical in terms of logistics.\nEarlier assessment has not been studied extensively because trophoblast invasion is not yet sufficiently advanced as to be assessable.\n11-13+6 weeks is also an optimal period for risk assessment for preterm preeclampsia and fetal growth restriction and to initiate preventative therapy with low dose aspirin"},
+                { id: 2, question: 'Why PI is more in TVS?', answer: 'Close proximity to the probe. Angle of insonation is less.' },
+                { id: 3, question: 'Bilateral Notching', answer: 'Bilateral notching may be observed in around 50% of pregnant women at 11 + 0 to 13 + 6 weeks. This marker therefore has a very low specificity for PE.' },
+                { id: 4, question: 'Factors Affecting Uterine Artery PI', answer: 'Uterine artery PI may be affected by maternal factors, including ethnic origin (African origin is associated with increased PI), BMI (decreasing PI with increasing BMI) and previous PE (associated with increased PI).First trimester uterine artery PI should be expressed as multiples of the median (MoM) rather than absolute values.' },
                 // Add more question-answer pairs as needed
             ],
         },
@@ -43,44 +34,27 @@ const Edit = () => {
             id: 2,
             name: 'Image 2',
             tags: [
-                { id: 1, name: 'Tag 1' },
-                { id: 2, name: 'Tag 2' },
-                { id: 3, name: 'Tag 3' },
-                { id: 4, name: 'Tag 4' },
-                { id: 5, name: 'Tag 5' },
-                { id: 6, name: 'Tag 6' },
-                { id: 7, name: 'Tag 7' },
-                { id: 8, name: 'Tag 8' },
-                { id: 9, name: 'Tag 9' },
+                { id: 1, name: 'Frontal Bone' },
+                { id: 2, name: 'Nasal Bone' },
+                { id: 3, name: 'Callosal sulcus' },
+                { id: 4, name: 'Corpus Callosum' },
+                { id: 5, name: 'Cerebellum' },
+                { id: 6, name: 'Parieto occipital sulcus' },
+                { id: 7, name: 'Cisterna Magna' },
+                { id: 8, name: 'Hard Palate' },
+                { id: 9, name: 'Thalamus and Brainstem' },
             ],
 
-            url: 'http://localhost:5001/uploads/Screenshot%20from%202023-12-31%2016-11-00.png',
+            url: 'http://localhost:5001/uploads/image2.png',
             pairs: [
-                { id: 1, question: 'nice to meet you, how are you nice to meet you, how are you nice to meet you, how are you nice to meet you, how are you nice to meet you, how are you ?', answer: 'It is a test image.' },
-                { id: 2, question: 'nice to meet you, how are you nice to meet you, how are you nice to meet you, how are you nice to meet you, how are you nice to meet you, how are you ?', answer: 'It is a test image.' },
-                { id: 3, question: 'nice to meet you, how are you nice to meet you, how are you nice to meet you, how are you nice to meet you, how are you nice to meet you, how are you ?', answer: 'It is a test image.' },
-                { id: 4, question: 'nice to meet you, how are you nice to meet you, how are you nice to meet you, how are you nice to meet you, how are you nice to meet you, how are you ?', answer: 'It is a test image.' },
+                { id: 1, question: 'PERSISTENT RIGHT UMBILICAL VEIN', answer: 'Relatively frequent: 1:500/1200.\nIt can be intra- or extrahepatic. The former is much commoner (about 95% of cases).' },
+                { id: 2, question: 'Risk of chromosomal anomalies', answer: 'When associated with other anomalies, an underlying chromosomal abnormalities in 8% of cases has been reported. Low, if isolated.' },
+                { id: 3, question: 'Risk of nonchromosomal syndromes', answer: 'Relatively high in cases of extrahepatic type of PRUV, which is commonly associated with other anomalies. Low, if isolated' },
+                { id: 4, question: 'Prognosis, survival, and quality of life', answer: 'When isolated and connected to the portal system, PRUV represents a normal anatomical variant.\nBad prognostic signs : Associated anomalies and abnormal draining (extrahepatic type of PRUV) into the fetal heart or IVC.\nPostnatal therapy-None is needed, if isolated.' },
+                { id: 5, question: 'Ultrasound diagnosis', answer: 'The US appearance is characteristic. US finding of PRUV is an indication for a targeted fetal sonography.\nUV curving to the left and toward the stomach, usually connecting to the right portal vein rather than to the left portal vein.\nThe gallbladder will be on the left of the UV (between the stomach and the UV)\nIt may bypass the liver and portal system (extrahepatic type) and may abnormally drain into the IVC or directly into the fetal heart.' },
                 // Add more question-answer pairs as needed
             ],
         },
-        {
-            id: 3,
-            name: 'Image 2',
-            tags: [
-                { id: 1, name: 'Tag 1' },
-                { id: 2, name: 'Tag 2' },
-                { id: 3, name: 'Tag 3' },
-            ],
-            url: 'http://localhost:5001/uploads/Screenshot%20from%202023-12-31%2016-11-00.png',
-            pairs: [
-                { id: 1, question: 'nice to meet you, how are you nice to meet you, how are you nice to meet you, how are you nice to meet you, how are you nice to meet you, how are you ?', answer: 'It is a test image.' },
-                { id: 2, question: 'nice to meet you, how are you nice to meet you, how are you nice to meet you, how are you nice to meet you, how are you nice to meet you, how are you ?', answer: 'It is a test image.' },
-                { id: 3, question: 'nice to meet you, how are you nice to meet you, how are you nice to meet you, how are you nice to meet you, how are you nice to meet you, how are you ?', answer: 'It is a test image.' },
-                { id: 4, question: 'nice to meet you, how are you nice to meet you, how are you nice to meet you, how are you nice to meet you, how are you nice to meet you, how are you ?', answer: 'It is a test image.' },
-                // Add more question-answer pairs as needed
-            ],
-        },
-        // Add more images as needed
     ]);
 
     const handleEdit = (pair) => {
@@ -162,7 +136,7 @@ const Edit = () => {
                 fontWeight: 'bold',
                 marginTop: '5rem',
             }}>
-                EDIT PAGE
+                EDIT KREST DATA
             </Typography>
             <Typography variant="h2" gutterBottom style={{
                 textAlign: 'center',
@@ -185,7 +159,7 @@ const Edit = () => {
                         <div key={image.id} className="image-wrapper">
                             <div className="image-and-tags">
                                 <div className="image">
-                                    <img src={image.url} alt={image.name} width={'700px'} />
+                                    <img src={image.url} alt={image.name} width={'700px'} height={'400px'} />
                                 </div>
                                 <div style={{ fontSize: '2rem', font: 'bold', fontFamily: 'Bebas Neue', marginTop: '3rem' }}>Tags</div>
                                 <div className="tags-edit-page">

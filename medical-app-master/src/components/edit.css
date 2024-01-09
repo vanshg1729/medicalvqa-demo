@@ -34,7 +34,8 @@
     font: 400 1.5rem "Bebas Neue", sans-serif;
     letter-spacing: 0.04rem;
     /* color: #fff5e1; */
-    margin-bottom: 20px;
+    margin-bottom: 3rem;
+    /* padding: 1rem; */
 }
 
 .qa-content {
@@ -51,6 +52,7 @@
     flex-direction: row;
     vertical-align: middle;
     line-height: auto;
+    color: #d93c3c;
 }
 
 .image-card {
