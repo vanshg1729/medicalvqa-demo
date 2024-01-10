@@ -10,6 +10,9 @@ import { Card, TextField, Typography } from '@mui/material';
 
 const Edit = () => {
 
+    const module = decodeURIComponent(window.location.href.split("/")[3])
+    console.log(module, "module name");
+
     const [tagText, setTagText] = useState('');
     const [editTags, setEditTags] = useState(false); // if true, show textfield to edit tags
     // const [editId, setEditId] = useState(''); // id of the image whose tags are being edited
@@ -77,6 +80,23 @@ const Edit = () => {
         }
         fetchData();
     }, []);
+
+    useEffect(() => {
+        const hash = window.location.hash;
+        if (hash) {
+          // Remove the "#" symbol from the hash
+          const cleanedHash = hash.substring(1);
+    
+          // Add a delay before scrolling
+          const delay = 100;
+          setTimeout(() => {
+            const element = document.getElementById(cleanedHash);
+            if (element) {
+              element.scrollIntoView({ behavior: 'smooth' });
+            }
+          }, delay);
+        }
+      }, []); 
 
     const handleEdit = (pair) => {
         console.log(`Editing pair with id ${pair._id}`);
@@ -258,6 +278,19 @@ const Edit = () => {
         deleteTag();
     }
 
+    const goToChatbotPage = (e, id) => {
+        const categoryId = localStorage.getItem('module');
+        console.log(categoryId, "categoryId");
+        console.log(id, "id");
+        console.log(e.target.src, "src");
+
+        // we also have to store the image id in local storage
+        localStorage.setItem('selectedImageId', id);
+        localStorage.setItem('selectedImage', e.target.src);
+
+        window.location.href = `/${module}/chatbot`;
+    }
+
     return (
         <>
             <Typography variant="h1" gutterBottom style={{
@@ -276,22 +309,31 @@ const Edit = () => {
                 fontFamily: 'Montserrat',
                 fontSize: '3rem',
                 fontWeight: 'bold',
-                marginBottom: '7rem',
             }}>
                 Edit Questions, Answers and Tags
+            </Typography>
+            {/* now we write the module name below this */}
+            <Typography variant="h2" gutterBottom style={{
+                textAlign: 'center',
+                color: '#fff5e1',
+                fontFamily: 'Montserrat',
+                fontSize: '4rem',
+                fontWeight: 'bold',
+            }}>
+                Module: {module}
             </Typography>
 
             <div className="edit-container">
                 {imageData.map((image, index) => (
-                    <Card key={image.id} className="image-card" style={{
+                    <Card id={image.id + ';;;'} key={image.id} className="image-card" style={{
                         backgroundColor: '#f5f5f5d1',
-                        margin: '5rem 3rem',
+                        margin: '4rem 3rem',
                         borderRadius: '2rem',
                     }}>
                         <div key={image.id} className="image-wrapper">
                             <div className="image-and-tags">
                                 <div className="image">
-                                    <img src={`${config.backendUrl}${image.path}`} alt="image" width={'700px'} height={'400px'} />
+                                    <img id={image.id} src={`${config.backendUrl}${image.path}`} onClick={(e) => goToChatbotPage(e, image.id)} alt="image" width={'700px'} height={'400px'} />
                                 </div>
                                 <div style={{ fontSize: '2rem', font: 'bold', fontFamily: 'Bebas Neue', marginTop: '3rem' }}>Tags</div>
                                 <div className="tags-edit-page">

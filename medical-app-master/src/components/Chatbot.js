@@ -9,6 +9,9 @@ import { useTheme } from '@mui/material/styles';
 import config from './config';
 
 const Chatbot = ({ selectedImage }) => {
+
+  const module = decodeURIComponent(window.location.href.split("/")[3])
+  console.log(module, "module");
   const theme = useTheme();
   const [userInput, setUserInput] = useState('');
   const [chatMessages, setChatMessages] = useState([]);
@@ -42,9 +45,32 @@ const Chatbot = ({ selectedImage }) => {
     zIndex: '10000',
   }
 
+  const toggleButtonStyle2 = {
+    position: 'absolute',
+    top: '35vh',
+    left: '82.5vw',
+    color: '#F0EAD6',
+    display: 'flex',
+    // alignItems: 'center',
+    // textAlign: 'center',
+    border: '2px solid grey',
+    // padding: '1vh',
+    fontSize: '1.5rem',
+    borderRadius: '7px',
+    fontFamily: '"Bebas Neue", sans-serif',
+    backgroundColor: 'rgb(61, 72, 73)',
+    height: '7vh',
+    zIndex: '10000',
+  }
+
   const [showModal, setShowModal] = useState(false);
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState('');
+
+
+  const goToEditImage = () => {
+    window.location.href = '/' + module + '/edit' + '#' + localStorage.getItem('selectedImageId') + ';;;'
+  }
 
   const handleShow = () => setShowModal(true);
   const handleClose = () => {
@@ -650,6 +676,20 @@ const Chatbot = ({ selectedImage }) => {
           // top: '-0.5vh',
         }}>
           Add New Question
+        </span>
+      </Button>
+      <Button
+        variant='contained'
+        style={toggleButtonStyle2}
+        onClick={goToEditImage}
+      // onClick={() => setModalOpen(true)}
+      >
+        <span style={{
+          fontSize: '1.5rem',
+          position: 'relative',
+          // top: '-0.5vh',
+        }}>
+          Edit Image Data
         </span>
       </Button>
       {/* <CustomModal
