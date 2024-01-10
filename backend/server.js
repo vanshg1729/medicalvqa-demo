@@ -1,4 +1,5 @@
 const cors = require('cors')
+const path = require('path')
 const express = require('express')
 const userRoutes = require('./routes/userRoute')
 const categoryRoutes = require('./routes/categoryRoute')
@@ -23,6 +24,9 @@ app.use((req, res, next) => {
     // res.setHeader("Access-Control-Allow-Headers", "Content-Type", "Authorization");
     next()
 })
+
+// Serve static files from the 'uploads' directory
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // login and signup user routes
 app.use('/api/user', userRoutes)
