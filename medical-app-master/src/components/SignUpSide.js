@@ -15,6 +15,7 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Container } from '@mui/material'
 import './signup.css'
+import config from './config';
 
 function Copyright(props) {
     return (
@@ -63,7 +64,7 @@ export default function SignInSide() {
             contact: 1234567890,
         };
         const signup = async () => {
-            const url = 'http://localhost:5000/api/user/signup';
+            const url = `${config.backendUrl}/api/user/signup`;
             const response = await fetch(url, {
                 method: 'POST',
                 body: JSON.stringify(data),

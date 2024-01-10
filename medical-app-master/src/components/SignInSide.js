@@ -13,6 +13,7 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import config from './config';
 
 function Copyright(props) {
   return (
@@ -51,7 +52,8 @@ export default function SignInSide() {
 
     // just like we did in signupside.js, we need to make a fetch request to our backend to login the user
     const login = async () => {
-      const url = 'http://localhost:5000/api/user/login';
+      const url = `${config.backendUrl}/api/user/login`;
+      console.log(url, "urlhsdlk");
       const response = await fetch(url, {
         method: 'POST',
         body: JSON.stringify(data),

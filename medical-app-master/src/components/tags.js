@@ -2,6 +2,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useRef, useState } from 'react';
 import Breadcrumbs from './breadcrumbs';
+import config from './config';
 // import tags from './tags.json';
 import './homepage.css';
 
@@ -13,7 +14,7 @@ const TagsPage = () => {
     useEffect(() => {
             
         const getTheTags = async () => {
-            const response = await fetch('http://localhost:5000/api/tag', {
+            const response = await fetch(`${config.backendUrl}/api/tag`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

@@ -6,6 +6,7 @@ import './homepage.css'
 import './CustomModal.css'
 import { Grid } from '@mui/material'
 import Breadcrumbs from './breadcrumbs'
+import config from './config';
 // import CustomModal from './customModal'
 
 import AOS from 'aos';
@@ -85,7 +86,7 @@ export default function Modulepage() {
     const [cards, setCards] = useState([])
 
     useEffect(() => {
-        const url = 'http://localhost:5000/api/category/';
+        const url = `${config.backendUrl}/api/category/`;
         const token = localStorage.getItem('token');
 
         const getCategories = async () => {
@@ -170,7 +171,7 @@ export default function Modulepage() {
         // adding the module to the database
         const addModule = async () => {
 
-            const url = 'http://localhost:5000/api/category/create';
+            const url = `${config.backendUrl}/api/category/create`;
             const token = localStorage.getItem('token');
 
             const response = await fetch(url, {

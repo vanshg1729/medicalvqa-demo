@@ -6,7 +6,7 @@ import { Modal, Form } from 'react-bootstrap';
 
 import data from './data.json';
 import { useTheme } from '@mui/material/styles';
-
+import config from './config';
 
 const Chatbot = ({ selectedImage }) => {
   const theme = useTheme();
@@ -60,7 +60,7 @@ const Chatbot = ({ selectedImage }) => {
       questionText: question,
       answerText: answer,
     };
-    const url = 'http://localhost:5000/api/image/' + selectedImageId + '/addquestion';
+    const url = `${config.backendUrl}/api/image/` + selectedImageId + '/addquestion';
     const token = localStorage.getItem('token');
     const addingQNA = async () => {
       const response = await fetch(url, {
@@ -118,7 +118,7 @@ const Chatbot = ({ selectedImage }) => {
     // getting all the questions and answers of the selected image
 
     const selectedImageId = localStorage.getItem('selectedImageId');
-    const url = 'http://localhost:5000/api/image/' + selectedImageId + '/questions';
+    const url = `${config.backendUrl}/api/image/` + selectedImageId + '/questions';
     const token = localStorage.getItem('token');
 
     const getQuestions = async () => {

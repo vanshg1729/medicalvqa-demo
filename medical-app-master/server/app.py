@@ -3,6 +3,7 @@ from flask_cors import CORS
 import requests
 import spacy
 
+
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
@@ -36,7 +37,7 @@ def get_question():
             return jsonify({'closest_question': {'answerText': 'Please enter a valid question'}}), 201
 
         # Use the token to make a GET request to the desired URL
-        question_url = f"http://localhost:5000/api/image/{selected_image_id}/questions"
+        question_url = f"https://localhost:5000/api/image/{selected_image_id}/questions"
         headers = {'Authorization': f'Bearer {token}'}
         response = requests.get(question_url, headers=headers)
 

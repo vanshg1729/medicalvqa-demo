@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useDropzone } from 'react-dropzone';
 
+import config from './config';
 import data from './data.json';
 import Breadcrumbs from './breadcrumbs';
 
@@ -44,7 +45,7 @@ const Homepage = ({ selectedImage }) => {
     useEffect(() => {
 
         const getTheTags = async () => {
-            const response = await fetch('http://localhost:5000/api/tag', {
+            const response = await fetch(`${config.backendUrl}/api/tag`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -64,7 +65,7 @@ const Homepage = ({ selectedImage }) => {
 
             const token = localStorage.getItem('token');
             const moduleId = localStorage.getItem('module');
-            const url = 'http://localhost:5000/api/category/' + moduleId + '/images';
+            const url = `${config.backendUrl}/api/category/` + moduleId + '/images';
 
             const response = await fetch(url, {
                 method: 'GET',
@@ -354,7 +355,7 @@ const Homepage = ({ selectedImage }) => {
         // adding the module to the database
         const addImage = async () => {
 
-            const url = 'http://localhost:5000/api/image/create';
+            const url = '${config.backendUrl}/api/image/create';
             const token = localStorage.getItem('token');
 
             const response = await fetch(url, {
@@ -383,7 +384,7 @@ const Homepage = ({ selectedImage }) => {
                 const moduleId = localStorage.getItem('module');
                 // this is the url at which we have to POST: router.post('/:categoryId/addimage/:imageId', requireAuth, addImageToCategory)
 
-                const url2 = `http://localhost:5000/api/category/${moduleId}/addimage/${res._id}`;
+                const url2 = `${config.backendUrl}/api/category/${moduleId}/addimage/${res._id}`;
                 const response2 = await fetch(url2, {
                     method: 'POST',
                     headers: {
@@ -400,7 +401,7 @@ const Homepage = ({ selectedImage }) => {
                     // now we add the tags to the image
 
                     for (let i = 0; i < theTags.length; i++) {
-                        const url3 = `http://localhost:5000/api/image/${res._id}/addtag/${theTags[i]}`;
+                        const url3 = `${config.backendUrl}/api/image/${res._id}/addtag/${theTags[i]}`;
                         const response3 = await fetch(url3, {
                             method: 'POST',
                             headers: {
@@ -451,9 +452,17 @@ const Homepage = ({ selectedImage }) => {
     const onDrop = async (acceptedFiles) => {
         const formData = new FormData();
         formData.append('image', acceptedFiles[0]);
-
+        const url = `${config.backendUrl}/api/image/upload`
         try {
-            const response = await axios.post('http://localhost:5001/upload', formData);
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                },
+                body: formData,
+            })
+            const res = await response.json();
+            console.log(res, "res");
             setImagePath(response.data.imagePath);
         } catch (error) {
             console.error('Error uploading image:', error);

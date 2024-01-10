@@ -1,6 +1,7 @@
 // Import React and other necessary libraries
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Button from '@mui/material/Button';
+import config from './config';
 
 // Include the CSS styles here
 import './edit.css'; // Include the path to your component's styles
@@ -16,23 +17,21 @@ const Edit = () => {
     const [imageData, setImageData] = useState([
         {
             id: 1,
-            name: 'Image 1',
             tags: [
                 { id: 1, name: 'First trimester' },
                 { id: 2, name: 'Uterine Artery Doppler' },
             ],
-            url: 'http://localhost:5001/uploads/image1.png',
-            pairs: [
-                { id: 1, question: "First-trimester uterine artery evaluation- WHY at 11 + 0 to 13 + 6 weeks?", answer: "This is a common time for first-trimester ultrasound examination in many countries to look for early signs of potential fetal abnormalities, and therefore practical in terms of logistics.\nEarlier assessment has not been studied extensively because trophoblast invasion is not yet sufficiently advanced as to be assessable.\n11-13+6 weeks is also an optimal period for risk assessment for preterm preeclampsia and fetal growth restriction and to initiate preventative therapy with low dose aspirin"},
-                { id: 2, question: 'Why PI is more in TVS?', answer: 'Close proximity to the probe. Angle of insonation is less.' },
-                { id: 3, question: 'Bilateral Notching', answer: 'Bilateral notching may be observed in around 50% of pregnant women at 11 + 0 to 13 + 6 weeks. This marker therefore has a very low specificity for PE.' },
-                { id: 4, question: 'Factors Affecting Uterine Artery PI', answer: 'Uterine artery PI may be affected by maternal factors, including ethnic origin (African origin is associated with increased PI), BMI (decreasing PI with increasing BMI) and previous PE (associated with increased PI).First trimester uterine artery PI should be expressed as multiples of the median (MoM) rather than absolute values.' },
-                // Add more question-answer pairs as needed
+            path: 'uploads/image1.png',
+            questions: [
+                { id: 1, questionText: "First-trimester uterine artery evaluation- WHY at 11 + 0 to 13 + 6 weeks?", answerText: "This is a common time for first-trimester ultrasound examination in many countries to look for early signs of potential fetal abnormalities, and therefore practical in terms of logistics.\nEarlier assessment has not been studied extensively because trophoblast invasion is not yet sufficiently advanced as to be assessable.\n11-13+6 weeks is also an optimal period for risk assessment for preterm preeclampsia and fetal growth restriction and to initiate preventative therapy with low dose aspirin" },
+                { id: 2, questionText: 'Why PI is more in TVS?', answerText: 'Close proximity to the probe. Angle of insonation is less.' },
+                { id: 3, questionText: 'Bilateral Notching', answerText: 'Bilateral notching may be observed in around 50% of pregnant women at 11 + 0 to 13 + 6 weeks. This marker therefore has a very low specificity for PE.' },
+                { id: 4, questionText: 'Factors Affecting Uterine Artery PI', answerText: 'Uterine artery PI may be affected by maternal factors, including ethnic origin (African origin is associated with increased PI), BMI (decreasing PI with increasing BMI) and previous PE (associated with increased PI).First trimester uterine artery PI should be expressed as multiples of the median (MoM) rather than absolute values.' },
+                // Add more questionText-answerText questions as needed
             ],
         },
         {
             id: 2,
-            name: 'Image 2',
             tags: [
                 { id: 1, name: 'Frontal Bone' },
                 { id: 2, name: 'Nasal Bone' },
@@ -45,17 +44,39 @@ const Edit = () => {
                 { id: 9, name: 'Thalamus and Brainstem' },
             ],
 
-            url: 'http://localhost:5001/uploads/image2.png',
-            pairs: [
-                { id: 1, question: 'PERSISTENT RIGHT UMBILICAL VEIN', answer: 'Relatively frequent: 1:500/1200.\nIt can be intra- or extrahepatic. The former is much commoner (about 95% of cases).' },
-                { id: 2, question: 'Risk of chromosomal anomalies', answer: 'When associated with other anomalies, an underlying chromosomal abnormalities in 8% of cases has been reported. Low, if isolated.' },
-                { id: 3, question: 'Risk of nonchromosomal syndromes', answer: 'Relatively high in cases of extrahepatic type of PRUV, which is commonly associated with other anomalies. Low, if isolated' },
-                { id: 4, question: 'Prognosis, survival, and quality of life', answer: 'When isolated and connected to the portal system, PRUV represents a normal anatomical variant.\nBad prognostic signs : Associated anomalies and abnormal draining (extrahepatic type of PRUV) into the fetal heart or IVC.\nPostnatal therapy-None is needed, if isolated.' },
-                { id: 5, question: 'Ultrasound diagnosis', answer: 'The US appearance is characteristic. US finding of PRUV is an indication for a targeted fetal sonography.\nUV curving to the left and toward the stomach, usually connecting to the right portal vein rather than to the left portal vein.\nThe gallbladder will be on the left of the UV (between the stomach and the UV)\nIt may bypass the liver and portal system (extrahepatic type) and may abnormally drain into the IVC or directly into the fetal heart.' },
+            path: 'uploads/image2.png',
+            questions: [
+                { id: 1, questionText: 'PERSISTENT RIGHT UMBILICAL VEIN', answerText: 'Relatively frequent: 1:500/1200.\nIt can be intra- or extrahepatic. The former is much commoner (about 95% of cases).' },
+                { id: 2, questionText: 'Risk of chromosomal anomalies', answerText: 'When associated with other anomalies, an underlying chromosomal abnormalities in 8% of cases has been reported. Low, if isolated.' },
+                { id: 3, questionText: 'Risk of nonchromosomal syndromes', answerText: 'Relatively high in cases of extrahepatic type of PRUV, which is commonly associated with other anomalies. Low, if isolated' },
+                { id: 4, questionText: 'Prognosis, survival, and quality of life', answerText: 'When isolated and connected to the portal system, PRUV represents a normal anatomical variant.\nBad prognostic signs : Associated anomalies and abnormal draining (extrahepatic type of PRUV) into the fetal heart or IVC.\nPostnatal therapy-None is needed, if isolated.' },
+                { id: 5, questionText: 'Ultrasound diagnosis', answerText: 'The US appearance is characteristic. US finding of PRUV is an indication for a targeted fetal sonography.\nUV curving to the left and toward the stomach, usually connecting to the right portal vein rather than to the left portal vein.\nThe gallbladder will be on the left of the UV (between the stomach and the UV)\nIt may bypass the liver and portal system (extrahepatic type) and may abnormally drain into the IVC or directly into the fetal heart.' },
                 // Add more question-answer pairs as needed
             ],
         },
     ]);
+    console.log(typeof(imageData), "imageData");
+    useEffect(() => {
+        const categoryId = localStorage.getItem('module');
+        const url = `${config.backendUrl}/api/category/${categoryId}/images`;
+
+        const fetchData = async () => {
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                },
+            });
+            const responseData = await response.json();
+            if (response.ok) {
+                console.log(responseData, "responseData");
+                console.log(imageData, "imageData");
+                setImageData(responseData['images']);
+            }
+        }
+        fetchData();
+    }, []);
 
     const handleEdit = (pair) => {
         setEditingPair(pair);
@@ -78,8 +99,8 @@ const Edit = () => {
         // Implement saving edited question functionality here
         const updatedImageData = imageData.map((image) => {
             if (image.id === imageId) {
-                const updatedPairs = image.pairs.map((pair) =>
-                    pair.id === pairId ? { ...pair, question: editingPair.question, answer: editingPair.answer } : pair
+                const updatedPairs = image.questions.map((pair) =>
+                    pair.id === pairId ? { ...pair, question: editingPair.questionText, answer: editingPair.answerText } : pair
                 );
                 return { ...image, pairs: updatedPairs };
             }
@@ -87,7 +108,7 @@ const Edit = () => {
         });
 
         console.log(
-            `Saving edited question for pair with id ${pairId} in image with id ${imageId}: ${editingPair.question
+            `Saving edited question for pair with id ${pairId} in image with id ${imageId}: ${editingPair.questionText
             }`
         );
 
@@ -159,7 +180,7 @@ const Edit = () => {
                         <div key={image.id} className="image-wrapper">
                             <div className="image-and-tags">
                                 <div className="image">
-                                    <img src={image.url} alt={image.name} width={'700px'} height={'400px'} />
+                                    <img src={`http://localhost:5001/${image.path}`} alt="image" width={'700px'} height={'400px'} />
                                 </div>
                                 <div style={{ fontSize: '2rem', font: 'bold', fontFamily: 'Bebas Neue', marginTop: '3rem' }}>Tags</div>
                                 <div className="tags-edit-page">
@@ -175,7 +196,7 @@ const Edit = () => {
                                         type="text"
                                         value={tagText}
                                         onChange={(e) => setTagText(e.target.value)}
-                                        
+
                                         InputProps={{
                                             style: {
                                                 color: 'black',
@@ -228,11 +249,11 @@ const Edit = () => {
                             </div>
                             <div className="qa-pairs">
                                 <div style={{ fontSize: '2rem', font: 'bold', fontFamily: 'Bebas Neue' }}>Question-Answer Pairs</div>';
-                                {image.pairs.map((pair) => (
+                                {image.questions.map((pair) => (
                                     <div key={pair.id} className="qa-box">
                                         <div className="qa-content">
-                                            <div className="qa-question">Q: {pair.question}</div>
-                                            <div className="qa-answer">A: {pair.answer}</div>
+                                            <div className="qa-question">Q: {pair.questionText}</div>
+                                            <div className="qa-answer">A: {pair.answerText}</div>
                                         </div>
                                         <div className="qa-buttons">
                                             {editingPair && editingPair.id === pair.id ? (
@@ -240,25 +261,25 @@ const Edit = () => {
                                                     <div className="edit-input">
                                                         <TextField
                                                             type="text"
-                                                            value={editingPair.question}
+                                                            value={editingPair.questionText}
                                                             onChange={(e) => handleEditChange(e.target.value, 0)}
                                                             InputProps={{
                                                                 style: {
                                                                     color: 'black',
-                                                                    height: '40px',
                                                                     width: '400px',
+                                                                    height: 'auto',
                                                                 },
                                                             }}
                                                         />
                                                         <TextField
                                                             type="text"
-                                                            value={editingPair.answer}
+                                                            value={editingPair.answerText}
                                                             onChange={(e) => handleEditChange(e.target.value, 1)}
                                                             InputProps={{
                                                                 style: {
                                                                     color: 'black',
-                                                                    height: '40px',
                                                                     width: '400px',
+                                                                    height: 'auto',
                                                                 },
                                                             }}
                                                         />
