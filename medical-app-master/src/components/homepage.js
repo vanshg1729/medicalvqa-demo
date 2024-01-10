@@ -576,7 +576,7 @@ const Homepage = ({ selectedImage }) => {
                     {
                         displayImage.map((image, index) => {
                             return (
-                                <img key={index} id={index} className="image" src={`http://localhost:5000/${image}`} alt="Uploaded" draggable="false" />
+                                <img key={index} id={index} className="image" src={`${config.backendUrl}/${image}`} alt="Uploaded" draggable="false" />
                             )
                         }
                         )
@@ -621,7 +621,7 @@ const Homepage = ({ selectedImage }) => {
                                     </div>
                                     {imgPath && (
                                         <img
-                                            src={`http://localhost:5000/${imgPath}`}
+                                            src={`${config.backendUrl}/${imgPath}`}
                                             alt="Uploaded"
                                             style={{ maxWidth: '100%', maxHeight: '200px', marginTop: '10px' }}
                                         />
