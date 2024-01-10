@@ -3,6 +3,9 @@ const User = require('../models/userModel')
 const Question = require('../models/questionModel')
 const Tag = require('../models/tagModel')
 
+const fs = require('fs');
+const path = require('path');
+
 // @Status: Completed
 // @params: {}
 // @body: {}
@@ -42,16 +45,16 @@ const getImageById = async (req, res) => {
 // @Status: Completed
 // @params: {}
 // @body: {categories, tags, path, questions}
-const createImage = async (req, res) => {
-    const {categories, tags, path, questions } = req.body;
-    const user = req.user
-  
+const uploadImage = async (req, res) => {
     try {
+      console.log("Inside uploadImage function")
+      const {categories, tags, questions } = req.body;
+      const user = req.user
       const newImage = new Image({
         user,
         categories,
         tags,
-        path,
+        path: '/uploads/' + req.file.filename, // This is the imageUrl
         questions,
       });
   
@@ -63,6 +66,12 @@ const createImage = async (req, res) => {
       res.status(201).json(savedImage);
     } catch (error) {
       console.error(error);
+      // Delete the uploaded image if an error occurs
+      if (req.file) {
+        const imagePath = path.join(__dirname, '../uploads', req.file.filename);
+        console.log(`Deleted file: ${imagePath}`);
+        fs.unlinkSync(imagePath);
+      }
       res.status(500).json({ message: 'Internal Server Error' });
     }
 };
@@ -263,7 +272,7 @@ const removeTagFromImage = async (req, res) => {
 module.exports = {
     getAllImages,
     getImageById,
-    createImage,
+    uploadImage,
     getImageTags,
     addTagToImage,
     addQuestionToImage,
