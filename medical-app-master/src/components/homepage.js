@@ -31,9 +31,9 @@ const Homepage = ({ selectedImage }) => {
         imgImportList.push(imagePath)
         imgIDImportList.push((i + 1).toString()) // TODO CHANGE THIS LATER
     }
-    const [displayImage, setDisplayImage] = useState(imgImportList)
-    const [displayImageId, setDisplayImageId] = useState(imgIDImportList)
-    
+    const [displayImage, setDisplayImage] = useState([])
+    const [displayImageId, setDisplayImageId] = useState([])
+
     const [searchByGivenTag, setSearchByGivenTag] = useState(true)
     const [myTagSearch, setMyTagSearch] = useState("")
     const [loading, setLoading] = useState(false);
@@ -329,6 +329,7 @@ const Homepage = ({ selectedImage }) => {
 
     const [showModal, setShowModal] = useState(false);
     const [imgPath, setImagePath] = useState('');
+    const [imgId, setImageId] = useState('');
     const [addTags, setAddTags] = useState('');
 
 
@@ -337,98 +338,100 @@ const Homepage = ({ selectedImage }) => {
         // setShowModal(false);
         setShowModal(false);
         setImagePath('');
+        setImageId('');
         setAddTags('');
     }
 
     const handleAddImageTags = () => {
         // Add your logic to handle the module data
+
         console.log('Adding image:', { name: imgPath, description: addTags });
 
         const theTags = addTags.split(",").map((item) => item.trim())
         console.log(theTags, "theTags")
 
-        // Close the modal and reset form fields
-        handleClose();
-        setImagePath('');
-        setAddTags('');
-
         // adding the module to the database
         const addImage = async () => {
 
-            const url = '${config.backendUrl}/api/image/create';
             const token = localStorage.getItem('token');
 
-            const response = await fetch(url, {
+            // const response = await fetch(url, {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //         'Authorization': `Bearer ${token}`,
+            //     },
+            //     body: JSON.stringify({
+            //         path: imgPath
+            //     }),
+            // })
+            // const res = await response.json();
+            // if (response.ok) {
+
+            // now we add this image to the displayImage array
+            // one example of imgPath is uploads/Screenshot from 2023-12-13 01-00-57.png
+            // taking all the stuff other than the uploads/ part
+            const splitArr = imgPath.split("/")
+            const newImagePath = splitArr.slice(1, splitArr.length).join("/")
+            let newImage = newImagePath; // for now lets do something else
+            setDisplayImage([newImage, ...displayImage])
+
+
+            // first we add the image to the module
+            const moduleId = localStorage.getItem('module');
+            // this is the url at which we have to POST: router.post('/:categoryId/addimage/:imageId', requireAuth, addImageToCategory)
+
+            const url2 = `${config.backendUrl}/api/category/${moduleId}/addimage/${imgId}`;
+            const response2 = await fetch(url2, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`,
                 },
-                body: JSON.stringify({
-                    path: imgPath
-                }),
             })
-            const res = await response.json();
-            if (response.ok) {
-
-                // now we add this image to the displayImage array
-                // one example of imgPath is uploads/Screenshot from 2023-12-13 01-00-57.png
-                // taking all the stuff other than the uploads/ part
-                const splitArr = imgPath.split("/")
-                const newImagePath = splitArr.slice(1, splitArr.length).join("/")
-                let newImage = newImagePath; // for now lets do something else
-                setDisplayImage([newImage, ...displayImage])
+            const res2 = await response2.json();
+            console.log(response2, "res2");
+            if (response2.ok) {
+                console.log(res2, "result222222222");
 
 
-                // first we add the image to the module
-                const moduleId = localStorage.getItem('module');
-                // this is the url at which we have to POST: router.post('/:categoryId/addimage/:imageId', requireAuth, addImageToCategory)
+                // now we add the tags to the image
 
-                const url2 = `${config.backendUrl}/api/category/${moduleId}/addimage/${res._id}`;
-                const response2 = await fetch(url2, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`,
-                    },
-                })
-                const res2 = await response2.json();
-                console.log(response2, "res2");
-                if (response2.ok) {
-                    console.log(res2, "result222222222");
-
-
-                    // now we add the tags to the image
-
-                    for (let i = 0; i < theTags.length; i++) {
-                        const url3 = `${config.backendUrl}/api/image/${res._id}/addtag/${theTags[i]}`;
-                        const response3 = await fetch(url3, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Authorization': `Bearer ${token}`,
-                            },
-                        })
-                        const res3 = await response3.json();
-                        console.log(response3, "res3");
-                        if (response3.ok) {
-                            console.log(res3, "result333333333");
-                        } else {
-                            console.log(res3.error, "3333333333");
-                        }
+                for (let i = 0; i < theTags.length; i++) {
+                    const url3 = `${config.backendUrl}/api/image/${imgId}/addtag/${theTags[i]}`;
+                    const response3 = await fetch(url3, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`,
+                        },
+                    })
+                    const res3 = await response3.json();
+                    console.log(response3, "res3");
+                    if (response3.ok) {
+                        console.log(res3, "result333333333");
+                    } else {
+                        console.log(res3.error, "3333333333");
                     }
+                }
 
 
                 } else {
                     console.log(res2.error, "2222222222");
                 }
 
-            } else {
-                console.log(res.error, "erriefhha");
-            }
+        //     } else {
+        //         console.log(res.error, "erriefhha");
+        //     }
         }
 
         addImage();
+
+        // Close the modal and reset form fields
+        handleClose();
+        setImagePath('');
+        setImageId('');
+        setAddTags('');
 
     };
 
@@ -440,7 +443,7 @@ const Homepage = ({ selectedImage }) => {
     //         formData.append('image', file);
 
     //         try {
-    //             const response = await axios.post('http://localhost:5001/upload', formData);
+    //             const response = await axios.post('http://localhost:5000/upload', formData);
     //             setImagePath(response.data.imagePath);
     //         } catch (error) {
     //             console.error('Error uploading image:', error);
@@ -462,11 +465,15 @@ const Homepage = ({ selectedImage }) => {
                 body: formData,
             })
             const res = await response.json();
-            console.log(res, "res");
-            setImagePath(response.data.imagePath);
+            console.log(res, "jshdkladfhkjhfres");
+            setImagePath(res.path);
+            setImageId(res._id);
+
+            
         } catch (error) {
             console.error('Error uploading image:', error);
         }
+
     };
 
     const { getRootProps, getInputProps } = useDropzone({
@@ -569,7 +576,7 @@ const Homepage = ({ selectedImage }) => {
                     {
                         displayImage.map((image, index) => {
                             return (
-                                <img key={index} id={index} className="image" src={`http://localhost:5001/uploads/${encodeURIComponent(image)}`} alt="Uploaded" draggable="false" />
+                                <img key={index} id={index} className="image" src={`http://localhost:5000/${image}`} alt="Uploaded" draggable="false" />
                             )
                         }
                         )
@@ -614,7 +621,7 @@ const Homepage = ({ selectedImage }) => {
                                     </div>
                                     {imgPath && (
                                         <img
-                                            src={`http://localhost:5001/${imgPath}`}
+                                            src={`http://localhost:5000/${imgPath}`}
                                             alt="Uploaded"
                                             style={{ maxWidth: '100%', maxHeight: '200px', marginTop: '10px' }}
                                         />
