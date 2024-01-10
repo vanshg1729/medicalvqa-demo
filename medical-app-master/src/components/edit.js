@@ -180,11 +180,11 @@ const Edit = () => {
                         <div key={image.id} className="image-wrapper">
                             <div className="image-and-tags">
                                 <div className="image">
-                                    <img src={`http://localhost:5001/${image.path}`} alt="image" width={'700px'} height={'400px'} />
+                                    <img src={`http://localhost:5000${image.path}`} alt="image" width={'700px'} height={'400px'} />
                                 </div>
                                 <div style={{ fontSize: '2rem', font: 'bold', fontFamily: 'Bebas Neue', marginTop: '3rem' }}>Tags</div>
                                 <div className="tags-edit-page">
-                                    {image.tags.map((tag) => (
+                                    {image.tags.map((tag) => console.log(tag, "hdfhaskdflkh") && (
                                         <span key={tag.id} className="tag-edit">
                                             {tag.name}
                                         </span>
