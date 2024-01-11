@@ -41,6 +41,7 @@ const Homepage = ({ selectedImage }) => {
     const arr1 = useRef([]);
     const arr2 = useRef([]);
     const tags = useRef([]);
+    const correspondingImageToTheTags = useRef([]);
 
     useEffect(() => {
 
@@ -54,7 +55,9 @@ const Homepage = ({ selectedImage }) => {
             });
             const responseData = await response.json();
             if (response.ok) {
+                console.log(responseData, "responseData");
                 tags.current = responseData.map(obj => obj.name);
+                correspondingImageToTheTags.current = responseData.map(obj => obj.images);
                 console.log(tags, "tags");
             }
         }
@@ -86,7 +89,7 @@ const Homepage = ({ selectedImage }) => {
                         const splitArr = thePath.split("/")
                         const newImagePath = splitArr.slice(1, splitArr.length).join("/")
                         newImages.push(newImagePath)
-                        console.log(receivedImages[i], "checking the id")
+                        // console.log(receivedImages[i], "checking the id")
                         newImageIDS.push(receivedImages[i].id)
                     }
                     newImages.reverse() // so that the latest images are shown first
@@ -95,8 +98,8 @@ const Homepage = ({ selectedImage }) => {
                     setDisplayImageId([...newImageIDS, ...displayImageId])
                     arr1.current = [...newImages, ...displayImage]
                     arr2.current = [...newImageIDS, ...displayImageId]
-                    console.log("New image ids", newImageIDS)
-                    console.log("Old image ids", displayImageId)
+                    // console.log("New image ids", newImageIDS)
+                    // console.log("Old image ids", displayImageId)
                 }
 
                 // now we add these images to the displayImage array
@@ -213,6 +216,7 @@ const Homepage = ({ selectedImage }) => {
     };
 
     const handleSendQuestionTag = async () => {
+        console.log(selectedTags, "selectedTags")
         if (selectedTags.length === 0 && myTagSearch == "") {
             setDisplayImage(imgImportList)
             if (searchByGivenTag == true)
@@ -224,21 +228,43 @@ const Homepage = ({ selectedImage }) => {
             setLoading(true);
             if (searchByGivenTag == true) {
                 selectedTags.filter((item, index) => selectedTags.indexOf(item) === index)
-                // setTimeout(() => {
+                // // setTimeout(() => {
                 let newDisplayImage = []
-                for (let i = 0; i < data.images.length; i++) {
-                    let check = 0
-                    for (let j = 0; j < data.images[i].tags.length; j++) {
-                        for (let k = 0; k < selectedTags.length; k++) {
-                            if ((data.images[i].tags[j].includes(selectedTags[k]))) {
-                                check = 1
-                            }
-                        }
-                    }
-                    if (check === 1) {
-                        newDisplayImage.push(imgImportList[i])
-                    }
+
+                // we have the tags in tags.current, and we cant use 'data'
+                console.log(tags.current, "tags.current")
+                // now we find the index of the selected tags in tags.current
+                let indexArr = []
+                for (let i = 0; i < selectedTags.length; i++) {
+                    indexArr.push(tags.current.indexOf(selectedTags[i]))
                 }
+                console.log(indexArr, "indexArr")
+                // now we have to find the images corresponding to these tags
+                let imageArr = []
+                for (let i = 0; i < indexArr.length; i++) {
+                    imageArr.push(...correspondingImageToTheTags.current[indexArr[i]])
+                }
+                imageArr = imageArr.filter((item, index) => imageArr.indexOf(item) === index)
+                console.log(imageArr, "imageArr")
+
+                
+
+
+
+
+                // for (let i = 0; i < data.images.length; i++) {
+                //     let check = 0
+                //     for (let j = 0; j < data.images[i].tags.length; j++) {
+                //         for (let k = 0; k < selectedTags.length; k++) {
+                //             if ((data.images[i].tags[j].includes(selectedTags[k]))) {
+                //                 check = 1
+                //             }
+                //         }
+                //     }
+                //     if (check === 1) {
+                //         newDisplayImage.push(imgImportList[i])
+                //     }
+                // }
                 // console.log(newDisplayImage)
                 // for (let i = 0; i < data.images.length; i++) {
                 //     for (let j = 0; j < data.images[i].tags.length; j++) {
@@ -469,6 +495,8 @@ const Homepage = ({ selectedImage }) => {
             setImagePath(res.path);
             setImageId(res._id);
 
+            arr2.current = [res._id, ...arr2.current]
+
             
         } catch (error) {
             console.error('Error uploading image:', error);
@@ -621,7 +649,7 @@ const Homepage = ({ selectedImage }) => {
                                     </div>
                                     {imgPath && (
                                         <img
-                                            src={`${config.backendUrl}/${imgPath}`}
+                                            src={`${config.backendUrl}${imgPath}`}
                                             alt="Uploaded"
                                             style={{ maxWidth: '100%', maxHeight: '200px', marginTop: '10px' }}
                                         />

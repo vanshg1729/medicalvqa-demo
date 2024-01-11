@@ -31,15 +31,19 @@ def get_question():
 
         if not token or not selected_image_id:
             return jsonify({'error': 'Invalid request data. Token and selectedImageId are required.'}), 400
-
-        if not question:
+        # print(question, selected_image_id)
+        if not question or question == "Please Add a Question":
             # Return a 201 status with the answerText as "Please enter a valid question"
             return jsonify({'closest_question': {'answerText': 'Please enter a valid question'}}), 201
 
         # Use the token to make a GET request to the desired URL
-        question_url = f"https://localhost:5000/api/image/{selected_image_id}/questions"
-        headers = {'Authorization': f'Bearer {token}'}
-        response = requests.get(question_url, headers=headers)
+        url = f"http://localhost:5000/api/image/{selected_image_id}/questions"
+        print(url, "url")
+        print(selected_image_id, "hi")
+        # now we have to make a get request to the url
+        # print(url)
+        response = requests.get(url, headers={'Authorization': f'Bearer {token}'})
+        print(response, "hi")
 
         # Check if the request was successful (status code 200)
         if response.status_code == 200:
