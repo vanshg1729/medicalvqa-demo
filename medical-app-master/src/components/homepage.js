@@ -7,7 +7,7 @@ import axios from 'axios';
 import { useDropzone } from 'react-dropzone';
 
 import config from './config';
-import data from './data.json';
+// import data from './data.json';
 import Breadcrumbs from './breadcrumbs';
 
 import './CustomModal.css';
@@ -22,15 +22,15 @@ const Homepage = ({ selectedImage }) => {
     // console.log(module, "module")
     const imgImportList = []
     const imgIDImportList = []
-    for (let i = 0; i < data.images.length; i++) { // we left the first image to just test it out
-        // importing images inside the images folder
-        const imagePath = data.images[i].image
+    // for (let i = 0; i < data.images.length; i++) { // we left the first image to just test it out
+    //     // importing images inside the images folder
+    //     const imagePath = data.images[i].image
 
-        // Import the image using the dynamic import syntax
-        // console.log(img, "img.default")
-        imgImportList.push(imagePath)
-        imgIDImportList.push((i + 1).toString()) // TODO CHANGE THIS LATER
-    }
+    //     // Import the image using the dynamic import syntax
+    //     // console.log(img, "img.default")
+    //     imgImportList.push(imagePath)
+    //     imgIDImportList.push((i + 1).toString()) // TODO CHANGE THIS LATER
+    // }
     const [displayImage, setDisplayImage] = useState([])
     const [displayImageId, setDisplayImageId] = useState([])
 
@@ -40,8 +40,9 @@ const Homepage = ({ selectedImage }) => {
 
     const arr1 = useRef([]);
     const arr2 = useRef([]);
+    const arr3 = useRef([]); // this is a list of lists, which has the tags of each image, where images are in the same order as in arr1 (in a list)
     const tags = useRef([]);
-    const correspondingImageToTheTags = useRef([]);
+    // const correspondingImageToTheTags = useRef([]);
 
     useEffect(() => {
 
@@ -57,7 +58,7 @@ const Homepage = ({ selectedImage }) => {
             if (response.ok) {
                 console.log(responseData, "responseData");
                 tags.current = responseData.map(obj => obj.name);
-                correspondingImageToTheTags.current = responseData.map(obj => obj.images);
+                // correspondingImageToTheTags.current = responseData.map(obj => obj.images);
                 console.log(tags, "tags");
             }
         }
@@ -98,6 +99,15 @@ const Homepage = ({ selectedImage }) => {
                     setDisplayImageId([...newImageIDS, ...displayImageId])
                     arr1.current = [...newImages, ...displayImage]
                     arr2.current = [...newImageIDS, ...displayImageId]
+                    const newArr = []
+                    for (let i = 0; i < len; i++) {
+                        const theTags = receivedImages[i].tags
+                        newArr.push(theTags)
+                    }
+                    newArr.reverse()
+                    arr3.current = [...newArr]
+                    console.log(arr1.current, "arr1")
+                    console.log(arr3.current, "arr3")
                     // console.log("New image ids", newImageIDS)
                     // console.log("Old image ids", displayImageId)
                 }
@@ -218,7 +228,7 @@ const Homepage = ({ selectedImage }) => {
     const handleSendQuestionTag = async () => {
         console.log(selectedTags, "selectedTags")
         if (selectedTags.length === 0 && myTagSearch == "") {
-            setDisplayImage(imgImportList)
+            setDisplayImage(arr1.current)
             if (searchByGivenTag == true)
                 alert("Please select a tag")
             else
@@ -231,75 +241,66 @@ const Homepage = ({ selectedImage }) => {
                 // // setTimeout(() => {
                 let newDisplayImage = []
 
-                // we have the tags in tags.current, and we cant use 'data'
-                console.log(tags.current, "tags.current")
-                // now we find the index of the selected tags in tags.current
-                let indexArr = []
-                for (let i = 0; i < selectedTags.length; i++) {
-                    indexArr.push(tags.current.indexOf(selectedTags[i]))
+                // we have the images and their corresponding tags when we get the images data from the backend
+                console.log(arr1.current, "arr1")
+
+                for (let i = 0; i < arr3.current.length; i++) {
+                    let check = 0
+                    for (let j = 0; j < arr3.current[i].length; j++) {
+                        for (let k = 0; k < selectedTags.length; k++) {
+                            if ((arr3.current[i][j].includes(selectedTags[k]))) {
+                                check = 1
+                            }
+                        }
+                    }
+                    if (check === 1) {
+                        newDisplayImage.push(arr1.current[i])
+                    }
                 }
-                console.log(indexArr, "indexArr")
-                // now we have to find the images corresponding to these tags
-                let imageArr = []
-                for (let i = 0; i < indexArr.length; i++) {
-                    imageArr.push(...correspondingImageToTheTags.current[indexArr[i]])
-                }
-                imageArr = imageArr.filter((item, index) => imageArr.indexOf(item) === index)
-                console.log(imageArr, "imageArr")
-
-                
-
-
-
-
-                // for (let i = 0; i < data.images.length; i++) {
-                //     let check = 0
-                //     for (let j = 0; j < data.images[i].tags.length; j++) {
-                //         for (let k = 0; k < selectedTags.length; k++) {
-                //             if ((data.images[i].tags[j].includes(selectedTags[k]))) {
-                //                 check = 1
-                //             }
-                //         }
-                //     }
-                //     if (check === 1) {
-                //         newDisplayImage.push(imgImportList[i])
-                //     }
-                // }
-                // console.log(newDisplayImage)
-                // for (let i = 0; i < data.images.length; i++) {
-                //     for (let j = 0; j < data.images[i].tags.length; j++) {
-                //         if (data.images[i].tags[j].includes("hi mom")) {
-                //             newDisplayImage.push(imgImportList[i])
-                //             break;
-                //         }
-                //     }
-                // }
+                // console.log(newDisplayImage, "newDisplayImage")
                 setDisplayImage(newDisplayImage)
             }
             else {
                 console.log("Request being sent")
-                const response = await fetch('https://tagsmedvqa.onrender.com/api/tags', {
+                const url = 'http://localhost:8000/get_tags'
+                // we get the 3 topmost similar tags, and then show all the images that are tagged with those tags
+                const response = await fetch(url, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ userInput: myTagSearch }),
+                    body: JSON.stringify({ input_tag: myTagSearch, all_tags: tags.current, token: localStorage.getItem('token'), selectedImageId: localStorage.getItem('selectedImageId') }),
                 });
                 console.log("response recieved");
                 if (response.ok) {
                     console.log("Response is OK");
                     const recievedData = await response.json();
                     console.log(recievedData, "the data recieved from fetch")
-                    const images = recievedData.images
-                    // console.log(images[0])
+
+                    const top3Tags = recievedData.top_tags
+                    console.log(top3Tags, "top3Tags")
+                    
                     let newDisplayImage = []
-                    for (let i = 0; i < data.images.length; i++) {
-                        if (data.images[i]["image"] == images[0][0] || data.images[i]["image"] == images[1][0] || data.images[i]["image"] == images[2][0])
-                            newDisplayImage.push(imgImportList[i])
+                    for (let i = 0; i < arr3.current.length; i++) {
+                        let check = 0
+                        for (let j = 0; j < arr3.current[i].length; j++) {
+                            for (let k = 0; k < top3Tags.length; k++) {
+                                if ((arr3.current[i][j].includes(top3Tags[k]))) {
+                                    check = 1
+                                }
+                            }
+                        }
+                        if (check === 1) {
+                            newDisplayImage.push(arr1.current[i])
+                        }
                     }
-                    console.log(newDisplayImage)
+                    console.log(newDisplayImage, "newDisplayImage")
+
+                    // console.log(newDisplayImage)
 
                     setDisplayImage(newDisplayImage)
+
+                    // TODO NOTE: We are searching from all the tags right now, which is wrong, we should only be using the module/category tags
                 }
             }
             setLoading(false)

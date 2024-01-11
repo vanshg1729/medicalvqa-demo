@@ -378,6 +378,25 @@ const Edit = () => {
                                     >
                                         Add Tag
                                     </Button>
+                                    <Button
+                                        variant="contained"
+                                        size="small"
+                                        color="primary"
+                                        onClick={() => addTheTag(image.id)}
+                                        style={{
+                                            backgroundColor: 'rgb(113 90 90 / 88%)',
+                                            margin: '1rem 0',
+                                            paddingTop: '0.5rem',
+                                            fontSize: '1.4rem',
+                                            color: 'black',
+                                            fontFamily: 'Bebas Neue',
+                                            border: '2px solid black',
+                                            width: '100px',
+                                            display: editTags && editId.current == index ? 'block' : 'none',
+                                        }}
+                                    >
+                                        Delete Image
+                                    </Button>
                                 </div>
                                 <br />
                                 <Button
