@@ -277,15 +277,15 @@ const Homepage = ({ selectedImage }) => {
                     const recievedData = await response.json();
                     console.log(recievedData, "the data recieved from fetch")
 
-                    const top3Tags = recievedData.top_tags
-                    console.log(top3Tags, "top3Tags")
+                    const top5Tags = recievedData.top_tags
+                    console.log(top5Tags, "top5Tags")
                     
                     let newDisplayImage = []
                     for (let i = 0; i < arr3.current.length; i++) {
                         let check = 0
                         for (let j = 0; j < arr3.current[i].length; j++) {
-                            for (let k = 0; k < top3Tags.length; k++) {
-                                if ((arr3.current[i][j].includes(top3Tags[k]))) {
+                            for (let k = 0; k < top5Tags.length; k++) {
+                                if ((arr3.current[i][j].includes(top5Tags[k]))) {
                                     check = 1
                                 }
                             }

@@ -62,7 +62,7 @@ def get_question():
     
 @app.route('/get_tags', methods=['POST'])
 def get_tags():
-    # we get the 3 topmost similar tags in the backend, and then find and show all the images that are tagged with those tags in the frontend
+    # we get the 5 topmost similar tags in the backend, and then find and show all the images that are tagged with those tags in the frontend
     try:
         # Get data from the request body
         request_data = request.json
@@ -74,13 +74,13 @@ def get_tags():
         if not token or not selected_image_id:
             return jsonify({'error': 'Invalid request data. Token and selectedImageId are required.'}), 400
         
-        # we find the 3 topmost similar tags to input_tag from all_tags
+        # we find the 5 topmost similar tags to input_tag from all_tags
         # we use spaCy to get the similarity between the input tag and each existing tag
         similarities = [(nlp(input_tag).similarity(nlp(tag)), tag) for tag in all_tags]
         # Sort by similarity in descending order
         similarities.sort(key=lambda x: x[0], reverse=True)
         # Return the most similar tags
-        top_tags = [tag for (similarity, tag) in similarities[:3]]
+        top_tags = [tag for (similarity, tag) in similarities[:5]]
         print(top_tags)
         
         return jsonify({'top_tags': top_tags}), 200

@@ -399,6 +399,11 @@ const Edit = () => {
                                     </Button>
                                 </div>
                                 <br />
+                                <div className='buttons-image' style={{
+                                    display: 'flex',
+                                    flexDirection: 'row',
+                                    gap: '2rem',
+                                }}>
                                 <Button
                                     variant="contained"
                                     size="small"
@@ -419,6 +424,27 @@ const Edit = () => {
                                 >
                                     Add Tag
                                 </Button>
+                                <Button
+                                    variant="contained"
+                                    size="small"
+                                    color="primary"
+                                    // the id is the image id
+                                    id={index}
+                                    style={{
+                                        backgroundColor: 'rgb(113 90 90 / 88%)',
+                                        margin: '1rem 0',
+                                        paddingTop: '0.5rem',
+                                        fontSize: '1.5rem',
+                                        color: 'black',
+                                        fontFamily: 'Bebas Neue',
+                                        border: '2px solid black',
+                                        display: editTags && editId.current == index ? 'none' : 'block',
+                                    }}
+                                    onClick={addTag}
+                                >
+                                    Delete Image
+                                </Button>
+                                </div>
                             </div>
                             <div className="qa-pairs">
                                 <div style={{ fontSize: '2rem', font: 'bold', fontFamily: 'Bebas Neue', minWidth: '50rem' }}>Question-Answer Pairs</div>';
