@@ -48,14 +48,10 @@ const getImageById = async (req, res) => {
 const uploadImage = async (req, res) => {
     try {
       console.log("Inside uploadImage function")
-      const {categories, tags, questions } = req.body;
       const user = req.user
       const newImage = new Image({
         user,
-        categories,
-        tags,
         path: '/uploads/' + req.file.filename, // This is the imageUrl
-        questions,
       });
   
       const savedImage = await newImage.save();
