@@ -30,11 +30,11 @@ const App = () => {
         <Route path='/random2' element={<SignUp />}></Route> */}
         <Route path="/:moduleName" element={<Homepage selectedImage={selectedImage} />}></Route> {/* it is reverse in our case */}
         <Route path="/:module/chatbot" element={<Chat selectedImage={selectedImage} />}></Route> {/* it is reverse in our case */}
+        <Route path="/:module/edit" element={<Edit />}></Route>
         <Route path="/module/addContent" element={<AddContentModal />}></Route> {/* it is reverse in our case ""/addContent" */}
         <Route path="/tags" element={<Tags />}></Route> {/* it is reverse in our case */}
         <Route path="/home" element={<Modulepage />}></Route>
         <Route path="/create" element={<Create />}></Route>
-        <Route path="/edit" element={<Edit />}></Route>
       </Routes>
     </AppStateProvider>
 

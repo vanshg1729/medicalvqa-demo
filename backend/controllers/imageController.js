@@ -200,7 +200,7 @@ const addQuestionToImage = async (req, res) => {
 // @body: {}
 const getImageQuestions = async (req, res) => {
   const imageId = req.params.imageId; // The image ID is in the URL parameter
-
+  console.log("Inside getImageQuestions function", imageId)
   try {
     // Find the image by ID
     const image = await Image.findById(imageId).populate('questions');
@@ -215,6 +215,8 @@ const getImageQuestions = async (req, res) => {
       const { questionText, answerText, status, _id } = question;
       return { questionText, answerText, status, questionId: _id };
     });
+
+    console.log("expandedQuestions", expandedQuestions)
 
     res.json({ imageId: imageId, questions: expandedQuestions });
   } catch (error) {
