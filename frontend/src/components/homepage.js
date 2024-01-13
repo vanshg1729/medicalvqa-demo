@@ -7,6 +7,7 @@ import axios from 'axios';
 import { useDropzone } from 'react-dropzone';
 
 import config from './config';
+import subpath from './subpath';
 // import data from './data.json';
 import Breadcrumbs from './breadcrumbs';
 
@@ -18,8 +19,8 @@ const Homepage = ({ selectedImage }) => {
 
     const navigate = useNavigate();
 
-    const module = decodeURIComponent(window.location.href.split("/")[3])
-    // console.log(module, "module")
+    const module = decodeURIComponent(window.location.href.split("/")[4])
+    console.log(module, "module")
     const imgImportList = []
     const imgIDImportList = []
     // for (let i = 0; i < data.images.length; i++) { // we left the first image to just test it out
@@ -132,7 +133,9 @@ const Homepage = ({ selectedImage }) => {
                 console.log(e.target.id, "here")
                 localStorage.setItem('selectedImageId', arr2.current[e.target.id]);
                 // window.location.href = '/module/chatbot';
-                navigate(`/${module}/chatbot`, { selectedImage: selectedImage.current });
+                // /${module}/chatbot`, { selectedImage: selectedImage.current });
+                console.log(`/${module}/chatbot`, "here")
+                navigate(`/${module}/chatbot`, { selectedImage: selectedImage.current } );
                 // console.log(selectedImage.current, "niceto")
                 // console.log(e.target.src, "here")
             }

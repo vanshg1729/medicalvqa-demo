@@ -1,10 +1,10 @@
 // Breadcrumbs.js
 import React from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import subpath from './subpath';
 
 const Breadcrumbs = () => {
   const location = useLocation();
-  const navigate = useNavigate();
 
   const func = (e) => {
     // console.log("e.target.innerText+", e.target.innerText, "+hi")
@@ -26,14 +26,14 @@ const Breadcrumbs = () => {
     const num = e.target.id
 
     if (num == 0) {
-      window.location.href = "/home"
+      window.location.href = `${subpath}/home`
     } else if (num == 1) {
       // # not taking the last character as it is a space
       const url = e.target.innerText.slice(0, -2)
-      window.location.href = `/${url}`
+      window.location.href = `${subpath}/${url}`
     } else if (num == 2) {
       const url = e.target.innerText.slice(0, -2)
-      window.location.href = url
+      window.location.href = `${subpath}${url}`
     }
 
     
@@ -46,7 +46,7 @@ const Breadcrumbs = () => {
   // console.log(pathnames, "pathnames")
   const goToTagsPage = () => {
     // console.log("go to tags page")
-    window.location.href = "/tags"
+    window.location.href = `${subpath}/tags`
   }
   pathnames.unshift("Home ")
 

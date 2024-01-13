@@ -14,6 +14,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import config from './config';
+import subpath from './subpath';
 
 function Copyright(props) {
   return (
@@ -73,7 +74,7 @@ export default function SignInSide() {
         setEmail('');
         setPassword('');
         
-        window.location.href = '/home';
+        window.location.href = `${subpath}/home`
       } else {
         setEmail('');
         setPassword('');

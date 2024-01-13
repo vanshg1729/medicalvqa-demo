@@ -16,6 +16,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Container } from '@mui/material'
 import './signup.css'
 import config from './config';
+import subpath from './subpath';
 
 function Copyright(props) {
     return (
@@ -86,7 +87,7 @@ export default function SignInSide() {
                 setLname('');
                 setErrMsg('');
                 
-                window.location.href = '/home';
+                window.location.href = `${subpath}/home`
 
             } else {
                 setEmail('');
@@ -105,7 +106,7 @@ export default function SignInSide() {
     //     const url = "/api/user/signup";
 
 
-    //     window.location.href = "/";
+    //     window.location.href = `${subpath}/home`
     // }
 
     return (

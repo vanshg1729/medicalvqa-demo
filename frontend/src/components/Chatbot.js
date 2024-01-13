@@ -4,13 +4,14 @@ import MicIcon from '@mui/icons-material/Mic';
 import Breadcrumbs from './breadcrumbs';
 import { Modal, Form } from 'react-bootstrap';
 
+import subpath from './subpath';
 import data from './data.json';
 import { useTheme } from '@mui/material/styles';
 import config from './config';
 
 const Chatbot = ({ selectedImage }) => {
 
-  const module = decodeURIComponent(window.location.href.split("/")[3])
+  const module = decodeURIComponent(window.location.href.split("/")[4])
   console.log(module, "module");
   const theme = useTheme();
   const [userInput, setUserInput] = useState('');
@@ -69,7 +70,8 @@ const Chatbot = ({ selectedImage }) => {
 
 
   const goToEditImage = () => {
-    window.location.href = '/' + module + '/edit' + '#' + localStorage.getItem('selectedImageId') + ';;;'
+    //  '/' + module + '/edit' + '#' + localStorage.getItem('selectedImageId') + ';;;'
+    window.location.href = `${subpath}` + '/' + module + '/edit' + '#' + localStorage.getItem('selectedImageId') + ';;;'
   }
 
   const handleShow = () => setShowModal(true);

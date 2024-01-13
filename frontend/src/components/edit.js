@@ -7,10 +7,11 @@ import DeleteIcon from '@mui/icons-material/Delete';
 // Include the CSS styles here
 import './edit.css'; // Include the path to your component's styles
 import { Card, TextField, Typography } from '@mui/material';
+import subpath from './subpath';
 
 const Edit = () => {
 
-    const module = decodeURIComponent(window.location.href.split("/")[3])
+    const module = decodeURIComponent(window.location.href.split("/")[4])
     console.log(module, "module name");
 
     const [tagText, setTagText] = useState('');
@@ -288,7 +289,7 @@ const Edit = () => {
         localStorage.setItem('selectedImageId', id);
         localStorage.setItem('selectedImage', e.target.src);
 
-        window.location.href = `/${module}/chatbot`;
+        window.location.href = `${subpath}/${module}/chatbot`
     }
 
     return (
