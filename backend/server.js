@@ -31,19 +31,19 @@ app.use((req, res, next) => {
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // login and signup user routes
-app.use('{subpath}/api/user', userRoutes)
+app.use(`${subpath}/api/user`, userRoutes)
 
 // Category routes
-app.use('{subpath}/api/category', categoryRoutes)
+app.use(`${subpath}/api/category`, categoryRoutes)
 
 // Tag routes
-app.use('{subpath}/api/tag', tagRoutes)
+app.use(`${subpath}/api/tag`, tagRoutes)
 
 // Image routes
-app.use('{subpath}/api/image', imageRoutes)
+app.use(`${subpath}/api/image`, imageRoutes)
 
 // Question routes
-app.use('{subpath}/api/question', questionRoutes)
+app.use(`${subpath}/api/question`, questionRoutes)
 
 // suppressing the warnings
 mongoose.set('strictQuery', false);
