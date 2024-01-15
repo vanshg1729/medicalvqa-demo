@@ -4,6 +4,7 @@ const {
     getUser,
     loginUser,
     signupUser,
+    getAllUsers
 } = require('../controllers/userController')
 
 const router = express.Router()
@@ -12,6 +13,11 @@ const router = express.Router()
 // @desc Get user info
 // @access Private
 router.get('/', requireAuth, getUser)
+
+// @route Get /api/user/all
+// @desc Get All the users
+// @access Public
+router.get('/all', getAllUsers)
 
 // @route POST api/user/login
 // @desc Login User

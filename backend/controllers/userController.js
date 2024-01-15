@@ -5,13 +5,20 @@ const createToken = (_id) => {
     return jwt.sign({ _id }, process.env.SECRET, { expiresIn: '100d' })
 } 
 
-// @Status: Completed
-// @params: {}
-// @body: {}
-const getUsers = async (req, res) => {
-    const users = await User.find({})
-    res.status(200).json(users)
-}
+// Controller function to get the list of all users
+const getAllUsers = async (req, res) => {
+    try {
+      // Fetch all users from the database
+      const users = await User.find({}, '-password'); // Exclude the password field from the response
+  
+      // Send the list of users as a JSON response
+      res.json(users);
+    } catch (error) {
+      // Handle errors and send an appropriate response
+      console.error('Error fetching users:', error.message);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  };
 
 // @Status: Completed
 // @params: {}
@@ -81,5 +88,5 @@ module.exports = {
     loginUser,
     signupUser,
     getUser,
-    getUsers
+    getAllUsers
 }
