@@ -32,7 +32,7 @@ def get_question():
         if not token or not selected_image_id:
             return jsonify({'error': 'Invalid request data. Token and selectedImageId are required.'}), 400
         # print(question, selected_image_id)
-        if not question or question == 'Please Add a Question':
+        if not question or question.lower() == 'please add a question':
             # Return a 201 status with the answerText as "Please enter a valid question"
             return jsonify({'closest_question': {'answerText': 'Please enter a valid question'}}), 201
 

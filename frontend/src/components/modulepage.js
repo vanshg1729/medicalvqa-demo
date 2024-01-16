@@ -197,14 +197,14 @@ export default function Modulepage() {
                 }
 
                 setCards([...cards, newCard])
-                
+
             } else {
                 console.log(res.error, "erriefhha");
             }
         }
 
         addModule();
-        
+
     };
 
 
@@ -270,7 +270,9 @@ export default function Modulepage() {
                                 </Form>
                             </Modal.Body>
 
-                            <Modal.Footer>
+                            <Modal.Footer style={{
+                                margin: '2vh 0vh',
+                            }}>
                                 <Button variant="secondary" onClick={handleClose}>
                                     Close
                                 </Button>

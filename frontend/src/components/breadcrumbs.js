@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import subpath from './subpath';
 
 const Breadcrumbs = () => {
+
   const location = useLocation();
 
   const func = (e) => {
@@ -33,7 +34,9 @@ const Breadcrumbs = () => {
       window.location.href = `${subpath}/${url}`
     } else if (num == 2) {
       const url = e.target.innerText.slice(0, -2)
-      window.location.href = `${subpath}${url}`
+      console.log(url, "url")
+      // return
+      window.location.href = `${subpath}${location.pathname}`
     }
 
     

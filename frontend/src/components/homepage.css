@@ -85,12 +85,14 @@ body {
 }
 
 .modules {
-    position: absolute;
+    /* position: absolute; */
+    position: relative;
     top: 21vh;
 }
 
 .card-container {
     margin: 5vw;
+    /* min-width: 90vw; */
 }
 
 #redDot {

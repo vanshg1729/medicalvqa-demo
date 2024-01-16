@@ -172,7 +172,7 @@ const Chatbot = ({ selectedImage }) => {
       }
     }
     getQuestions();
-    
+
   }, []);
 
   useEffect(() => {
@@ -405,7 +405,7 @@ const Chatbot = ({ selectedImage }) => {
                 onClick={(askedQuestion == true) ? handleSendQuestion : null}
 
                 style={gridItem2}
-              >{getSuggestionQuestion(4)  === '' || getSuggestionQuestion(4) === undefined ? 'Please Add a Question' : getSuggestionQuestion(4)}
+              >{getSuggestionQuestion(4) === '' || getSuggestionQuestion(4) === undefined ? 'Please Add a Question' : getSuggestionQuestion(4)}
               </Button>
             </Box>
             <Box style={{
@@ -415,18 +415,7 @@ const Chatbot = ({ selectedImage }) => {
                 variant="contained"
                 onClick={(askedQuestion == true) ? handleSendQuestion : null}
                 style={gridItem2}
-              >{getSuggestionQuestion(5)  === '' || getSuggestionQuestion(5) === undefined ? 'Please Add a Question' : getSuggestionQuestion(5)}
-              </Button>
-            </Box>
-            <Box style={{
-              maxWidth: '100%'
-            }}>
-              <Button
-                variant="contained"
-                onClick={(askedQuestion == true) ? handleSendQuestion : null}
-
-                style={gridItem2}
-              >{getSuggestionQuestion(6)  === '' || getSuggestionQuestion(6) === undefined ? 'Please Add a Question' : getSuggestionQuestion(6)}
+              >{getSuggestionQuestion(5) === '' || getSuggestionQuestion(5) === undefined ? 'Please Add a Question' : getSuggestionQuestion(5)}
               </Button>
             </Box>
             <Box style={{
@@ -437,7 +426,18 @@ const Chatbot = ({ selectedImage }) => {
                 onClick={(askedQuestion == true) ? handleSendQuestion : null}
 
                 style={gridItem2}
-              >{getSuggestionQuestion(7)  === '' || getSuggestionQuestion(7) === undefined ? 'Please Add a Question' : getSuggestionQuestion(7)}
+              >{getSuggestionQuestion(6) === '' || getSuggestionQuestion(6) === undefined ? 'Please Add a Question' : getSuggestionQuestion(6)}
+              </Button>
+            </Box>
+            <Box style={{
+              maxWidth: '100%'
+            }}>
+              <Button
+                variant="contained"
+                onClick={(askedQuestion == true) ? handleSendQuestion : null}
+
+                style={gridItem2}
+              >{getSuggestionQuestion(7) === '' || getSuggestionQuestion(7) === undefined ? 'Please Add a Question' : getSuggestionQuestion(7)}
               </Button>
             </Box>
           </Box>
@@ -739,7 +739,9 @@ const Chatbot = ({ selectedImage }) => {
             </Form>
           </Modal.Body>
 
-          <Modal.Footer>
+          <Modal.Footer style={{
+            margin: '2vh 0vh',
+          }}>
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
