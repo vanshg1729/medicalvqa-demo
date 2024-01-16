@@ -3,7 +3,7 @@ from flask_cors import CORS
 import requests
 import spacy
 
-
+backend_url = "https://preon.iiit.ac.in/medical-vqa"
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
@@ -22,6 +22,7 @@ def find_closest_question(question_text, existing_questions):
 
 @app.route('/get_question', methods=['POST'])
 def get_question():
+    print("hi from get_questions()")
     try:
         # Get data from the request body
         request_data = request.json
@@ -37,7 +38,7 @@ def get_question():
             return jsonify({'closest_question': {'answerText': 'Please enter a valid question'}}), 201
 
         # Use the token to make a GET request to the desired URL
-        url = f"http://localhost:5000/api/image/{selected_image_id}/questions"
+        url = f"{backend_url}/api/image/{selected_image_id}/questions"
         print(url, "url")
         print(selected_image_id, "hi")
         # now we have to make a get request to the url
@@ -62,6 +63,7 @@ def get_question():
     
 @app.route('/get_tags', methods=['POST'])
 def get_tags():
+    print(f"hi from get_tags()")
     # we get the 5 topmost similar tags in the backend, and then find and show all the images that are tagged with those tags in the frontend
     try:
         # Get data from the request body
@@ -87,7 +89,6 @@ def get_tags():
     
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-
 
 
 if __name__ == '__main__':
