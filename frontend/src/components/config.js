@@ -1,7 +1,7 @@
 // config.js
 
 const config = {
-    backendUrl: 'http://localhost:5000',
+    backendUrl: 'https://preon.iiit.ac.in/medical-vqa',
   };
   
   export default config;
