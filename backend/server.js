@@ -28,7 +28,7 @@ app.use((req, res, next) => {
 })
 
 // Serve static files from the 'uploads' directory
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use(`${subpath}/api/uploads`, express.static(path.join(__dirname, 'uploads')));
 
 // login and signup user routes
 app.use(`${subpath}/api/user`, userRoutes)

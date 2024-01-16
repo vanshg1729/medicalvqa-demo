@@ -3,6 +3,7 @@ const User = require('../models/userModel')
 
 const requireAuth = async (req, res, next) => {
     // Get Token from request header
+    console.log("Inside requireAuth")
     const { authorization } = req.headers
 
     // Check if Token is not present
