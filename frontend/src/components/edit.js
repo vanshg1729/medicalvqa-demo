@@ -4,6 +4,8 @@ import Button from '@mui/material/Button';
 import config from './config';
 import DeleteIcon from '@mui/icons-material/Delete';
 
+import Breadcrumbs from './breadcrumbs';
+
 // Include the CSS styles here
 import './edit.css'; // Include the path to your component's styles
 import { Card, TextField, Typography } from '@mui/material';
@@ -19,47 +21,7 @@ const Edit = () => {
     // const [editId, setEditId] = useState(''); // id of the image whose tags are being edited
     const editId = useRef('');
     const [editingPair, setEditingPair] = useState(null);
-    const [imageData, setImageData] = useState([
-        // {
-        //     id: 1,
-        //     tags: [
-        //         'First trimester',
-        //         'Uterine Artery Doppler',
-        //     ],
-        //     path: 'uploads/image1.png',
-        //     questions: [
-        //         { id: 1, questionText: "First-trimester uterine artery evaluation- WHY at 11 + 0 to 13 + 6 weeks?", answerText: "This is a common time for first-trimester ultrasound examination in many countries to look for early signs of potential fetal abnormalities, and therefore practical in terms of logistics.\nEarlier assessment has not been studied extensively because trophoblast invasion is not yet sufficiently advanced as to be assessable.\n11-13+6 weeks is also an optimal period for risk assessment for preterm preeclampsia and fetal growth restriction and to initiate preventative therapy with low dose aspirin" },
-        //         { id: 2, questionText: 'Why PI is more in TVS?', answerText: 'Close proximity to the probe. Angle of insonation is less.' },
-        //         { id: 3, questionText: 'Bilateral Notching', answerText: 'Bilateral notching may be observed in around 50% of pregnant women at 11 + 0 to 13 + 6 weeks. This marker therefore has a very low specificity for PE.' },
-        //         { id: 4, questionText: 'Factors Affecting Uterine Artery PI', answerText: 'Uterine artery PI may be affected by maternal factors, including ethnic origin (African origin is associated with increased PI), BMI (decreasing PI with increasing BMI) and previous PE (associated with increased PI).First trimester uterine artery PI should be expressed as multiples of the median (MoM) rather than absolute values.' },
-        //         // Add more questionText-answerText questions as needed
-        //     ],
-        // },
-        // {
-        //     id: 2,
-        //     tags: [
-        //         'Frontal Bone',
-        //         'Nasal Bone',
-        //         'Callosal sulcus',
-        //         'Corpus Callosum',
-        //         'Cerebellum',
-        //         'Parieto occipital sulcus',
-        //         'Cisterna Magna',
-        //         'Hard Palate',
-        //         'Thalamus and Brainstem',
-        //     ],
-
-        //     path: 'uploads/image2.png',
-        //     questions: [
-        //         { id: 1, questionText: 'PERSISTENT RIGHT UMBILICAL VEIN', answerText: 'Relatively frequent: 1:500/1200.\nIt can be intra- or extrahepatic. The former is much commoner (about 95% of cases).' },
-        //         { id: 2, questionText: 'Risk of chromosomal anomalies', answerText: 'When associated with other anomalies, an underlying chromosomal abnormalities in 8% of cases has been reported. Low, if isolated.' },
-        //         { id: 3, questionText: 'Risk of nonchromosomal syndromes', answerText: 'Relatively high in cases of extrahepatic type of PRUV, which is commonly associated with other anomalies. Low, if isolated' },
-        //         { id: 4, questionText: 'Prognosis, survival, and quality of life', answerText: 'When isolated and connected to the portal system, PRUV represents a normal anatomical variant.\nBad prognostic signs : Associated anomalies and abnormal draining (extrahepatic type of PRUV) into the fetal heart or IVC.\nPostnatal therapy-None is needed, if isolated.' },
-        //         { id: 5, questionText: 'Ultrasound diagnosis', answerText: 'The US appearance is characteristic. US finding of PRUV is an indication for a targeted fetal sonography.\nUV curving to the left and toward the stomach, usually connecting to the right portal vein rather than to the left portal vein.\nThe gallbladder will be on the left of the UV (between the stomach and the UV)\nIt may bypass the liver and portal system (extrahepatic type) and may abnormally drain into the IVC or directly into the fetal heart.' },
-        //         // Add more question-answer pairs as needed
-        //     ],
-        // },
-    ]);
+    const [imageData, setImageData] = useState([]);
     // console.log(typeof(imageData), "imageData");
     useEffect(() => {
         const categoryId = localStorage.getItem('module');
@@ -292,15 +254,45 @@ const Edit = () => {
         window.location.href = `${subpath}/${module}/chatbot`
     }
 
+    const removeImage = (e) => {
+        const id = e.target.id;
+        console.log(id, "id");
+        // we delete the image from the list first
+        const updatedImageData = imageData.filter((image) => image.id != id);
+        setImageData(updatedImageData);
+
+        // now we delete the image in the backend
+        const url = `${config.backendUrl}/api/image/delete/${id}`;
+        
+        const deleteImage = async () => {
+            const response = await fetch(url, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                },
+            });
+            const responseData = await response.json();
+            if (response.ok) {
+                console.log(responseData, "responseData");
+            } else {
+                console.log("Error in deleting the image")
+            }
+        }
+
+        deleteImage();
+    }
+
     return (
         <>
+            <Breadcrumbs />
             <Typography variant="h1" gutterBottom style={{
                 textAlign: 'center',
                 color: '#fff5e1',
                 fontFamily: 'Montserrat',
                 fontSize: '6rem',
                 fontWeight: 'bold',
-                marginTop: '5rem',
+                paddingTop: '5rem',
             }}>
                 EDIT KREST DATA
             </Typography>
@@ -379,25 +371,6 @@ const Edit = () => {
                                     >
                                         Add Tag
                                     </Button>
-                                    <Button
-                                        variant="contained"
-                                        size="small"
-                                        color="primary"
-                                        onClick={() => addTheTag(image.id)}
-                                        style={{
-                                            backgroundColor: 'rgb(113 90 90 / 88%)',
-                                            margin: '1rem 0',
-                                            paddingTop: '0.5rem',
-                                            fontSize: '1.4rem',
-                                            color: 'black',
-                                            fontFamily: 'Bebas Neue',
-                                            border: '2px solid black',
-                                            width: '100px',
-                                            display: editTags && editId.current == index ? 'block' : 'none',
-                                        }}
-                                    >
-                                        Delete Image
-                                    </Button>
                                 </div>
                                 <br />
                                 <div className='buttons-image' style={{
@@ -430,7 +403,7 @@ const Edit = () => {
                                     size="small"
                                     color="primary"
                                     // the id is the image id
-                                    id={index}
+                                    id={image.id}
                                     style={{
                                         backgroundColor: 'rgb(113 90 90 / 88%)',
                                         margin: '1rem 0',
@@ -441,7 +414,7 @@ const Edit = () => {
                                         border: '2px solid black',
                                         display: editTags && editId.current == index ? 'none' : 'block',
                                     }}
-                                    onClick={addTag}
+                                    onClick={removeImage}
                                 >
                                     Delete Image
                                 </Button>
