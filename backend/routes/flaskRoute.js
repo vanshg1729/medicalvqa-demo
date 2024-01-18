@@ -13,11 +13,11 @@ const router = express.Router()
 // @route Get /api/flask/get_tags
 // @desc Get similar tags to the ones provided
 // @access Private
-router.get('/get_tags', requireAuth, getSimilarTags)
+router.get('/get_tags', getSimilarTags)
 
 // @route Get /api/flask/get_question
 // @desc Get the closest question to the one provided
 // @access Private
-router.get('/get_question', requireAuth, getClosestQuestion)
+router.get('/get_question', getClosestQuestion)
 
 module.exports = router
