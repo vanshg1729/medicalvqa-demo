@@ -264,7 +264,7 @@ const Homepage = ({ selectedImage }) => {
             }
             else {
                 console.log("Request being sent")
-                const url = `http://${config.backendUrl}/api/flask/get_similar_tags`
+                const url = `${config.backendUrl}/api/flask/get_similar_tags`
                 console.log(`homepage.js: Sending request to ${url}`)
                 // we get the 3 topmost similar tags, and then show all the images that are tagged with those tags
                 const response = await fetch(url, {
