@@ -1,3 +1,4 @@
+const fetch = require('node-fetch');
 require('dotenv').config();
 const FLASK_APP = process.env.FLASK_APP || 'http://localhost:9000';
 
