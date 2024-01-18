@@ -3,6 +3,7 @@ require('dotenv').config();
 const FLASK_APP = process.env.FLASK_APP || 'http://localhost:9000';
 
 const getSimilarTags = async (req, res) => {
+    console.log(`Inside getSimilarTags`)
     try {
         const response = await fetch(`${FLASK_APP}/get_tags`, {
             method: req.method,
@@ -18,6 +19,7 @@ const getSimilarTags = async (req, res) => {
 }
 
 const getClosestQuestion = async (req, res) => {
+    console.log(`Inside getClosestQuestion`)
     try {
         const response = await fetch(`${FLASK_APP}/get_question`, {
             method: req.method,
