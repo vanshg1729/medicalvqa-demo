@@ -9,6 +9,8 @@ import data from './data.json';
 import { useTheme } from '@mui/material/styles';
 import config from './config';
 
+const ip_addr = "10.2.138.43"
+
 const Chatbot = ({ selectedImage }) => {
 
   const module = decodeURIComponent(window.location.href.split("/")[4])
@@ -240,7 +242,8 @@ const Chatbot = ({ selectedImage }) => {
     // var keywordsString = keywords.join(" ");
     // console.log(keywordsString, "the keywords");
 
-    const url = 'http://localhost:8000/get_question';
+    const url = `${config.backendUrl}/api/flask/get_closest_question`;
+    console.log(`Chatbot.js: url: ${url}`)
     const response = await fetch(url, {
       method: 'POST',
       headers: {

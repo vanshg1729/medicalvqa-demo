@@ -69,11 +69,12 @@ userSchema.statics.signup = async function ({email, password, fname, lname, age,
     if (exists) {
         throw Error('Email already in use')
     }
-
+    
+    const role = "editor"
     const salt = await bcrypt.genSalt(10)
     const hash = await bcrypt.hash(password, salt)
 
-    const user = await this.create({ email, password: hash, fname, lname, age, contact })
+    const user = await this.create({ email, password: hash, fname, lname, age, contact, role})
     return user
 }
 

@@ -19,7 +19,7 @@ const MyCard = ({ id, title, content }) => {
                 subheader="Created 12/10/22"
             />
             <CardContent>
-                <Typography paragraph style={{ fontSize: '1.2rem' }}>{content}</Typography>
+                <Typography paragraph style={{ fontSize: '1.2rem' }}>{content.split('').slice(0, 300).join('')}...</Typography>
             </CardContent>
 
             <Button style={{ backgroundColor: 'rgb(113 90 90 / 88%)', color: 'white', height: '6vh' }} variant="contained" onClick={handleNavigation}>

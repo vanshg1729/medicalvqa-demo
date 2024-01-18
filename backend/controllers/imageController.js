@@ -216,8 +216,6 @@ const getImageQuestions = async (req, res) => {
       return { questionText, answerText, status, questionId: _id };
     });
 
-    console.log("expandedQuestions", expandedQuestions)
-
     res.json({ imageId: imageId, questions: expandedQuestions });
   } catch (error) {
     console.error(error);

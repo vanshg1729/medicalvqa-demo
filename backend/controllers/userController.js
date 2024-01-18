@@ -7,6 +7,7 @@ const createToken = (_id) => {
 
 // Controller function to get the list of all users
 const getAllUsers = async (req, res) => {
+    console.log("Inside getAllUsers function")
     try {
       // Fetch all users from the database
       const users = await User.find({}, '-password'); // Exclude the password field from the response

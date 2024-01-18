@@ -334,7 +334,7 @@ const Edit = () => {
                         <div key={image.id} className="image-wrapper">
                             <div className="image-and-tags">
                                 <div className="image">
-                                    <img id={image.id} src={`${config.backendUrl}${image.path}`} onClick={(e) => goToChatbotPage(e, image.id)} alt="image" width={'700px'} height={'400px'} />
+                                    <img id={image.id} src={`${config.backendUrl}/api${image.path}`} onClick={(e) => goToChatbotPage(e, image.id)} alt="image" width={'700px'} height={'400px'} />
                                 </div>
                                 <div style={{ fontSize: '2rem', font: 'bold', fontFamily: 'Bebas Neue', marginTop: '3rem' }}>Tags</div>
                                 <div className="tags-edit-page">

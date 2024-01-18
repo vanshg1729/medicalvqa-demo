@@ -14,7 +14,6 @@ import Breadcrumbs from './breadcrumbs';
 import './CustomModal.css';
 import './homepage.css'
 
-
 const Homepage = ({ selectedImage }) => {
 
     const navigate = useNavigate();
@@ -265,7 +264,8 @@ const Homepage = ({ selectedImage }) => {
             }
             else {
                 console.log("Request being sent")
-                const url = 'http://localhost:8000/get_tags'
+                const url = `${config.backendUrl}/api/flask/get_similar_tags`
+                console.log(`homepage.js: Sending request to ${url}`)
                 // we get the 3 topmost similar tags, and then show all the images that are tagged with those tags
                 const response = await fetch(url, {
                     method: 'POST',
@@ -608,7 +608,7 @@ const Homepage = ({ selectedImage }) => {
                     {
                         displayImage.map((image, index) => {
                             return (
-                                <img key={index} id={index} className="image" src={`${config.backendUrl}/${image}`} alt="Uploaded" draggable="false" />
+                                <img key={index} id={index} className="image" src={`${config.backendUrl}/api/${image}`} alt="Uploaded" draggable="false" />
                             )
                         }
                         )
@@ -653,7 +653,7 @@ const Homepage = ({ selectedImage }) => {
                                     </div>
                                     {imgPath && (
                                         <img
-                                            src={`${config.backendUrl}${imgPath}`}
+                                            src={`${config.backendUrl}api/${imgPath}`}
                                             alt="Uploaded"
                                             style={{ maxWidth: '100%', maxHeight: '200px', marginTop: '10px' }}
                                         />

@@ -3,7 +3,7 @@ from flask_cors import CORS
 import requests
 import spacy
 
-
+backend_url = "https://preon.iiit.ac.in/medical-vqa"
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
@@ -20,8 +20,15 @@ def find_closest_question(question_text, existing_questions):
     # Return the most similar question and its corresponding answer
     return similarities[0][1]
 
-@app.route('/get_question', methods=['POST'])
+@app.route('/get_question', methods=['POST', 'GET'])
 def get_question():
+    """
+    Retrieves the closest question and its corresponding answer based on the provided question and selected image ID.
+
+    Returns:
+        A JSON response containing the closest question and answer if successful, or an error message if unsuccessful.
+    """
+    print("hi from get_questions()")
     try:
         # Get data from the request body
         request_data = request.json
@@ -37,7 +44,7 @@ def get_question():
             return jsonify({'closest_question': {'answerText': 'Please enter a valid question'}}), 201
 
         # Use the token to make a GET request to the desired URL
-        url = f"http://localhost:5000/api/image/{selected_image_id}/questions"
+        url = f"{backend_url}/api/image/{selected_image_id}/questions"
         print(url, "url")
         print(selected_image_id, "hi")
         # now we have to make a get request to the url
@@ -60,8 +67,22 @@ def get_question():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
     
-@app.route('/get_tags', methods=['POST'])
+@app.route('/get_tags', methods=['POST', 'GET'])
 def get_tags():
+    """
+    Retrieves the topmost similar tags based on the input tag and all available tags.
+    
+    Returns:
+        A JSON response containing the topmost similar tags.
+        
+    Raises:
+        ValueError: If the request data is invalid.
+        Exception: If an error occurs during the process.
+    """
+    print(f"hi from get_tags()")
+    # rest of the code...
+def get_tags():
+    print(f"hi from get_tags()")
     # we get the 5 topmost similar tags in the backend, and then find and show all the images that are tagged with those tags in the frontend
     try:
         # Get data from the request body
@@ -89,6 +110,5 @@ def get_tags():
         return jsonify({'error': str(e)}), 500
 
 
-
 if __name__ == '__main__':
-    app.run(port=8000)
+    app.run(port=9000)
