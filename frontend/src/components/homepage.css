@@ -68,27 +68,37 @@ body {
 }
 
 .heading3 {
-    position: absolute;
-    top: 5vh;
+    /* position: relative; */
     font-size: 4.2rem;
-    margin-top: 7vh;
-    padding: 0;
+    padding: 0vh 3.2vw;
+    margin-top: 10vh;
+    /* padding: 0; */
+    text-align: center;
     letter-spacing: 0.4rem;
 }
 
 .heading4 {
-    position: absolute;
-    top: 25vh;
+    position: relative;
     font-size: 3.5rem;
-    margin: -1vh;
+    padding-top: 4vh;
+    margin-left: 2vw;
+    margin-right: 2vw;
+    text-align: center;
     padding: 0;
 }
 
-.modules {
-    /* position: absolute; */
+.heading-button-align {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5vh;
+
+}
+
+/* .modules {
     position: relative;
     top: 21vh;
-}
+} */
 
 .card-container {
     margin: 5vw;

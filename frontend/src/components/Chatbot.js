@@ -29,38 +29,44 @@ const Chatbot = ({ selectedImage }) => {
   const [isRecording, setIsRecording] = useState(false);
 
   const toggleButtonStyle = {
-    position: 'absolute',
-    top: '25vh',
-    left: '82.5vw',
+    position: 'relative',
+    top: '-55rem',
+    left: '90rem',
     color: '#F0EAD6',
     display: 'flex',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
     // alignItems: 'center',
     // textAlign: 'center',
     border: '2px solid grey',
-    // padding: '1vh',
+    // padding: '1rem',
     fontSize: '1.5rem',
-    borderRadius: '7px',
+    borderRadius: '0.45rem',
     fontFamily: '"Bebas Neue", sans-serif',
     backgroundColor: 'rgb(61, 72, 73)',
-    height: '7vh',
+    height: '4rem',
     zIndex: '10000',
   }
 
   const toggleButtonStyle2 = {
-    position: 'absolute',
-    top: '35vh',
-    left: '82.5vw',
+    position: 'relative',
+    top: '-54rem',
+    left: '90rem',
     color: '#F0EAD6',
     display: 'flex',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
     // alignItems: 'center',
     // textAlign: 'center',
     border: '2px solid grey',
-    // padding: '1vh',
+    // padding: '1rem',
     fontSize: '1.5rem',
     borderRadius: '7px',
     fontFamily: '"Bebas Neue", sans-serif',
     backgroundColor: 'rgb(61, 72, 73)',
-    height: '7vh',
+    height: '4rem',
     zIndex: '10000',
   }
 
@@ -309,17 +315,17 @@ const Chatbot = ({ selectedImage }) => {
   };
 
   const gridItem = {
-    width: '20vw',
-    fontSize: "14px",
+    width: '20rem',
+    fontSize: "1rem",
     textAlign: "center",
     backgroundColor: "#3D4849",
     color: '#F0EAD6',
     // border: "4px solid rgb(26 94 170)",
   }
   const gridItem2 = {
-    width: '20vw',
+    width: '20rem',
 
-    fontSize: "14px",
+    fontSize: "1rem",
     textAlign: "center",
     backgroundColor: "#2f3738",
     color: '#F0EAD6',
@@ -332,26 +338,10 @@ const Chatbot = ({ selectedImage }) => {
       <Box style={{
         // opacity: chatbotShow ? 1 : 0,
         transition: 'opacity 1s ease-in-out',
-        width: '100vw',
-        height: '100vh',
+        width: '120rem',
+        height: '67.5rem',
         backgroundColor: '#3D4849',
       }}>
-
-        {/* Back component */}
-        {/* <Button variant="contained" style={{
-          position: 'fixed',
-          top: '93vh',
-          left: '93vw', 
-          backgroundColor: '#2f3738',
-          color: '#F0EAD6',
-          zIndex: 100,
-        }} onClick={() => {
-          // setChatbotShow(false);
-          setAskedQuestion(false);
-          setIsVisible(false);
-          setChatMessages(empty.current);
-        }}>Back</Button> */}
-
 
         {/* Side component */}
         <Box style={{
@@ -359,14 +349,14 @@ const Chatbot = ({ selectedImage }) => {
           opacity: isVisible ? 1 : 0,
           transition: 'opacity 2s ease-in-out',
           position: 'fixed',
-          left: '2vw',
+          left: '2rem',
+          top: '10rem',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
           position: 'fixed',
           width: '20%',
-          height: '90vh',
         }}>
           <Box style={{
             display: 'flex',
@@ -377,7 +367,7 @@ const Chatbot = ({ selectedImage }) => {
             <Typography style={{
               textAlign: 'center',
               color: '#F0EAD6',
-              marginBottom: '1vh',
+              marginBottom: '1rem',
             }} variant="h4">Selected Image</Typography>
 
             <img src={localStorage.getItem('selectedImage')} style={{
@@ -390,15 +380,15 @@ const Chatbot = ({ selectedImage }) => {
 
           {/* the questions */}
           <Box style={{
-            marginTop: "5vh",
+            marginTop: "5rem",
             textAlign: "center",
             display: "flex",
             flexDirection: "column",
-            gap: "1vh",
+            gap: "1rem",
           }}>
             <Box style={{
               // maxWidth: '100%',
-              width: '20vw',
+              width: '20rem',
             }}>
               <Button
                 variant="contained"
@@ -451,10 +441,10 @@ const Chatbot = ({ selectedImage }) => {
           sx={{
             // overflowX: 'hidden',
             position: 'fixed',
-            bottom: '0vh',
+            top: '4rem',
             left: '25%',
-            height: '93vh',
-            width: '50vw',
+            height: '67.5rem',
+            width: '50rem',
             backgroundColor: '#2f3738',
           }}
           elevation={3}
@@ -463,30 +453,30 @@ const Chatbot = ({ selectedImage }) => {
             <>
               {/* a Box to contain four suggestion questions in boxes */}
               <Typography style={{
-                maxHeight: '100vh',
-                height: '70vh',
+                maxHeight: '100rem',
+                height: '67.5rem',
                 overflowY: 'auto',
-                marginBottom: '1vh',
-                padding: '2vh',
+                // marginBottom: '1rem',
+                padding: '2rem',
               }}>
                 <Typography style={{
                   textAlign: 'center',
                   color: '#F0EAD6',
-                  marginTop: '2vh',
+                  marginTop: '2rem',
                   fontFamily: '"Bebas Neue", sans-serif',
-                  letterSpacing: '2px',
+                  letterSpacing: '0.125rem',
                 }} variant="h3">KREST Fetal Radiology Image Bank for Personalized Learning</Typography>
 
 
                 {/* Placing an image here */}
                 <Box style={{
-                  marginTop: "3vh",
+                  marginTop: "3rem",
                   textAlign: "center",
                   borderRadius: "10px",
                 }}>
                   <img src={localStorage.getItem('selectedImage')} style={{
-                    maxWidth: "33vw",
-                    maxHeight: "33vh",
+                    maxWidth: "33rem",
+                    maxHeight: "33rem",
                     borderRadius: "10px",
                   }} />
                 </Box>
@@ -494,16 +484,16 @@ const Chatbot = ({ selectedImage }) => {
 
                 <Typography variant='h4' style={{
                   textAlign: 'center',
-                  marginTop: '2vh',
+                  marginTop: '2rem',
                   color: '#F0EAD6',
                   fontFamily: '"Bebas Neue", sans-serif',
                 }}>Select or type in a question</Typography>
                 <Box style={{
-                  marginTop: "5vh",
+                  marginTop: "5rem",
                   textAlign: "center",
                   display: "grid",
                   gridTemplateColumns: 'repeat(2, 1fr)',
-                  gap: "1vh",
+                  gap: "1rem",
                 }}>
                   <Box>
                     <Button
@@ -547,28 +537,28 @@ const Chatbot = ({ selectedImage }) => {
               <Typography style={{
                 textAlign: 'center',
                 color: '#F0EAD6',
-                marginBottom: '3vh',
-                marginTop: '2vh',
-              }} variant="h3">KREST</Typography>
+                marginBottom: '3rem',
+                marginTop: '2rem',
+              }} variant="h3">KREST Chat</Typography>
               <Box
                 ref={chatContainerRef}
                 sx={{
-                  // maxHeight: '90vh',
+                  // maxHeight: '90rem',
                   [theme.breakpoints.up('sm')]: {
-                    height: '55vh',
+                    height: '55rem',
                   },
                   [theme.breakpoints.up('md')]: {
-                    height: '55vh',
+                    height: '55rem',
                   },
                   [theme.breakpoints.up('lg')]: {
-                    height: '55vh',
+                    height: '55rem',
                   },
                   [theme.breakpoints.up('xl')]: {
-                    height: '59vh',
+                    height: '30rem',
                   },
                   overflowY: 'auto',
-                  marginBottom: '1vh',
-                  padding: '2vh',
+                  marginBottom: '1rem',
+                  padding: '2rem',
                 }}
               >
 
@@ -578,18 +568,18 @@ const Chatbot = ({ selectedImage }) => {
                     style={{
                       display: 'flex',
                       justifyContent: message.isUser ? 'flex-start' : 'flex-start',
-                      marginBottom: '1vh',
+                      marginBottom: '1rem',
                     }}
                   >
                     <Typography
                       variant="body1"
                       style={{
-                        padding: '1vh',
-                        borderRadius: '1vh',
+                        padding: '1rem',
+                        borderRadius: '16px',
                         backgroundColor: message.isUser ? 'rgb(105 123 124)' : 'rgb(111 117 130)',
-                        marginBottom: message.isUser ? '0px' : '16px',
+                        marginBottom: message.isUser ? '0px' : '1rem',
                         color: '#F0EAD6',
-                        fontSize: '20px',
+                        fontSize: '1.25rem',
                       }}
                     >
                       {message.message}
@@ -628,7 +618,7 @@ const Chatbot = ({ selectedImage }) => {
                   handleSendQuestion();
                 }
               }}
-              style={{ marginTop: '4vh', color: '#F0EAD6', border: '2px solid darkgrey' }}
+              style={{ marginTop: '4rem', color: '#F0EAD6', border: '2px solid darkgrey' }}
             />
             {/* <MicIcon variant='contained' style={{
             position: 'relative',
@@ -647,9 +637,9 @@ const Chatbot = ({ selectedImage }) => {
             style={{
               position: 'relative',
               // top: '-0.5vh',
-              left: '-0.5vw',
-              margin: '10px',
-              marginLeft: '2vh',
+              left: '-0.5rem',
+              margin: '0.6rem',
+              marginLeft: '2rem',
               color: '#F0EAD6',
               backgroundColor: userInput ? 'rgb(128 149 151)' : 'rgb(30 36 36)',
             }}
@@ -657,11 +647,11 @@ const Chatbot = ({ selectedImage }) => {
             Send
           </Button>
           <div className="box" style={{
-            width: '5vh',
-            height: '5vh',
+            width: '5rem',
+            height: '5rem',
             position: 'relative',
-            top: '-10vh',
-            left: '46.5vw',
+            top: '-10rem',
+            left: '46.5rem',
             borderRadius: '5px',
           }}>
             <div id="redDot"></div>
@@ -720,7 +710,7 @@ const Chatbot = ({ selectedImage }) => {
                   style={
                     {
                       width: '75%',
-                      height: '5vh',
+                      height: '5rem',
                       fontSize: '1.5rem',
                     }
                   }
@@ -740,7 +730,7 @@ const Chatbot = ({ selectedImage }) => {
           </Modal.Body>
 
           <Modal.Footer style={{
-            margin: '2vh 0vh',
+            margin: '2rem 0rem',
           }}>
             <Button variant="secondary" onClick={handleClose}>
               Close
