@@ -134,7 +134,7 @@ const Homepage = ({ selectedImage }) => {
                 // window.location.href = '/module/chatbot';
                 // /${module}/chatbot`, { selectedImage: selectedImage.current });
                 console.log(`/${module}/chatbot`, "here")
-                navigate(`/${module}/chatbot`, { selectedImage: selectedImage.current } );
+                navigate(`/${module}/chatbot`, { selectedImage: selectedImage.current });
                 // console.log(selectedImage.current, "niceto")
                 // console.log(e.target.src, "here")
             }
@@ -282,7 +282,7 @@ const Homepage = ({ selectedImage }) => {
 
                     const top5Tags = recievedData.top_tags
                     console.log(top5Tags, "top5Tags")
-                    
+
                     let newDisplayImage = []
                     for (let i = 0; i < arr3.current.length; i++) {
                         let check = 0
@@ -326,6 +326,9 @@ const Homepage = ({ selectedImage }) => {
         fontFamily: '"Bebas Neue", sans-serif',
         backgroundColor: 'rgb(61, 72, 73)',
         height: '7vh',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
     }
 
     const toggleButtonStyle2 = {
@@ -344,6 +347,9 @@ const Homepage = ({ selectedImage }) => {
         backgroundColor: 'rgb(61, 72, 73)',
         height: '7vh',
         zIndex: '10000',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis'
     }
 
     const func1 = (event) => {
@@ -446,13 +452,13 @@ const Homepage = ({ selectedImage }) => {
                 }
 
 
-                } else {
-                    console.log(res2.error, "2222222222");
-                }
+            } else {
+                console.log(res2.error, "2222222222");
+            }
 
-        //     } else {
-        //         console.log(res.error, "erriefhha");
-        //     }
+            //     } else {
+            //         console.log(res.error, "erriefhha");
+            //     }
         }
 
         addImage();
@@ -501,7 +507,7 @@ const Homepage = ({ selectedImage }) => {
 
             arr2.current = [res._id, ...arr2.current]
 
-            
+
         } catch (error) {
             console.error('Error uploading image:', error);
         }
@@ -534,7 +540,7 @@ const Homepage = ({ selectedImage }) => {
             }}>
                 <div className="heading">
                     <div className="heading1">KREST</div>
-                    <div className="heading2">Please select an image to ask questions related to that image</div>
+                    <div className="heading2">Ask questions corresponding to images</div>
                 </div>
 
                 {searchByGivenTag == true ?

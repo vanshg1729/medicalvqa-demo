@@ -59,8 +59,8 @@ const Breadcrumbs = () => {
   return (
     <div style={{
       fontSize: '25px',
-      padding: '20px',
-      paddingLeft: '40px',
+      padding: '1.4rem',
+      paddingLeft: '4.5rem',
       backgroundColor: 'rgb(20 26 26 / 49%)',
       zIndex: '1000',
       position: 'fixed',
