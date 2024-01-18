@@ -22,6 +22,12 @@ def find_closest_question(question_text, existing_questions):
 
 @app.route('/get_question', methods=['POST', 'GET'])
 def get_question():
+    """
+    Retrieves the closest question and its corresponding answer based on the provided question and selected image ID.
+
+    Returns:
+        A JSON response containing the closest question and answer if successful, or an error message if unsuccessful.
+    """
     print("hi from get_questions()")
     try:
         # Get data from the request body
@@ -62,6 +68,19 @@ def get_question():
         return jsonify({'error': str(e)}), 500
     
 @app.route('/get_tags', methods=['POST', 'GET'])
+def get_tags():
+    """
+    Retrieves the topmost similar tags based on the input tag and all available tags.
+    
+    Returns:
+        A JSON response containing the topmost similar tags.
+        
+    Raises:
+        ValueError: If the request data is invalid.
+        Exception: If an error occurs during the process.
+    """
+    print(f"hi from get_tags()")
+    # rest of the code...
 def get_tags():
     print(f"hi from get_tags()")
     # we get the 5 topmost similar tags in the backend, and then find and show all the images that are tagged with those tags in the frontend
