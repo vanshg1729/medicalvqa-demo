@@ -14,7 +14,6 @@ import Breadcrumbs from './breadcrumbs';
 import './CustomModal.css';
 import './homepage.css'
 
-const ip_addr = "10.2.138.43"
 const Homepage = ({ selectedImage }) => {
 
     const navigate = useNavigate();
@@ -265,7 +264,7 @@ const Homepage = ({ selectedImage }) => {
             }
             else {
                 console.log("Request being sent")
-                const url = `http://${ip_addr}:8000/get_tags`
+                const url = `http://${config.backendUrl}/api/flask/get_similar_tags`
                 console.log(`homepage.js: Sending request to ${url}`)
                 // we get the 3 topmost similar tags, and then show all the images that are tagged with those tags
                 const response = await fetch(url, {

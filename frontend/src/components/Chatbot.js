@@ -236,7 +236,7 @@ const Chatbot = ({ selectedImage }) => {
     // var keywordsString = keywords.join(" ");
     // console.log(keywordsString, "the keywords");
 
-    const url = `http://${ip_addr}:8000/get_question`;
+    const url = `http://${config.backendUrl}/api/flask/get_closest_question`;
     console.log(`Chatbot.js: url: ${url}`)
     const response = await fetch(url, {
       method: 'POST',
