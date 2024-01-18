@@ -20,7 +20,7 @@ def find_closest_question(question_text, existing_questions):
     # Return the most similar question and its corresponding answer
     return similarities[0][1]
 
-@app.route('/get_question', methods=['POST'])
+@app.route('/get_question', methods=['POST', 'GET'])
 def get_question():
     print("hi from get_questions()")
     try:
@@ -61,7 +61,7 @@ def get_question():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
     
-@app.route('/get_tags', methods=['POST'])
+@app.route('/get_tags', methods=['POST', 'GET'])
 def get_tags():
     print(f"hi from get_tags()")
     # we get the 5 topmost similar tags in the backend, and then find and show all the images that are tagged with those tags in the frontend
