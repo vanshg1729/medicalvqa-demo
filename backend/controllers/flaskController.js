@@ -14,6 +14,7 @@ const getSimilarTags = async (req, res) => {
         const data = await response.json();
         res.send(data);
     } catch (error) {
+        console.error(error)
         res.status(500).send(error.message);
     }
 }
@@ -30,6 +31,7 @@ const getClosestQuestion = async (req, res) => {
         const data = await response.json();
         res.send(data);
     } catch (error) {
+        console.error(error)
         res.status(500).send(error.message);
     }
 }
