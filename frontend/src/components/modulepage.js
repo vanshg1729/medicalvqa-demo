@@ -243,7 +243,7 @@ export default function Modulepage() {
                             {cards.map((card) => (
                                 <Grid key={card.id * 100} data-aos="fade-up" item xs={12} sm={6} md={4} lg={3}>
                                     {console.log(card, "carhalfdhkd")}
-                                    <Card key={card.id} id={card.id} title={card.title} content={card.content} />
+                                    <Card key={card.id} id={card.id} title={card.title} content={card.content} cards={cards} setCards={setCards} />
                                 </Grid>
                             ))}
                         </Grid>

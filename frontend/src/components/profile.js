@@ -4,6 +4,7 @@ import { Facebook, Instagram, LinkedIn, Google } from '@mui/icons-material';
 import './profile.css'; // Import your custom styles
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import config from './config';
+import Breadcrumbs from './breadcrumbs';
 
 // Create a theme with Bebas Neue font
 const theme = createTheme({
@@ -24,8 +25,22 @@ export default function Profile() {
   };
 
   const handleDeleteAccount = () => {
-    // Add logic to handle account deletion here
-    // For now, let's just close the modal
+
+    const url = `${config.backendUrl}/api/user/deleteAccount`;
+    const token = localStorage.getItem('token');
+    
+    const deleteAccount = async () => {
+      const res = await fetch(url, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      const data = await res.json();
+      console.log(data);
+    }
+    deleteAccount(); // not tested yet, as we only have one user that is admin rn and so we cant delete the admin
+    
     handleClose();
   };
 
@@ -66,6 +81,7 @@ export default function Profile() {
 
   return (
     <ThemeProvider theme={theme}>
+      <Breadcrumbs />
       <Container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', fontFamily: 'Bebas Neue, sans-serif' }}>
         <Card sx={{ width: 400, p: 3, py: 4, backgroundColor: '#F0EAD6' }}>
           <Box sx={{ textAlign: 'center', mb: 2 }}>
@@ -87,7 +103,7 @@ export default function Profile() {
 
             <Box sx={{ px: 4, mt: 1 }}>
               <Typography variant="body1" className="fonts">
-                Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+              I'm Dr. Samantha Martinez, a cardiologist deeply committed to diagnosing and treating cardiovascular conditions. With a focus on patient care, I blend compassion with the latest advancements in cardiology. Emphasizing preventive measures, I collaborate closely with my patients to ensure their optimal heart health. My dedication to staying updated in the field makes me a trusted and respected professional.
               </Typography>
             </Box>
 

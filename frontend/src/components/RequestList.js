@@ -40,7 +40,7 @@ const RequestList = () => {
   return (
     <div>
       <Typography variant="h2" align="center" fontWeight="bold" marginBottom={10} marginTop={4} color="#fff5e1" gutterBottom>
-        Requests
+        User Requests To Become Admin
       </Typography>
       <Grid container spacing={5} paddingLeft={10} paddingRight={10}>
         {requestsData.map((request) => (

@@ -52,6 +52,11 @@ const Breadcrumbs = () => {
     window.location.href = `${subpath}/tags`
   }
 
+  const goToRequestsPage = () => {
+    // console.log("go to tags page")
+    window.location.href = `${subpath}/requests`
+  }
+
   const goToProfilePage = () => {
     // console.log("go to tags page")
     window.location.href = `${subpath}/profile`
@@ -79,9 +84,9 @@ const Breadcrumbs = () => {
       <div>
         {pathnames.map((name, index) => {
           return (
-            <span id={index} onClick={func} style={{
+            <span id={index} onClick={func} key={name} style={{
               textDecoration: 'none',
-              color: 'grey',
+              color: '#cdc3c3',
             }}>
               {name == 'home' ? " " : decodeURIComponent(name) + " / "}
             </span>
@@ -93,7 +98,17 @@ const Breadcrumbs = () => {
           // extreme right
           marginRight: '5vw',
           textDecoration: 'none',
-          color: 'grey',
+          color: '#cdc3c3',
+        }}
+          onClick={goToRequestsPage}
+        >
+          Requests Page
+        </span>
+        <span style={{
+          // extreme right
+          marginRight: '5vw',
+          textDecoration: 'none',
+          color: '#cdc3c3',
         }}
           onClick={goToTagsPage}
         >
@@ -103,7 +118,7 @@ const Breadcrumbs = () => {
           // extreme right
           marginRight: '10vw',
           textDecoration: 'none',
-          color: 'grey',
+          color: '#cdc3c3',
         }}
           onClick={goToProfilePage}
         >

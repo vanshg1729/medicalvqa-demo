@@ -124,6 +124,7 @@ const Homepage = ({ selectedImage }) => {
         const track = document.getElementById("image-track");
 
         const handleOnDown = (e) => {
+            // if (!track) return;
             track.dataset.mouseDownAt = e.clientX;
             if (e.target.classList.contains("image")) {
                 // setSelectedImage(e.target.src)
@@ -144,11 +145,14 @@ const Homepage = ({ selectedImage }) => {
         var originalScrollPos = window.pageYOffset || document.documentElement.scrollTop;
 
         const handleOnUp = () => {
+            if (!track) return;
             track.dataset.mouseDownAt = "0";
             track.dataset.prevPercentage = track.dataset.percentage;
         }
 
         const handleOnMove = e => {
+            // if the track object is not defined, we return
+            if (!track) return;
             if (track.dataset.mouseDownAt === "0") return;
 
             const mouseDelta = parseFloat(track.dataset.mouseDownAt) - e.clientX,
@@ -465,15 +469,15 @@ const Homepage = ({ selectedImage }) => {
                     })
                     const res3 = await response3.json();
                     if (response3.ok) {
-                        console.log(res3, "error in adding image to module");
+                        console.log(res3, "image added successfully to the module");
                     } else {
-                        console.log(res3.error, "an error in adding image to module");
+                        console.log(res3.error, "an error 2 in adding image to module");
                     }
                 }
 
 
             } else {
-                console.log(res2.error, "and an error in adding image to module");
+                console.log(res2.error, "and an error 3 in adding image to module");
             }
 
             //     } else {
@@ -515,7 +519,7 @@ const Homepage = ({ selectedImage }) => {
         newFormData.append('image', acceptedFiles[0]);
         setFormData(newFormData);
 
-        
+
     };
 
     const { getRootProps, getInputProps } = useDropzone({
@@ -613,17 +617,23 @@ const Homepage = ({ selectedImage }) => {
                         <div className="blue-loader"></div>
                     </div>
                     : null}
-
-                <div id="image-track" data-mouse-down-at="0" data-prev-percentage="0">
-                    {
-                        displayImage.map((image, index) => {
-                            return (
-                                <img key={index} id={index} className="image" src={`${config.backendUrl}/api/${image}`} alt="Uploaded" draggable="false" />
+                {/* when displayImage is a empty object, we check that here */}
+                {/* {console.log(typeof(displayImage), displayImage.length, "displayImage")} */}
+                {displayImage ?
+                    <div id="image-track" data-mouse-down-at="0" data-prev-percentage="0">
+                        {
+                            displayImage.map((image, index) => {
+                                return (
+                                    <img key={index} id={index} className="image" src={`${config.backendUrl}/api/${image}`} alt="Uploaded" draggable="false" />
+                                )
+                            }
                             )
                         }
-                        )
-                    }
-                </div>
+                    </div> :
+                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '70rem', fontSize: '1.4rem', letterSpacing: '0.15rem' }}>
+                        <h1 style={{ color: '#F0EAD6' }}>No images to display, please add some images </h1>
+                    </div>
+                }
 
 
 
@@ -663,7 +673,7 @@ const Homepage = ({ selectedImage }) => {
                                     </div>
                                     {imgPath && (
                                         <img
-                                            src={`${config.backendUrl}api/${imgPath}`}
+                                            src={`${config.backendUrl}/api${imgPath}`}
                                             alt="Uploaded"
                                             style={{ maxWidth: '100%', maxHeight: '200px', marginTop: '10px' }}
                                         />

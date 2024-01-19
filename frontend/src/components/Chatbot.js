@@ -114,8 +114,8 @@ const Chatbot = ({ selectedImage }) => {
       }
     };
     addingQNA();
-    // setQuestion('');
-    // setAnswer('');
+    setQuestion('');
+    setAnswer('');
     setShowModal(false);
   }
 
@@ -739,7 +739,7 @@ const Chatbot = ({ selectedImage }) => {
                     style={
                       {
                         width: '75%',
-                        height: '5rem',
+                        height: '3.5rem',
                         fontSize: '1.5rem',
                       }
                     }

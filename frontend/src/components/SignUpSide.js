@@ -18,18 +18,18 @@ import './signup.css'
 import config from './config';
 import subpath from './subpath';
 
-function Copyright(props) {
-    return (
-        <Typography variant="body2" color="text.secondary" align="center" {...props}>
-            {'Copyright © '}
-            <Link color="inherit" href="https://mui.com/">
-                Medical VQA App
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
+// function Copyright(props) {
+//     return (
+//         <Typography variant="body2" color="text.secondary" align="center" {...props}>
+//             {'Copyright © '}
+//             <Link color="inherit" href="https://mui.com/">
+//                 Medical VQA App
+//             </Link>{' '}
+//             {new Date().getFullYear()}
+//             {'.'}
+//         </Typography>
+//     );
+// }
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
@@ -233,16 +233,16 @@ export default function SignInSide() {
                                 </Button>
                                 <Grid container justify="flex-end">
                                     <Grid item>
-                                        <Link href="/" variant="body2">
+                                        <Link href={`${config.backendUrl}`} variant="body2" fontSize='1.1rem'>
                                             Already have an account? Sign in
                                         </Link>
                                     </Grid>
                                 </Grid>
                             </form>
                         </div>
-                        <Box mt={5}>
+                        {/* <Box mt={5}>
                             <Copyright />
-                        </Box>
+                        </Box> */}
                     </Box>
                 </Grid>
             </Grid>

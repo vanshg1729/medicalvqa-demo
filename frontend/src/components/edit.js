@@ -1,8 +1,8 @@
 // Import React and other necessary libraries
 import React, { useState, useRef, useEffect } from 'react';
-import Button from '@mui/material/Button';
 import config from './config';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material';
 
 import Breadcrumbs from './breadcrumbs';
 
@@ -12,9 +12,10 @@ import { Card, TextField, Typography } from '@mui/material';
 import subpath from './subpath';
 
 const Edit = () => {
+    const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
     const module = decodeURIComponent(window.location.href.split("/")[4])
-    console.log(module, "module name");
+    // console.log(module, "module name");
 
     const [tagText, setTagText] = useState('');
     const [editTags, setEditTags] = useState(false); // if true, show textfield to edit tags
@@ -23,6 +24,11 @@ const Edit = () => {
     const [editingPair, setEditingPair] = useState(null);
     const [imageData, setImageData] = useState([]);
     // console.log(typeof(imageData), "imageData");
+
+    const handleDeleteButtonClick = () => {
+        setDeleteDialogOpen(true);
+    };
+
     useEffect(() => {
         const categoryId = localStorage.getItem('module');
         const url = `${config.backendUrl}/api/category/${categoryId}/images`;
@@ -37,7 +43,7 @@ const Edit = () => {
             });
             const responseData = await response.json();
             if (response.ok) {
-                console.log(responseData, "responseData");
+                // console.log(responseData, "responseData");
                 setImageData(responseData['images']);
             }
         }
@@ -47,19 +53,19 @@ const Edit = () => {
     useEffect(() => {
         const hash = window.location.hash;
         if (hash) {
-          // Remove the "#" symbol from the hash
-          const cleanedHash = hash.substring(1);
-    
-          // Add a delay before scrolling
-          const delay = 100;
-          setTimeout(() => {
-            const element = document.getElementById(cleanedHash);
-            if (element) {
-              element.scrollIntoView({ behavior: 'smooth' });
-            }
-          }, delay);
+            // Remove the "#" symbol from the hash
+            const cleanedHash = hash.substring(1);
+
+            // Add a delay before scrolling
+            const delay = 100;
+            setTimeout(() => {
+                const element = document.getElementById(cleanedHash);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                }
+            }, delay);
         }
-      }, []); 
+    }, []);
 
     const handleEdit = (pair) => {
         console.log(`Editing pair with id ${pair._id}`);
@@ -105,7 +111,7 @@ const Edit = () => {
         }
 
         deleteQuestion();
-        
+
     };
 
     const onSaveEdit = (imageId, pairId) => {
@@ -144,7 +150,7 @@ const Edit = () => {
             }
         }
         editQuestion();
-        
+
         console.log(updatedImageData, "updatedImageData");
 
         console.log(
@@ -173,7 +179,7 @@ const Edit = () => {
         console.log(`Saving tags for image with id ${id}`);
 
         console.log(`Adding tag ${tagText}`);
-        
+
         // we change the tags of the image with id editId.current
         const updatedImageData = imageData.map((image) => {
             if (image.id == id) {
@@ -183,7 +189,7 @@ const Edit = () => {
             return image;
         }
         );
-        
+
         setImageData(updatedImageData);
 
         // now we add the tag in the backend by adding it to the image directly
@@ -254,8 +260,7 @@ const Edit = () => {
         window.location.href = `${subpath}/${module}/chatbot`
     }
 
-    const removeImage = (e) => {
-        const id = e.target.id;
+    const removeImage = (id) => {
         console.log(id, "id");
         // we delete the image from the list first
         const updatedImageData = imageData.filter((image) => image.id != id);
@@ -263,7 +268,7 @@ const Edit = () => {
 
         // now we delete the image in the backend
         const url = `${config.backendUrl}/api/image/delete/${id}`;
-        
+
         const deleteImage = async () => {
             const response = await fetch(url, {
                 method: 'DELETE',
@@ -378,46 +383,59 @@ const Edit = () => {
                                     flexDirection: 'row',
                                     gap: '2rem',
                                 }}>
-                                <Button
-                                    variant="contained"
-                                    size="small"
-                                    color="primary"
-                                    // the id is the image id
-                                    id={index}
-                                    style={{
-                                        backgroundColor: 'rgb(113 90 90 / 88%)',
-                                        margin: '1rem 0',
-                                        paddingTop: '0.5rem',
-                                        fontSize: '1.5rem',
-                                        color: 'black',
-                                        fontFamily: 'Bebas Neue',
-                                        border: '2px solid black',
-                                        display: editTags && editId.current == index ? 'none' : 'block',
-                                    }}
-                                    onClick={addTag}
-                                >
-                                    Add Tag
-                                </Button>
-                                <Button
-                                    variant="contained"
-                                    size="small"
-                                    color="primary"
-                                    // the id is the image id
-                                    id={image.id}
-                                    style={{
-                                        backgroundColor: 'rgb(113 90 90 / 88%)',
-                                        margin: '1rem 0',
-                                        paddingTop: '0.5rem',
-                                        fontSize: '1.5rem',
-                                        color: 'black',
-                                        fontFamily: 'Bebas Neue',
-                                        border: '2px solid black',
-                                        display: editTags && editId.current == index ? 'none' : 'block',
-                                    }}
-                                    onClick={removeImage}
-                                >
-                                    Delete Image
-                                </Button>
+                                    <Button
+                                        variant="contained"
+                                        size="small"
+                                        color="primary"
+                                        // the id is the image id
+                                        id={index}
+                                        style={{
+                                            backgroundColor: 'rgb(113 90 90 / 88%)',
+                                            margin: '1rem 0',
+                                            paddingTop: '0.5rem',
+                                            fontSize: '1.5rem',
+                                            color: 'black',
+                                            fontFamily: 'Bebas Neue',
+                                            border: '2px solid black',
+                                            display: editTags && editId.current == index ? 'none' : 'block',
+                                        }}
+                                        onClick={addTag}
+                                    >
+                                        Add Tag
+                                    </Button>
+                                    <Button
+                                        variant="contained"
+                                        size="small"
+                                        color="primary"
+                                        id={image.id}
+                                        style={{
+                                            backgroundColor: 'rgb(113 90 90 / 88%)',
+                                            margin: '1rem 0',
+                                            paddingTop: '0.5rem',
+                                            fontSize: '1.5rem',
+                                            color: 'black',
+                                            fontFamily: 'Bebas Neue',
+                                            border: '2px solid black',
+                                            display: editTags && editId.current == index ? 'none' : 'block',
+                                        }}
+                                        onClick={handleDeleteButtonClick}
+                                    >
+                                        Delete Image
+                                    </Button>
+                                    <Dialog open={isDeleteDialogOpen} onClose={() => setDeleteDialogOpen(false)}>
+                                        <DialogTitle>Confirm Deletion</DialogTitle>
+                                        <DialogContent>
+                                            <p>Are you sure you want to delete this image?</p>
+                                        </DialogContent>
+                                        <DialogActions>
+                                            <Button onClick={() => setDeleteDialogOpen(false)} color="primary">
+                                                Cancel
+                                            </Button>
+                                            <Button onClick={() => removeImage(image.id)} color="error">
+                                                Confirm Deletion
+                                            </Button>
+                                        </DialogActions>
+                                    </Dialog>
                                 </div>
                             </div>
                             <div className="qa-pairs">
