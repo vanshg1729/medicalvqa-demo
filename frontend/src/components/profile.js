@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, Typography, Button, Avatar, Container, Box, IconButton, Modal, Backdrop, Fade } from '@mui/material';
 import { Facebook, Instagram, LinkedIn, Google } from '@mui/icons-material';
 import './profile.css'; // Import your custom styles
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import config from './config';
 
 // Create a theme with Bebas Neue font
 const theme = createTheme({
@@ -28,10 +29,45 @@ export default function Profile() {
     handleClose();
   };
 
+  function capitalizeFirstLetter(string) {
+    if (string === undefined || string === '') return string
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  const [userData, setUserData] = useState({})
+
+  // now we will write the code to get the info of the user after sending the token
+
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    if (!token) {
+      window.location.href = '/login'
+    }
+    else {
+      const getUser = async () => {
+        try {
+          const res = await fetch(`${config.backendUrl}/api/user`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            }
+          })
+          const data = await res.json()
+          console.log(data, "user data")
+          setUserData(data)
+        } catch (error) {
+          console.log(error)
+        }
+      }
+      getUser()
+    }
+  }, [])
+
   return (
     <ThemeProvider theme={theme}>
       <Container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', fontFamily: 'Bebas Neue, sans-serif' }}>
-        <Card sx={{ width: 400, p: 3, py: 4 }}>
+        <Card sx={{ width: 400, p: 3, py: 4, backgroundColor: '#F0EAD6' }}>
           <Box sx={{ textAlign: 'center', mb: 2 }}>
             <Typography variant="h4" sx={{ mb: 1 }}>
               Profile
@@ -40,13 +76,14 @@ export default function Profile() {
           </Box>
 
           <Box sx={{ textAlign: 'center', mt: 1 }}>
-            <Typography variant="body2" className="bg-secondary" sx={{ p: 1, px: 4, borderRadius: 'rounded', color: 'white' }}>
+            {/* <Typography variant="body2" className="bg-secondary" sx={{ p: 1, px: 4, borderRadius: 'rounded', color: 'white' }}>
               Pro
-            </Typography>
+            </Typography> */}
             <Typography variant="h5" mt={1} mb={0}>
-              Alexender Schidmt
+              {capitalizeFirstLetter(userData.fname) + " " + capitalizeFirstLetter(userData.lname)}
             </Typography>
-            <Typography variant="subtitle1">UI/UX Designer</Typography>
+            <Typography variant="subtitle1">{capitalizeFirstLetter(userData.role)}</Typography>
+            <Typography variant="subtitle2">Age: {userData.age}, Contact: {userData.contact}</Typography>
 
             <Box sx={{ px: 4, mt: 1 }}>
               <Typography variant="body1" className="fonts">
