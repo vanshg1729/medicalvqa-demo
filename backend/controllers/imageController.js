@@ -2,6 +2,7 @@ const Image = require('../models/imageModel')
 const User = require('../models/userModel')
 const Question = require('../models/questionModel')
 const Tag = require('../models/tagModel')
+const Category = require('../models/categoryModel')
 
 const fs = require('fs');
 const path = require('path');
@@ -264,6 +265,25 @@ const removeTagFromImage = async (req, res) => {
   }
 };
 
+const deleteImage = async (req, res) => {
+  console.log('Inside deleteImage controller')
+  try {
+    // Check if the image exists
+    imageId = req.params.imageId
+    const image = await Image.findById(imageId);
+    if (!image) {
+      return res.status(404).json({ message: 'Image not found' });
+    }
+
+    // Delete the image, triggering the pre-middleware
+    await image.deleteOne();
+
+    res.status(200).json({ message: 'Image deleted successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+};
 
 module.exports = {
     getAllImages,
@@ -273,5 +293,6 @@ module.exports = {
     addTagToImage,
     addQuestionToImage,
     getImageQuestions,
-    removeTagFromImage
+    removeTagFromImage,
+    deleteImage
 }

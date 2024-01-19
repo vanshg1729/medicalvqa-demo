@@ -7,7 +7,8 @@ const {
     createCategory,
     getCategoryByName,
     getCategoryImages,
-    addImageToCategory
+    addImageToCategory,
+    deleteCategoryById
 } = require('../controllers/categoryController')
 
 const router = express.Router()
@@ -36,5 +37,10 @@ router.get('/:id/images', requireAuth, getCategoryImages)
 // @desc Add an image to a category
 // @access Private
 router.post('/:categoryId/addimage/:imageId', requireAuth, requireEditorOrAdmin, addImageToCategory)
+
+// @route Delete /api/category/delete/:categoryId
+// @desc Deletes a category by ID
+// @access Admin or Editor
+router.delete('/delete/:categoryId', requireAuth, requireEditorOrAdmin, deleteCategoryById)
 
 module.exports = router

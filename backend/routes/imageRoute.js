@@ -4,7 +4,7 @@ const express = require('express')
 const multer = require('multer')
 const {v4: uuidv4} = require('uuid')
 const path = require('path')
-const {requireAuth, requireEditorOrAdmin} = require('../middleware/requireAuth')
+const {requireAuth, requireEditorOrAdmin, requireAdmin} = require('../middleware/requireAuth')
 const {
     getAllImages,
     getImageById,
@@ -13,7 +13,8 @@ const {
     addTagToImage,
     addQuestionToImage,
     getImageQuestions,
-    removeTagFromImage
+    removeTagFromImage,
+    deleteImage
 } = require('../controllers/imageController')
 
 const router = express.Router()
@@ -70,5 +71,10 @@ router.get('/:imageId/questions', requireAuth, getImageQuestions)
 // @desc Removes a tag from an image given the tagName
 // @access Private
 router.delete('/:imageId/removeTag/:tagName', requireAuth, requireEditorOrAdmin, removeTagFromImage)
+
+// @route DELETE /api/image/delete/:imageId
+// @desc Deletes an image
+// @access Admins and Editors
+router.delete('/delete/:imageId', requireAuth, requireEditorOrAdmin, deleteImage)
 
 module.exports = router

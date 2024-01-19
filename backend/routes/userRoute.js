@@ -1,10 +1,12 @@
 const express = require('express')
-const {requireAuth, requireEditorOrAdmin} = require('../middleware/requireAuth')
+const {requireAuth, requireEditorOrAdmin, requireAdmin} = require('../middleware/requireAuth')
 const {
     getUser,
     loginUser,
     signupUser,
-    getAllUsers
+    getAllUsers,
+    deleteUser,
+    deleteAccount
 } = require('../controllers/userController')
 
 const router = express.Router()
@@ -28,4 +30,15 @@ router.post('/login', loginUser)
 // @desc Signup User
 // @access Public
 router.post('/signup', signupUser)
+
+// @route DELETE /api/user/delete/:id
+// @desc Delete User
+// @access Admins
+router.delete('/delete/:userId', requireAuth, requireAdmin, deleteUser)
+
+// @route DELETE /api/user/deleteAccount
+// @desc Delete Account
+// @access Private
+router.delete('/deleteAccount', requireAuth, deleteAccount)
+
 module.exports = router

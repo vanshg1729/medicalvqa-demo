@@ -1,25 +1,26 @@
 const User = require('../models/userModel')
 const jwt = require('jsonwebtoken')
+const Category = require('../models/categoryModel')
 
 const createToken = (_id) => {
     return jwt.sign({ _id }, process.env.SECRET, { expiresIn: '100d' })
-} 
+}
 
 // Controller function to get the list of all users
 const getAllUsers = async (req, res) => {
     console.log("Inside getAllUsers function")
     try {
-      // Fetch all users from the database
-      const users = await User.find({}, '-password'); // Exclude the password field from the response
-  
-      // Send the list of users as a JSON response
-      res.json(users);
+        // Fetch all users from the database
+        const users = await User.find({}, '-password'); // Exclude the password field from the response
+
+        // Send the list of users as a JSON response
+        res.json(users);
     } catch (error) {
-      // Handle errors and send an appropriate response
-      console.error('Error fetching users:', error.message);
-      res.status(500).json({ error: 'Internal Server Error' });
+        // Handle errors and send an appropriate response
+        console.error('Error fetching users:', error.message);
+        res.status(500).json({ error: 'Internal Server Error' });
     }
-  };
+};
 
 // @Status: Completed
 // @params: {}
@@ -85,9 +86,53 @@ const signupUser = async (req, res) => {
     }
 }
 
+const deleteUser = async (req, res) => {
+    const { userId } = req.params;
+    console.log('Inside deleteUser controller')
+
+    try {
+        // Check if the user exists
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Delete the user
+        await user.deleteOne();
+
+        res.status(200).json({ message: 'User deleted successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+};
+
+const deleteAccount = async (req, res) => {
+    const user = req.user
+    try {
+        // Check if the user making the request is authenticated
+        if (!user) {
+            return res.status(401).json({ message: 'Unauthorized. Please log in.' });
+        }
+
+        // Delete the authenticated user
+        await user.deleteOne();
+
+        // Remove references in Category collection
+        await Category.updateMany({ user: userId }, { $unset: { user: 1 } });
+
+        res.status(200).json({ message: 'Account deleted successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+};
+
 module.exports = {
     loginUser,
     signupUser,
     getUser,
-    getAllUsers
+    getAllUsers,
+    deleteUser,
+    deleteAccount
 }

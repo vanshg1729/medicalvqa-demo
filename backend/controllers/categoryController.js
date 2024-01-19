@@ -147,11 +147,33 @@ const addImageToCategory = async (req, res) => {
   }
 };
 
+// Controller function to delete a category by ID
+const deleteCategoryById = async (req, res) => {
+  const categoryId = req.params.categoryId;
+
+  try {
+    // Find the category by ID
+    const category = await Category.findById(categoryId);
+
+    if (!category) {
+      return res.status(404).json({ message: 'Category not found' });
+    }
+
+    // Remove the category from the Categories database
+    await category.deleteOne();
+
+    res.json({ message: 'Category deleted successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+};
 
 module.exports = {
     getAllCatgories,
     createCategory,
     getCategoryByName,
     getCategoryImages,
-    addImageToCategory
+    addImageToCategory,
+    deleteCategoryById
 }

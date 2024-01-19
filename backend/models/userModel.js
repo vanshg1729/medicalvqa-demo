@@ -58,7 +58,7 @@ const userSchema = new Schema({
     ],
 })
 
-userSchema.statics.signup = async function ({email, password, fname, lname, age, contact}) {
+userSchema.statics.signup = async function ({ email, password, fname, lname, age, contact }) {
     if (!email || !password) {
         throw Error('Email and Password must be filled')
     }
@@ -69,12 +69,12 @@ userSchema.statics.signup = async function ({email, password, fname, lname, age,
     if (exists) {
         throw Error('Email already in use')
     }
-    
+
     const role = "editor"
     const salt = await bcrypt.genSalt(10)
     const hash = await bcrypt.hash(password, salt)
 
-    const user = await this.create({ email, password: hash, fname, lname, age, contact, role})
+    const user = await this.create({ email, password: hash, fname, lname, age, contact, role })
     return user
 }
 
@@ -97,6 +97,35 @@ userSchema.statics.login = async function ({ email, password }) {
 
     return user
 }
+
+// a pre middleware to handle cleanup
+userSchema.pre(['remove', 'deleteOne'], { document: true, query: false }, async function (next) {
+    console.log('Inside userSchema deleteOne pre middleware')
+
+    try {
+        const userId = this._id
+        console.log('userId = ', userId)
+        const user = await mongoose.model('User').findOne({ _id: userId })
+
+        if (user) {
+            // Remove references in Image collection
+            await mongoose.model('Image').updateMany({ user: userId }, { $unset: { user: 1 } });
+
+            // Remove references in Question collection
+            await mongoose.model('Question').updateMany({ user: userId }, { $unset: { user: 1 } });
+
+            // Remove references in Category collection
+            await mongoose.model('Category').updateMany({ user: userId }, { $unset: { user: 1 } });
+
+        }
+
+        next()
+
+    } catch (error) {
+        console.error('Error in pre-middleware: ', error)
+        next(error)
+    }
+});
 
 const User = new mongoose.model('User', userSchema)
 
