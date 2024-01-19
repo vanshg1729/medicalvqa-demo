@@ -39,9 +39,9 @@ const Breadcrumbs = () => {
       window.location.href = `${subpath}${location.pathname}`
     }
 
-    
+
     // 
-    
+
   }
 
 
@@ -51,6 +51,13 @@ const Breadcrumbs = () => {
     // console.log("go to tags page")
     window.location.href = `${subpath}/tags`
   }
+
+  const goToProfilePage = () => {
+    // console.log("go to tags page")
+    window.location.href = `${subpath}/profile`
+  }
+  
+  
   pathnames.unshift("Home ")
 
   const urlEncodedString = "First%20Trimester";
@@ -81,15 +88,27 @@ const Breadcrumbs = () => {
           );
         })}
       </div>
-      <div style={{
-        // extreme right
-        marginRight: '10vw',
-        textDecoration: 'none',
-        color: 'grey',
-      }}
-        onClick={goToTagsPage}
-      >
-        Tags page
+      <div>
+        <span style={{
+          // extreme right
+          marginRight: '5vw',
+          textDecoration: 'none',
+          color: 'grey',
+        }}
+          onClick={goToTagsPage}
+        >
+          Tags page
+        </span>
+        <span style={{
+          // extreme right
+          marginRight: '10vw',
+          textDecoration: 'none',
+          color: 'grey',
+        }}
+          onClick={goToProfilePage}
+        >
+          Profile Page
+        </span>
       </div>
     </div>
   );

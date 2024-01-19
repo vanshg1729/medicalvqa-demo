@@ -66,7 +66,9 @@ def get_question():
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-    
+
+
+
 @app.route('/get_tags', methods=['POST', 'GET'])
 def get_tags():
     """
@@ -80,9 +82,6 @@ def get_tags():
         Exception: If an error occurs during the process.
     """
     print(f"hi from get_tags()")
-    # rest of the code...
-def get_tags():
-    print(f"hi from get_tags()")
     # we get the 5 topmost similar tags in the backend, and then find and show all the images that are tagged with those tags in the frontend
     try:
         # Get data from the request body
@@ -91,7 +90,7 @@ def get_tags():
         input_tag = request_data.get('input_tag')
         all_tags = request_data.get('all_tags')
         selected_image_id = request_data.get('selectedImageId')
-
+        
         if not token or not selected_image_id:
             return jsonify({'error': 'Invalid request data. Token and selectedImageId are required.'}), 400
         
@@ -102,7 +101,7 @@ def get_tags():
         similarities.sort(key=lambda x: x[0], reverse=True)
         # Return the most similar tags
         top_tags = [tag for (similarity, tag) in similarities[:5]]
-        print(top_tags)
+        print(top_tags, "these are the top tags")
         
         return jsonify({'top_tags': top_tags}), 200
     

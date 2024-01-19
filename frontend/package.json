@@ -1,7 +1,7 @@
 {
   "name": "medical-data-app",
   "version": "0.1.0",
-  "homepage":"/medical-vqa",
+  "homepage": "/medical-vqa",
   "private": true,
   "proxy": "http://10.2.138.43:8000",
   "dependencies": {
@@ -37,6 +37,7 @@
     "eslint-config-react-app": "^7.0.1",
     "eslint-webpack-plugin": "^3.1.1",
     "file-loader": "^6.2.0",
+    "font-awesome": "^4.7.0",
     "fs-extra": "^10.0.0",
     "html-webpack-plugin": "^5.5.0",
     "identity-obj-proxy": "^3.0.0",
@@ -44,6 +45,7 @@
     "jest-resolve": "^27.4.2",
     "jest-watch-typeahead": "^1.0.0",
     "keyword-extractor": "^0.0.25",
+    "mdb-react-ui-kit": "^7.1.0",
     "mini-css-extract-plugin": "^2.4.5",
     "natural": "^6.10.4",
     "postcss": "^8.4.4",

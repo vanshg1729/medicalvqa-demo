@@ -18,8 +18,9 @@ const Homepage = ({ selectedImage }) => {
 
     const navigate = useNavigate();
 
+    const [formData, setFormData] = useState(new FormData());
     const module = decodeURIComponent(window.location.href.split("/")[4])
-    console.log(module, "module")
+    // console.log(module, "module")
     const imgImportList = []
     const imgIDImportList = []
     // for (let i = 0; i < data.images.length; i++) { // we left the first image to just test it out
@@ -56,10 +57,10 @@ const Homepage = ({ selectedImage }) => {
             });
             const responseData = await response.json();
             if (response.ok) {
-                console.log(responseData, "responseData");
+                // console.log(responseData, "responseData");
                 tags.current = responseData.map(obj => obj.name);
                 // correspondingImageToTheTags.current = responseData.map(obj => obj.images);
-                console.log(tags, "tags");
+                // console.log(tags, "tags");
             }
         }
         getTheTags();
@@ -106,8 +107,8 @@ const Homepage = ({ selectedImage }) => {
                     }
                     newArr.reverse()
                     arr3.current = [...newArr]
-                    console.log(arr1.current, "arr1")
-                    console.log(arr3.current, "arr3")
+                    // console.log(arr1.current, "arr1")
+                    // console.log(arr3.current, "arr3")
                     // console.log("New image ids", newImageIDS)
                     // console.log("Old image ids", displayImageId)
                 }
@@ -127,13 +128,13 @@ const Homepage = ({ selectedImage }) => {
             if (e.target.classList.contains("image")) {
                 // setSelectedImage(e.target.src)
                 selectedImage.current = e.target.src;
-                console.log(e.target.src, "here1111111111111")
+                // console.log(e.target.src, "here1111111111111")
                 localStorage.setItem('selectedImage', e.target.src);
-                console.log(e.target.id, "here")
+                // console.log(e.target.id, "here")
                 localStorage.setItem('selectedImageId', arr2.current[e.target.id]);
                 // window.location.href = '/module/chatbot';
                 // /${module}/chatbot`, { selectedImage: selectedImage.current });
-                console.log(`/${module}/chatbot`, "here")
+                // console.log(`/${module}/chatbot`, "here")
                 navigate(`/${module}/chatbot`, { selectedImage: selectedImage.current });
                 // console.log(selectedImage.current, "niceto")
                 // console.log(e.target.src, "here")
@@ -297,7 +298,7 @@ const Homepage = ({ selectedImage }) => {
                             newDisplayImage.push(arr1.current[i])
                         }
                     }
-                    console.log(newDisplayImage, "newDisplayImage")
+                    // console.log(newDisplayImage, "newDisplayImage")
 
                     // console.log(newDisplayImage)
 
@@ -390,6 +391,29 @@ const Homepage = ({ selectedImage }) => {
         const addImage = async () => {
 
             const token = localStorage.getItem('token');
+            const url = `${config.backendUrl}/api/image/upload`
+            // try {
+            console.log(formData, "formDatacenicnein")
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                },
+                body: formData,
+            })
+            const res = await response.json();
+            console.log(res, "jshdkladfhkjhfres");
+            setImagePath(res.path);
+            setImageId(res._id);
+            console.log('res.id is the', res._id);
+
+            arr2.current = [res._id, ...arr2.current]
+
+
+            // } catch (error) {
+            //     console.error('Error uploading image:', error);
+            // }
+
 
             // const response = await fetch(url, {
             //     method: 'POST',
@@ -407,7 +431,7 @@ const Homepage = ({ selectedImage }) => {
             // now we add this image to the displayImage array
             // one example of imgPath is uploads/Screenshot from 2023-12-13 01-00-57.png
             // taking all the stuff other than the uploads/ part
-            const splitArr = imgPath.split("/")
+            const splitArr = res.path.split("/")
             const newImagePath = splitArr.slice(1, splitArr.length).join("/")
             let newImage = newImagePath; // for now lets do something else
             setDisplayImage([newImage, ...displayImage])
@@ -416,8 +440,7 @@ const Homepage = ({ selectedImage }) => {
             // first we add the image to the module
             const moduleId = localStorage.getItem('module');
             // this is the url at which we have to POST: router.post('/:categoryId/addimage/:imageId', requireAuth, addImageToCategory)
-
-            const url2 = `${config.backendUrl}/api/category/${moduleId}/addimage/${imgId}`;
+            const url2 = `${config.backendUrl}/api/category/${moduleId}/addimage/${res._id}`;
             const response2 = await fetch(url2, {
                 method: 'POST',
                 headers: {
@@ -426,15 +449,13 @@ const Homepage = ({ selectedImage }) => {
                 },
             })
             const res2 = await response2.json();
-            console.log(response2, "res2");
             if (response2.ok) {
-                console.log(res2, "result222222222");
 
 
                 // now we add the tags to the image
 
                 for (let i = 0; i < theTags.length; i++) {
-                    const url3 = `${config.backendUrl}/api/image/${imgId}/addtag/${theTags[i]}`;
+                    const url3 = `${config.backendUrl}/api/image/${res._id}/addtag/${theTags[i]}`;
                     const response3 = await fetch(url3, {
                         method: 'POST',
                         headers: {
@@ -443,17 +464,16 @@ const Homepage = ({ selectedImage }) => {
                         },
                     })
                     const res3 = await response3.json();
-                    console.log(response3, "res3");
                     if (response3.ok) {
-                        console.log(res3, "result333333333");
+                        console.log(res3, "error in adding image to module");
                     } else {
-                        console.log(res3.error, "3333333333");
+                        console.log(res3.error, "an error in adding image to module");
                     }
                 }
 
 
             } else {
-                console.log(res2.error, "2222222222");
+                console.log(res2.error, "and an error in adding image to module");
             }
 
             //     } else {
@@ -489,29 +509,13 @@ const Homepage = ({ selectedImage }) => {
 
 
     const onDrop = async (acceptedFiles) => {
-        const formData = new FormData();
-        formData.append('image', acceptedFiles[0]);
-        const url = `${config.backendUrl}/api/image/upload`
-        try {
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Authorization': 'Bearer ' + localStorage.getItem('token')
-                },
-                body: formData,
-            })
-            const res = await response.json();
-            console.log(res, "jshdkladfhkjhfres");
-            setImagePath(res.path);
-            setImageId(res._id);
+        // formData.append('image', acceptedFiles[0]);
 
-            arr2.current = [res._id, ...arr2.current]
+        const newFormData = new FormData();
+        newFormData.append('image', acceptedFiles[0]);
+        setFormData(newFormData);
 
-
-        } catch (error) {
-            console.error('Error uploading image:', error);
-        }
-
+        
     };
 
     const { getRootProps, getInputProps } = useDropzone({

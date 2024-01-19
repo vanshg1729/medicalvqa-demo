@@ -14,6 +14,7 @@ import SignUpSide from './components/SignUpSide';
 import Create from './components/create';
 import Edit from './components/edit';
 import RequestList from './components/RequestList';
+import ProfilePage from './components/profile';
 // import './App.css';
 // import config from './components/config';
 // import subpath from './components/subpath';
@@ -34,6 +35,7 @@ const App = () => {
           <Route path={`/home`} element={<Modulepage />}></Route>
           <Route path={`/create`} element={<Create />}></Route>
           <Route path={`/requests`} element={<RequestList />}></Route>
+          <Route path={`/profile`} element={<ProfilePage />}></Route>
         </Routes>
       </AppStateProvider>
     </div>
