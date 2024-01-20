@@ -1,28 +1,14 @@
 // Breadcrumbs.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import subpath from './subpath';
+import config from './config';
 
 const Breadcrumbs = () => {
 
   const location = useLocation();
 
   const func = (e) => {
-    // console.log("e.target.innerText+", e.target.innerText, "+hi")
-    // if (e.target.innerText.toLowerCase().includes("home")) {
-    //   // console.log("navigate to home")
-    //   window.location.href = "/home"
-    // }
-    // // if the inner te
-    // else if (e.target.innerText.toLowerCase().includes("module")) {
-    //   window.location.href = "/module"
-    // }
-    // else if (e.target.innerText.toLowerCase().includes("chatbot")) {
-    //   window.location.href = "/module/chatbot"
-    // }
-    // else if (e.target.innerText.toLowerCase().includes("tags")) {
-    //   window.location.href = "/tags"
-    // }
     const url = e.target.innerText
     const num = e.target.id
 
@@ -38,12 +24,38 @@ const Breadcrumbs = () => {
       // return
       window.location.href = `${subpath}${location.pathname}`
     }
-
-
-    // 
-
   }
 
+  const [userRole, setUserRole] = useState('viewer')
+
+  useEffect(() => {
+    // we get the users info here
+    const token = localStorage.getItem('token')
+    if (!token) {
+      window.location.href = `${subpath}`
+    }
+    else {
+      const getUser = async () => {
+        try {
+          const res = await fetch(`${config.backendUrl}/api/user`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            }
+          })
+          const data = await res.json()
+          console.log(data, "user data")
+          setUserRole(data.role)
+          console.log(userRole, "user role")
+          // setUserData(data)
+        } catch (error) {
+          console.log(error)
+        }
+      }
+      getUser()
+    }
+  }, [])
 
   const pathnames = location.pathname.split('/').filter((x) => x);
   // console.log(pathnames, "pathnames")
@@ -61,8 +73,13 @@ const Breadcrumbs = () => {
     // console.log("go to tags page")
     window.location.href = `${subpath}/profile`
   }
-  
-  
+
+  const logout = () => {
+    localStorage.removeItem('token')
+    window.location.href = `${subpath}/`
+  }
+
+
   pathnames.unshift("Home ")
 
   const urlEncodedString = "First%20Trimester";
@@ -94,16 +111,18 @@ const Breadcrumbs = () => {
         })}
       </div>
       <div>
-        <span style={{
-          // extreme right
-          marginRight: '5vw',
-          textDecoration: 'none',
-          color: '#cdc3c3',
-        }}
-          onClick={goToRequestsPage}
-        >
-          Requests Page
-        </span>
+        {userRole === 'admin' ?
+          <span style={{
+            // extreme right
+            marginRight: '5vw',
+            textDecoration: 'none',
+            color: '#cdc3c3',
+          }}
+            onClick={goToRequestsPage}
+          >
+            Requests Page
+          </span> : null
+        }
         <span style={{
           // extreme right
           marginRight: '5vw',
@@ -116,13 +135,23 @@ const Breadcrumbs = () => {
         </span>
         <span style={{
           // extreme right
-          marginRight: '10vw',
+          marginRight: '5vw',
           textDecoration: 'none',
           color: '#cdc3c3',
         }}
           onClick={goToProfilePage}
         >
           Profile Page
+        </span>
+        <span style={{
+          // extreme right
+          marginRight: '10vw',
+          textDecoration: 'none',
+          color: '#cdc3c3',
+        }}
+          onClick={logout}
+        >
+          Logout
         </span>
       </div>
     </div>

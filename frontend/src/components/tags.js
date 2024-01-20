@@ -9,6 +9,7 @@ import './homepage.css';
 const TagsPage = () => {
 
     const tags = useRef([]);
+    const [tagsLength, setTagsLength] = useState(0);
     const [groupedTags, setGroupedTags] = useState({});
 
     useEffect(() => {
@@ -24,6 +25,7 @@ const TagsPage = () => {
             const responseData = await response.json();
             if (response.ok) {
                 tags.current = responseData.map(obj => obj.name);
+                setTagsLength(tags.current.length);
                 const groupTagsAlphabetically = () => {
                     const groupedTagsInner = {};
                     const sortedTags = tags.current.sort(); // for grouping the tags alphabetically
@@ -53,9 +55,9 @@ const TagsPage = () => {
         <>
             <Breadcrumbs />
             <div>
-                <div className='heading'>
-                    <div className='heading1'>Tags</div>
-                    <div className='heading2'>Total Tags: {tags.length}</div>
+                <div className='heading bebas-font'>
+                    <div className='heading1'>Tags List</div>
+                    <div className='heading2'>Number of Tags: {tagsLength}</div>
                 </div>
                 <div className='tags-values'>
                     {Object.entries(groupedTags).map(([alphabet, tagsGroup]) => (

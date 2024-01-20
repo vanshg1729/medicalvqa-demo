@@ -118,9 +118,6 @@ const deleteAccount = async (req, res) => {
         // Delete the authenticated user
         await user.deleteOne();
 
-        // Remove references in Category collection
-        await Category.updateMany({ user: userId }, { $unset: { user: 1 } });
-
         res.status(200).json({ message: 'Account deleted successfully' });
     } catch (error) {
         console.error(error);
