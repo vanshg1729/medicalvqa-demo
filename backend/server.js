@@ -7,6 +7,7 @@ const tagRoutes = require('./routes/tagRoute')
 const imageRoutes = require('./routes/imageRoute')
 const questionRoutes = require('./routes/questionRoute')
 const flaskRoutes = require('./routes/flaskRoute')
+const requestRoutes = require('./routes/requestRoute')
 const mongoose = require('mongoose')
 
 require('dotenv').config()
@@ -48,6 +49,9 @@ app.use(`${subpath}/api/question`, questionRoutes)
 
 // Flask routes
 app.use(`${subpath}/api/flask`, flaskRoutes)
+
+// Request routes
+app.use(`${subpath}/api/request`, requestRoutes)
 
 // suppressing the warnings
 mongoose.set('strictQuery', false);

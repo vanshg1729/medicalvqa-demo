@@ -175,7 +175,7 @@ export default function SignInSide() {
                   </Link>
                 </Grid> */}
                 <Grid item>
-                  <Link href={`${config.backendUrl}/signup`} variant="body2" fontSize='1.1rem'>
+                  <Link href={`/medical-vqa/signup`} variant="body2" fontSize='1.1rem'>
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>

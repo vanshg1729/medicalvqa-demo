@@ -233,7 +233,7 @@ export default function SignInSide() {
                                 </Button>
                                 <Grid container justify="flex-end">
                                     <Grid item>
-                                        <Link href={`${config.backendUrl}`} variant="body2" fontSize='1.1rem'>
+                                        <Link href={`/medical-vqa`} variant="body2" fontSize='1.1rem'>
                                             Already have an account? Sign in
                                         </Link>
                                     </Grid>
