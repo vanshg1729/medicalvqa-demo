@@ -6,6 +6,7 @@ const {
     signupUser,
     getAllUsers,
     deleteUser,
+    editUserInfo,
     deleteAccount
 } = require('../controllers/userController')
 
@@ -35,6 +36,11 @@ router.post('/signup', signupUser)
 // @desc Delete User
 // @access Admins
 router.delete('/delete/:userId', requireAuth, requireAdmin, deleteUser)
+
+// @route PUT /api/user/edit
+// @desc Edit user info
+// @access Private
+router.put('/edit', requireAuth, editUserInfo)
 
 // @route DELETE /api/user/deleteAccount
 // @desc Delete Account

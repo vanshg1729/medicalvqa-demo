@@ -2,11 +2,19 @@ const mongoose = require('mongoose')
 const bcrypt = require('bcrypt');
 const Schema = mongoose.Schema
 
+const emailRegex = /^\S+@\S+\.\S+$/;
+
 const userSchema = new Schema({
     email: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        validate: {
+            validator: function (value) {
+                return emailRegex.test(value);
+            },
+            message: props => `${props.value} is not a valid email address!`
+        },
     },
 
     password: {
@@ -39,6 +47,12 @@ const userSchema = new Schema({
     contact: {
         type: Number,
         required: true
+    },
+
+    // information about the user which will be displayed on the profile page
+    about: {
+        type: String,
+        required: false
     },
 
     // questions added by the user (can only by added by "editor" or "admin")
