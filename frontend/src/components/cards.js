@@ -74,7 +74,8 @@ const MyCard = ({ id, title, content, cards, setCards }) => {
                     </Typography>
                 ) : (
                     <Typography paragraph style={{ fontSize: '1.2rem' }}>
-                        {content.split('').slice(0, 300).join('')}...
+                        {content.split('').slice(0, 250).join('')}
+                        {content.length > 250 ? '...' : ''}
                     </Typography>
                 )}
             </CardContent>
