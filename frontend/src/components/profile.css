@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
 .card {
     border: none;
 
@@ -39,13 +41,9 @@
     transform: scaleY(1);
 }
 
-
-.fonts {
-    font-size: 17px;
-}
-
 .bebas-font {
     font-family: 'Bebas Neue', cursive;
+    letter-spacing: 1px;
 }
 
 .social-list {

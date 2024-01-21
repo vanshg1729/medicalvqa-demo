@@ -27,6 +27,8 @@ const Breadcrumbs = () => {
   }
 
   const [userRole, setUserRole] = useState('viewer')
+  const [fname, setFname] = useState('')
+  const [lname, setLname] = useState('')
 
   useEffect(() => {
     // we get the users info here
@@ -45,9 +47,11 @@ const Breadcrumbs = () => {
             }
           })
           const data = await res.json()
-          console.log(data, "user data")
+          // console.log(data, "user data")
           setUserRole(data.role)
-          console.log(userRole, "user role")
+          setFname(data.fname)
+          setLname(data.lname)
+          // console.log(userRole, "user role")
           // setUserData(data)
         } catch (error) {
           console.log(error)
@@ -111,6 +115,16 @@ const Breadcrumbs = () => {
         })}
       </div>
       <div>
+        <span style={{
+          // extreme right
+          marginRight: '5vw',
+          textDecoration: 'none',
+          color: '#cdc3c3',
+        }}
+          onClick={goToProfilePage}
+        >
+          {fname} {lname}
+        </span>
         {userRole === 'admin' ?
           <span style={{
             // extreme right

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -99,10 +99,17 @@ export default function SignInSide() {
         signup();
     };
 
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+          window.location.href = `${subpath}/home`
+        }
+      }, [])
+
     // const doSignUp = (event) => {
     //     event.preventDefault();
 
-    //     // we need to send a backend post request here to signup the user
+    //     // we need to send a backend post request here to signup the use`r
     //     const url = "/api/user/signup";
 
 
