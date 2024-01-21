@@ -324,7 +324,11 @@ export default function Profile() {
                   Please enter a brief description of why you want to become an admin
                 </Typography>
                 <Box sx={{ display: 'flex', flexDirection: 'column', mt: 2 }}>
-                  <textarea rows="4" cols="50" onChange={handleAdminRequestDescription} />
+                  {/* a large fontsize in the textarea */}
+                  <textarea rows="4" cols="50" fontSize="1.2  rem" onChange={handleAdminRequestDescription} />
+                  <Typography variant="body2" color="textSecondary" mb={2}>
+                    Please note that the admin will have the power to delete your account
+                  </Typography>
                   <Button variant="outlined" color="error" onClick={handleAdminRequest} sx={{ mt: 2 }}>Submit</Button>
                 </Box>
               </Card>

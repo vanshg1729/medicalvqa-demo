@@ -52,6 +52,7 @@ const Edit = () => {
 
     useEffect(() => {
         const hash = window.location.hash;
+        console.log("the hash is", hash)
         if (hash) {
             // Remove the "#" symbol from the hash
             const cleanedHash = hash.substring(1);
