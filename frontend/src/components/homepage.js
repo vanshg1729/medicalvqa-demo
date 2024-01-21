@@ -235,7 +235,7 @@ const Homepage = ({ selectedImage }) => {
     };
 
     const handleSendQuestionTag = async () => {
-        console.log(selectedTags, "selectedTags")
+        // console.log(selectedTags, "selectedTags")
         if (selectedTags.length === 0 && myTagSearch == "") {
             setDisplayImage(arr1.current)
             if (searchByGivenTag == true)
@@ -251,7 +251,7 @@ const Homepage = ({ selectedImage }) => {
                 let newDisplayImage = []
 
                 // we have the images and their corresponding tags when we get the images data from the backend
-                console.log(arr1.current, "arr1")
+                // console.log(arr1.current, "arr1")
 
                 for (let i = 0; i < arr3.current.length; i++) {
                     let check = 0
@@ -270,7 +270,7 @@ const Homepage = ({ selectedImage }) => {
                 setDisplayImage(newDisplayImage)
             }
             else {
-                console.log("Request being sent")
+                // console.log("Request being sent")
                 const url = `${config.backendUrl}/api/flask/get_similar_tags`
                 console.log(`homepage.js: Sending request to ${url}`)
                 // we get the 3 topmost similar tags, and then show all the images that are tagged with those tags
@@ -383,6 +383,8 @@ const Homepage = ({ selectedImage }) => {
         setImagePath('');
         setImageId('');
         setAddTags('');
+        setUploaded(false);
+
     }
 
     const handleAddImageTags = () => {
@@ -391,7 +393,13 @@ const Homepage = ({ selectedImage }) => {
         console.log('Adding image:', { name: imgPath, description: addTags });
 
         const theTags = addTags.split(",").map((item) => item.trim())
-        console.log(theTags, "theTags")
+        // console.log(theTags, "theTags")
+
+        const el = document.getElementById('uploadedImage');
+        // console.log("hi there 1")
+        // // we make the src of the image empty
+        // console.log(el.src, "elllllllllllll")
+        el.src = "";
 
         // adding the module to the database
         const addImage = async () => {
@@ -411,7 +419,7 @@ const Homepage = ({ selectedImage }) => {
             console.log(res, "jshdkladfhkjhfres");
             setImagePath(res.path);
             setImageId(res._id);
-            console.log('res.id is the', res._id);
+            // console.log('res.id is the', res._id);
 
             arr2.current = [res._id, ...arr2.current]
 
@@ -494,7 +502,7 @@ const Homepage = ({ selectedImage }) => {
         setImagePath('');
         setImageId('');
         setAddTags('');
-
+        setUploaded(false);
     };
 
     // const handleImageUpload = async (e) => {
@@ -621,7 +629,7 @@ const Homepage = ({ selectedImage }) => {
                     </div>
                     : null}
                 {/* when displayImage is a empty object, we check that here */}
-                {console.log(typeof(displayImage), displayImage.length == 0, "displayImage")}
+                {/* {console.log(typeof(displayImage), displayImage.length == 0, "displayImage")} */}
                 
                 {displayImage.length == 0 ? <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '70rem', fontSize: '1.4rem', letterSpacing: '0.15rem' }}>
                     <h1 style={{ color: '#F0EAD6' }}>No images to display, please add more images </h1>
@@ -689,6 +697,7 @@ const Homepage = ({ selectedImage }) => {
                                     {uploaded && (
                                         <img
                                             src={URL.createObjectURL(formData.get('image'))}
+                                            id="uploadedImage"
                                             alt="Uploaded"
                                             style={{ maxWidth: '100%', maxHeight: '200px', marginTop: '10px' }}
                                         />
