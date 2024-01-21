@@ -19,6 +19,8 @@ const Homepage = ({ selectedImage }) => {
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState(new FormData());
+    const [uploaded, setUploaded] = useState(false);
+    
     const module = decodeURIComponent(window.location.href.split("/")[4])
     // console.log(module, "module")
     const imgImportList = []
@@ -518,6 +520,7 @@ const Homepage = ({ selectedImage }) => {
         const newFormData = new FormData();
         newFormData.append('image', acceptedFiles[0]);
         setFormData(newFormData);
+        setUploaded(true);
 
 
     };
@@ -676,13 +679,21 @@ const Homepage = ({ selectedImage }) => {
                                         <input {...getInputProps()} />
                                         <p>Drag & drop an image here, or click to select one</p>
                                     </div>
-                                    {imgPath && (
+                                    {/* {imgPath && (
                                         <img
                                             src={`${config.backendUrl}/api${imgPath}`}
                                             alt="Uploaded"
                                             style={{ maxWidth: '100%', maxHeight: '200px', marginTop: '10px' }}
                                         />
+                                    )} */}
+                                    {uploaded && (
+                                        <img
+                                            src={URL.createObjectURL(formData.get('image'))}
+                                            alt="Uploaded"
+                                            style={{ maxWidth: '100%', maxHeight: '200px', marginTop: '10px' }}
+                                        />
                                     )}
+                                    
                                 </Form.Group>
                                 <Form.Group controlId="addTags">
                                     <h2>List of tags (Comma separated):</h2>
