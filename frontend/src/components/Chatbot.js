@@ -268,7 +268,7 @@ const Chatbot = ({ selectedImage }) => {
       if (data.closest_question == null || data.closest_question == undefined) {
         const errorMessage = {
           id: chatMessages.length + 1,
-          message: "I'm sorry, I don't have an answer to that question for the selected image.",
+          message: "Please add a question for the selected image.",
           isUser: false,
         };
 
