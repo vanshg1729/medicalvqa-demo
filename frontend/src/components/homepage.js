@@ -624,7 +624,7 @@ const Homepage = ({ selectedImage }) => {
                 {console.log(typeof(displayImage), displayImage.length == 0, "displayImage")}
                 
                 {displayImage.length == 0 ? <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '70rem', fontSize: '1.4rem', letterSpacing: '0.15rem' }}>
-                    <h1 style={{ color: '#F0EAD6' }}>No images to display, please add some images </h1>
+                    <h1 style={{ color: '#F0EAD6' }}>No images to display, please add more images </h1>
                 </div> : null}
 
                 {displayImage ?
@@ -639,7 +639,7 @@ const Homepage = ({ selectedImage }) => {
                         }
                     </div> :
                     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '70rem', fontSize: '1.4rem', letterSpacing: '0.15rem' }}>
-                        <h1 style={{ color: '#F0EAD6' }}>No images to display, please add some images </h1>
+                        <h1 style={{ color: '#F0EAD6' }}>No images to display, please add more images </h1>
                     </div>
                 }
 
