@@ -8,6 +8,7 @@ import Breadcrumbs from './breadcrumbs';
 import AvatarInitials from 'avatar-initials';
 import RandomAvatar from './randomAvatar';
 import subpath from './subpath';
+import { TextField } from '@mui/material';
 
 // Create a theme with Bebas Neue font
 const theme = createTheme({
@@ -209,7 +210,7 @@ export default function Profile() {
             }
           })
           const data = await res.json()
-          // console.log(data, "user data")
+          console.log(data, "user data")
           // setUserData(data)
           setFname(data.fname)
           setLname(data.lname)
@@ -375,13 +376,13 @@ export default function Profile() {
                 <Typography variant="h6" gutterBottom>
                   Edit Profile
                 </Typography>
-                <Typography variant="body2" color="textSecondary" mb={2}>
+                <Typography variant="body1" color="textSecondary" mb={2}>
                   Please enter the new information
                 </Typography>
                 <Box sx={{ display: 'flex', flexDirection: 'column', mt: 2 }}>
-                  <input type="text" name="contact" placeholder="Contact" onChange={handleInfoModalChange} />
-                  <input type="text" name="age" placeholder="Age" onChange={handleInfoModalChange} />
-                  <textarea rows="4" cols="50" name="description" placeholder="Description" onChange={handleInfoModalChange} />
+                  <TextField id="contact" name="contact" label="Contact" variant="outlined" onChange={handleInfoModalChange} sx={{ mb: 2 }} />
+                  <TextField id="age" name="age" label="Age" variant="outlined" onChange={handleInfoModalChange} sx={{ mb: 2 }} />
+                  <TextField id="description" name="description" label="Description" variant="outlined" onChange={handleInfoModalChange} sx={{ mb: 2 }} />
                   <Button variant="outlined" color="error" onClick={handleInfoModalSubmit} sx={{ mt: 2 }}>Submit</Button>
                 </Box>
               </Card>

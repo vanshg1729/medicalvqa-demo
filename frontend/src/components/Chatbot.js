@@ -264,6 +264,19 @@ const Chatbot = ({ selectedImage }) => {
     if (response.ok) {
       const data = await response.json();
       console.log(data, "data");
+
+      if (data.closest_question == null || data.closest_question == undefined) {
+        const errorMessage = {
+          id: chatMessages.length + 1,
+          message: "I'm sorry, I don't have an answer to that question for the selected image.",
+          isUser: false,
+        };
+
+        setChatMessages([...chatMessages, errorMessage]);
+        setUserInput('');
+        return;
+      }
+      
       const answer = data.closest_question.answerText;
 
       const newMessage = {
