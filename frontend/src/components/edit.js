@@ -25,7 +25,11 @@ const Edit = () => {
     const [imageData, setImageData] = useState([]);
     // console.log(typeof(imageData), "imageData");
 
-    const handleDeleteButtonClick = () => {
+    const imageGettingDeletedId = useRef('');
+
+    const handleDeleteButtonClick = (e) => {
+        console.log("Delete button clicked", e.target.id)
+        imageGettingDeletedId.current = e.target.id;
         setDeleteDialogOpen(true);
     };
 
@@ -43,7 +47,7 @@ const Edit = () => {
             });
             const responseData = await response.json();
             if (response.ok) {
-                // console.log(responseData, "responseData");
+                console.log(responseData, "responseData");
                 setImageData(responseData['images']);
             }
         }
@@ -261,8 +265,10 @@ const Edit = () => {
         window.location.href = `${subpath}/${module}/chatbot`
     }
 
-    const removeImage = (id) => {
-        console.log(id, "id");
+    const removeImage = (e) => {
+        console.log("Image getting deleted", imageGettingDeletedId.current);
+        // return
+        const id = imageGettingDeletedId.current;
         // we delete the image from the list first
         const updatedImageData = imageData.filter((image) => image.id != id);
         setImageData(updatedImageData);
@@ -287,6 +293,7 @@ const Edit = () => {
         }
 
         deleteImage();
+        setDeleteDialogOpen(false);
     }
 
     return (
@@ -432,7 +439,7 @@ const Edit = () => {
                                             <Button onClick={() => setDeleteDialogOpen(false)} color="primary">
                                                 Cancel
                                             </Button>
-                                            <Button onClick={() => removeImage(image.id)} color="error">
+                                            <Button id={image.id} onClick={(e) => removeImage( e)} color="error">
                                                 Confirm Deletion
                                             </Button>
                                         </DialogActions>
